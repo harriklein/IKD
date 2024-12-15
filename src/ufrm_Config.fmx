@@ -1,0 +1,101 @@
+object frm_Config: Tfrm_Config
+  Align = Client
+  Size.Width = 360.000000000000000000
+  Size.Height = 640.000000000000000000
+  Size.PlatformDefault = False
+  object vScroll_RentStart: TVertScrollBox
+    Align = Client
+    Size.Width = 360.000000000000000000
+    Size.Height = 640.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 1
+    Viewport.Width = 360.000000000000000000
+    Viewport.Height = 640.000000000000000000
+    object layout_RentStart: TFlowLayout
+      Align = Client
+      Margins.Top = 50.000000000000000000
+      Size.Width = 360.000000000000000000
+      Size.Height = 590.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 0
+      Justify = Center
+      JustifyLastLine = Center
+      FlowDirection = LeftToRight
+      object layout_RentStart1: TLayout
+        Align = Center
+        Size.Width = 280.000000000000000000
+        Size.Height = 521.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 0
+        object lbl_Printers: TLabel
+          StyledSettings = [FontColor]
+          Position.X = 16.000000000000000000
+          Position.Y = 8.000000000000000000
+          Size.Width = 257.000000000000000000
+          Size.Height = 33.000000000000000000
+          Size.PlatformDefault = False
+          TextSettings.Font.Size = 22.000000000000000000
+          TextSettings.Font.StyleExt = {00070000000000000004000000}
+          Text = 'Select a Printer:'
+        end
+        object btn_Save: TButton
+          StyledSettings = [FontColor]
+          Position.X = 15.000000000000000000
+          Position.Y = 166.000000000000000000
+          Size.Width = 257.000000000000000000
+          Size.Height = 57.000000000000000000
+          Size.PlatformDefault = False
+          TabOrder = 2
+          Text = 'Save'
+          TextSettings.Font.Size = 22.000000000000000000
+          TextSettings.Font.StyleExt = {00070000000000000004000000}
+          TextSettings.Trimming = None
+          OnClick = btn_SaveClick
+        end
+        object cbBox_Printers: TComboBox
+          Position.Y = 49.000000000000000000
+          Size.Width = 281.000000000000000000
+          Size.Height = 32.000000000000000000
+          Size.PlatformDefault = False
+          TabOrder = 0
+        end
+        object btn_Test: TButton
+          StyledSettings = [FontColor]
+          Position.X = 16.000000000000000000
+          Position.Y = 240.000000000000000000
+          Size.Width = 257.000000000000000000
+          Size.Height = 57.000000000000000000
+          Size.PlatformDefault = False
+          TabOrder = 1
+          Text = 'Test'
+          TextSettings.Font.Size = 22.000000000000000000
+          TextSettings.Font.StyleExt = {00070000000000000004000000}
+          TextSettings.Trimming = None
+          OnClick = btn_TestClick
+        end
+        object Button1: TButton
+          Position.X = 16.000000000000000000
+          Position.Y = 305.000000000000000000
+          Size.Width = 256.000000000000000000
+          Size.Height = 48.000000000000000000
+          Size.PlatformDefault = False
+          TabOrder = 3
+          Text = 'Button1'
+          TextSettings.Trimming = None
+          OnClick = Button1Click
+        end
+        object Button2: TButton
+          Position.X = 16.000000000000000000
+          Position.Y = 376.000000000000000000
+          Size.Width = 256.000000000000000000
+          Size.Height = 41.000000000000000000
+          Size.PlatformDefault = False
+          TabOrder = 4
+          Text = 'Button2'
+          TextSettings.Trimming = None
+          OnClick = Button2Click
+        end
+      end
+    end
+  end
+end

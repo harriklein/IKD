@@ -1,0 +1,71 @@
+object frm_Message: Tfrm_Message
+  Size.Width = 300.000000000000000000
+  Size.Height = 80.000000000000000000
+  Size.PlatformDefault = False
+  object ballon: TRectangle
+    Align = Contents
+    Corners = []
+    Fill.Color = claLightcoral
+    Padding.Left = 10.000000000000000000
+    Padding.Top = 10.000000000000000000
+    Padding.Right = 10.000000000000000000
+    Padding.Bottom = 10.000000000000000000
+    Size.Width = 300.000000000000000000
+    Size.Height = 80.000000000000000000
+    Size.PlatformDefault = False
+    Stroke.Kind = None
+    XRadius = 10.000000000000000000
+    YRadius = 10.000000000000000000
+    OnClick = ballonClick
+    object ShadowEffect1: TShadowEffect
+      Distance = 5.000000000000000000
+      Direction = 45.000000000000000000
+      Softness = 0.300000011920929000
+      Opacity = 0.600000023841857900
+      ShadowColor = claBlack
+    end
+    object ballon_Message: TLabel
+      Align = Client
+      AutoSize = True
+      StyledSettings = [Family]
+      Size.Width = 280.000000000000000000
+      Size.Height = 60.000000000000000000
+      Size.PlatformDefault = False
+      TextSettings.Font.Size = 18.000000000000000000
+      TextSettings.Font.StyleExt = {00060000000000000004000000}
+      TextSettings.FontColor = claWhite
+      TextSettings.HorzAlign = Center
+      Text = 'Message'
+      TabOrder = 0
+    end
+    object ballon_Close: TSpeedButton
+      Anchors = [akTop, akRight]
+      HitTest = False
+      Position.X = 267.000000000000000000
+      Position.Y = 3.000000000000000000
+      Size.Width = 33.000000000000000000
+      Size.Height = 22.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'cleareditbutton'
+      Text = 'ballon_Close'
+      TextSettings.Trimming = None
+    end
+    object ballon_Timer: TTimer
+      Enabled = False
+      Interval = 5000
+      OnTimer = ballon_TimerTimer
+      Left = 96
+      Top = 12
+    end
+  end
+  object ballon_ani: TFloatAnimation
+    AnimationType = Out
+    Enabled = True
+    Duration = 1.000000000000000000
+    Interpolation = Exponential
+    PropertyName = 'Position.Y'
+    StartValue = 0.000000000000000000
+    StartFromCurrent = True
+    StopValue = 300.000000000000000000
+  end
+end
