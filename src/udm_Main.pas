@@ -100,7 +100,12 @@ begin
 //      DeleteFile(tb_Rental.ResourceOptions.PersistentFileName);
 //      tb_Rental.CreateDataSet;
 //      tb_Rental.SaveToFile();
-    end
+    end;
+
+  tb_UserLogin.LoadFromFile();
+  tb_User.LoadFromFile();
+  tb_Boat.LoadFromFile();
+  tb_Rental.LoadFromFile();
 end;
 
 end.

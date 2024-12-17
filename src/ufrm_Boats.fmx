@@ -1,0 +1,394 @@
+object frm_Boats: Tfrm_Boats
+  Align = Client
+  Hint = 'Boats'
+  Size.Width = 377.000000000000000000
+  Size.Height = 644.000000000000000000
+  Size.PlatformDefault = False
+  ParentShowHint = False
+  ShowHint = False
+  object tabCtrl_List: TTabControl
+    Align = Client
+    Size.Width = 377.000000000000000000
+    Size.Height = 644.000000000000000000
+    Size.PlatformDefault = False
+    TabHeight = 49.000000000000000000
+    TabIndex = 0
+    TabOrder = 0
+    TabPosition = None
+    OnChange = tabCtrl_ListChange
+    Sizes = (
+      377s
+      644s
+      377s
+      644s)
+    object tabItem_List: TTabItem
+      Touch.InteractiveGestures = []
+      CustomIcon = <
+        item
+        end>
+      TextSettings.Font.Size = 16.000000000000000000
+      TextSettings.Trimming = None
+      StyledSettings = [Family, Style, FontColor]
+      IsSelected = True
+      Size.Width = 8.000000000000000000
+      Size.Height = 8.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = ''
+      TabOrder = 0
+      Text = 'tabItem_List'
+      ExplicitSize.cx = 8.000000000000000000
+      ExplicitSize.cy = 8.000000000000000000
+      object lst_Boats: TListView
+        ItemAppearanceClassName = 'TDynamicAppearance'
+        ItemEditAppearanceClassName = 'TDynamicAppearance'
+        HeaderAppearanceClassName = 'TListHeaderObjects'
+        FooterAppearanceClassName = 'TListHeaderObjects'
+        Align = Client
+        Size.Width = 377.000000000000000000
+        Size.Height = 604.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 0
+        ItemAppearance.HeaderHeight = 44
+        ItemAppearance.FooterHeight = 44
+        ItemAppearanceObjects.ItemObjects.ObjectsCollection = <
+          item
+            AppearanceObjectName = 'txtNumber'
+            AppearanceClassName = 'TTextObjectAppearance'
+            Appearance.Font.Size = 18.000000000000000000
+            Appearance.Font.StyleExt = {00070000000000000004000000}
+            Appearance.TextAlign = Leading
+            Appearance.Width = 169.000000000000000000
+            Appearance.Height = 44.000000000000000000
+            Appearance.VertAlign = Center
+            Appearance.PlaceOffset.X = 62.000000000000000000
+          end
+          item
+            AppearanceObjectName = 'txtId'
+            AppearanceClassName = 'TTextObjectAppearance'
+            Appearance.Font.Size = 16.000000000000000000
+            Appearance.TextColor = claSlategray
+            Appearance.Width = 49.000000000000000000
+            Appearance.Height = 44.000000000000000000
+            Appearance.PlaceOffset.X = 6.000000000000000000
+          end
+          item
+            AppearanceObjectName = 'txtActive'
+            AppearanceClassName = 'TTextObjectAppearance'
+            Appearance.Font.Size = 18.000000000000000000
+            Appearance.Font.StyleExt = {00060000000000000004000000}
+            Appearance.TextAlign = Trailing
+            Appearance.TextShadow.Enabled = False
+            Appearance.TextColor = claBlack
+            Appearance.Width = 110.000000000000000000
+            Appearance.Height = 45.000000000000000000
+            Appearance.Align = Trailing
+          end>
+        ItemAppearanceObjects.ItemEditObjects.ObjectsCollection = <
+          item
+            AppearanceObjectName = 'Text1'
+            AppearanceClassName = 'TTextObjectAppearance'
+          end>
+        CanSwipeDelete = False
+        OnItemClick = lst_BoatsItemClick
+        OnPullRefresh = lst_BoatsPullRefresh
+        AutoTapScroll = True
+        ShowSelection = False
+        SearchVisible = True
+        SelectionCrossfade = True
+        PullToRefresh = True
+        PullRefreshWait = True
+      end
+      object toolBar_List: TToolBar
+        Size.Width = 377.000000000000000000
+        Size.Height = 40.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 1
+        object shadow_List: TShadowEffect
+          Distance = 3.000000000000000000
+          Direction = 90.000000000000000000
+          Softness = 0.300000011920929000
+          Opacity = 0.600000023841857900
+          ShadowColor = claBlack
+        end
+        object btn_Add: TSpeedButton
+          Align = Right
+          Padding.Top = 5.000000000000000000
+          Padding.Bottom = 5.000000000000000000
+          Margins.Left = 10.000000000000000000
+          Margins.Right = 10.000000000000000000
+          Position.X = 327.000000000000000000
+          Size.Width = 40.000000000000000000
+          Size.Height = 40.000000000000000000
+          Size.PlatformDefault = False
+          TextSettings.Trimming = None
+          TouchTargetExpansion.Left = 12.000000000000000000
+          TouchTargetExpansion.Top = 12.000000000000000000
+          TouchTargetExpansion.Right = 12.000000000000000000
+          TouchTargetExpansion.Bottom = 12.000000000000000000
+          OnClick = btn_AddClick
+          object path_Add: TPath
+            Align = Client
+            Data.Path = {
+              660000000000000044EABA41F6B3454202000000E94FAE414423454202000000
+              8B3BA34128404442020000004D309941A1004342020000000DD13B41C0A23B42
+              02000000254BB14088832642020000009357234000720A42020000004594AF3E
+              EE62EB4102000000BF9FF9BB521CBD41020000005C43C73F257A914102000000
+              76724540F0B14D41020000001A61CF4026E2014102000000B1E7304147B39D40
+              02000000ACB96B412C6717400200000052AE97418027633F02000000E9F9BB41
+              4AD7133F020000008295C441F707013F0200000026E5D34198FE083F02000000
+              792BDC41EF95243F020000004D750942CE90AD3F020000005B122242A0CE9A40
+              02000000E6A43242077525410200000033644842C1808C41020000002C454C42
+              86F6DA4102000000AF9B3C42C9230E420200000037A83B42771F104202000000
+              9B533A4220B9124202000000C7A6394208EB1342020000008D9D37429A851742
+              020000006C473342E2E91D4202000000B2933042254B21420200000005662D42
+              F3442542020000004A7C25429C352D420200000061BC2142742F304202000000
+              85A012423C2D3C4202000000F35701426D56434202000000FC1CDD41D8634542
+              020000002662D841FCA5454202000000E5E5BE41B1E145420200000044EABA41
+              F6B345420300000044EABA41F6B3454200000000A146CB41A0DA1B4202000000
+              11E7CC41F38B1B4202000000E70DCF41E28D1A4202000000A1F2CF41F9B21942
+              020000001282D041B129194202000000FB9CD0411D34154202000000FB9CD041
+              E1A3004201000000FB9CD041A66FD04101000000CAFEDC41AF6ED04102000000
+              30CEE341346ED0410200000090FAF841964CD04102000000090606421824D041
+              0200000083D6144229E5CF4102000000CC781742B9BFCF410200000068231842
+              8C22CF41020000005BDF1A42B79DCC4102000000BBF91A428FC7C34102000000
+              474D18421C1BC14102000000686117423D2FC041020000001ECF1642B628C041
+              0200000041AAFF419603C04101000000F89CD04193DDBF4101000000A597D041
+              06E9934102000000C794D0413D787741020000000A65D041A6134E4102000000
+              992DD04113D64B41020000007C76CF41476F444102000000B221CB41AE7B3E41
+              020000005F5AC741A1B53F4102000000C8E8C441AB804041020000005849C241
+              3849444102000000C33FC141B183484102000000C966C0410DF84B4102000000
+              335AC041BA49504102000000602FC04177FB9241010000007C02C0417AE5BF41
+              01000000340191418907C0410200000000F84A411327C041020000003EC74341
+              1939C041020000004504414182FAC0410200000018A33A4154B9C24102000000
+              B7253741F0ACC64102000000631A39417EF0C94102000000B0923A417464CC41
+              0200000098323F4146E5CE4102000000965E43410D7FCF4102000000B9A04541
+              4DD2CF4102000000B8056741E618D0410200000057C29141564AD04101000000
+              7E1AC0411296D04101000000FC26C041B3AAF94102000000F32DC0416C210842
+              020000009F56C041233B1342020000008C81C041458015420200000065CAC041
+              475A194202000000FEE2C04174AE1942020000008FF1C141236C1A4202000000
+              60E8C341A3CC1B42020000002322C84195721C42020000008C46CB419EDA1B42
+              03000000A146CB41A0DA1B42}
+            Fill.Color = xFF43B05C
+            HitTest = False
+            Size.Width = 40.000000000000000000
+            Size.Height = 30.000000000000000000
+            Size.PlatformDefault = False
+            Stroke.Kind = None
+            WrapMode = Fit
+          end
+        end
+      end
+    end
+    object tabItem_Detail: TTabItem
+      Touch.InteractiveGestures = []
+      CustomIcon = <
+        item
+        end>
+      TextSettings.Font.Size = 16.000000000000000000
+      TextSettings.Trimming = None
+      StyledSettings = [Family, Style, FontColor]
+      HitTest = False
+      IsSelected = False
+      Size.Width = 8.000000000000000000
+      Size.Height = 8.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = ''
+      TabOrder = 0
+      Text = 'tabItem_Detail'
+      ExplicitSize.cx = 8.000000000000000000
+      ExplicitSize.cy = 8.000000000000000000
+      object toolBar_Detail: TToolBar
+        Size.Width = 377.000000000000000000
+        Size.Height = 40.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 0
+        object shadow_Detail: TShadowEffect
+          Distance = 3.000000000000000000
+          Direction = 90.000000000000000000
+          Softness = 0.300000011920929000
+          Opacity = 0.600000023841857900
+          ShadowColor = claBlack
+        end
+        object btn_Save: TSpeedButton
+          Align = Right
+          Padding.Top = 5.000000000000000000
+          Padding.Bottom = 5.000000000000000000
+          Margins.Left = 10.000000000000000000
+          Margins.Right = 10.000000000000000000
+          Position.X = 327.000000000000000000
+          Size.Width = 40.000000000000000000
+          Size.Height = 40.000000000000000000
+          Size.PlatformDefault = False
+          TextSettings.Trimming = None
+          TouchTargetExpansion.Left = 12.000000000000000000
+          TouchTargetExpansion.Top = 12.000000000000000000
+          TouchTargetExpansion.Right = 12.000000000000000000
+          TouchTargetExpansion.Bottom = 12.000000000000000000
+          OnClick = btn_SaveClick
+          object path_Save: TPath
+            Align = Client
+            Data.Path = {
+              4B0000000000000067F3BD415D62474202000000FB3F39417FA5444202000000
+              E89FCC3FF5871E42020000008B14B13E8609DC41020000001722353E5CF3CE41
+              02000000779B8E3E58FAB241020000007C8C093F305AA74102000000266B803F
+              F46A924102000000895BD53F8B14824102000000B914334061615F4102000000
+              6275D040D71ECD400200000018CA5A412114A63F0200000044ABB0417943433E
+              020000003513BD4120D75BBC02000000D67BD54120D75BBC02000000C7E3E141
+              7943433E020000006E5702421B5B433F02000000C3E512422F661C4002000000
+              F494204243D8A04002000000B9B32742B3D8CB4002000000DCCA2E42564F0241
+              020000006A523442EA731F41020000005B383C426A14494102000000C0634242
+              3EFC7C41020000006F844542A20F984102000000D8BB4742202EAA4102000000
+              CC0E4842E83DB04102000000CC0E48429A95C74102000000CC0E48424CEDDE41
+              02000000D8BB474215FDE441020000006F844542931BF7410200000053723E42
+              7F74184202000000177E2A421EE9304202000000356A0F4289DC3D4202000000
+              D65104420B2B4342020000000094EE4185A0464202000000186DD8419E344742
+              0200000078BFD341E4534742020000009329CE41707B4742020000008D03CC41
+              7F8C47420200000088DDC9418E9D4742020000007789C3418D8A474202000000
+              68F3BD415E6247420300000067F3BD415D62474200000000C409B441BCB20742
+              02000000AED1B54146630742020000002CD0C741DF09FB4102000000AE5FF741
+              EF89C541020000002B890D4214629D4102000000B5541C426E60774102000000
+              98901C42B05275410200000080011E420DAC684102000000D23E1A42705D5A41
+              020000006ED91642E8935F4102000000A87F1642B21D604102000000563E0842
+              60B38F4102000000A757EE411E1BB64101000000E342B04104EFFB4101000000
+              30078B414521DE4102000000E3F06C41A6ACCD41020000007E4D4941AEF9BF41
+              02000000B47B4641EA8ABF4102000000F7BF3F416682BE41020000007A6A3841
+              C302C04102000000ED7E34419E39C34102000000001B31414401C64102000000
+              C4CA3041F83DC84102000000A1643341AA18CB4102000000592835415F08CD41
+              020000004CA0A941AF7B0642020000003AE3AD4157980742020000002E51B041
+              A03A084202000000F1EEB041453D084202000000C609B441BAB2074203000000
+              C409B441BCB20742}
+            Fill.Color = xFF43B05C
+            HitTest = False
+            Size.Width = 40.000000000000000000
+            Size.Height = 30.000000000000000000
+            Size.PlatformDefault = False
+            Stroke.Kind = None
+            WrapMode = Fit
+          end
+        end
+        object btn_Cancel: TSpeedButton
+          Align = Left
+          Padding.Top = 5.000000000000000000
+          Padding.Bottom = 5.000000000000000000
+          Margins.Left = 10.000000000000000000
+          Margins.Right = 10.000000000000000000
+          Position.X = 10.000000000000000000
+          Size.Width = 40.000000000000000000
+          Size.Height = 40.000000000000000000
+          Size.PlatformDefault = False
+          TextSettings.Trimming = None
+          TouchTargetExpansion.Left = 12.000000000000000000
+          TouchTargetExpansion.Top = 12.000000000000000000
+          TouchTargetExpansion.Right = 12.000000000000000000
+          TouchTargetExpansion.Bottom = 12.000000000000000000
+          OnClick = btn_CancelClick
+          object path_Cancel: TPath
+            Align = Client
+            Data.Path = {
+              5400000000000000C76BB541FBB3474202000000DE1C9F41931A464202000000
+              E7DA9341C8D0444202000000495F85416434424202000000988463413BAB3E42
+              02000000F63C3A4146E938420200000062AD1841744B3242020000007ADB0941
+              7D5F2F4202000000AB68CA40C33A26420200000043D3B3402EA3224202000000
+              374F2A404A94134202000000207C673F8AEB024202000000C076A03E12A5E041
+              020000000221F93D9A92D441020000000221F93D822FBB4102000000C076A03E
+              0B1DAF4102000000D8DF853F0B00814102000000DFB86440AA16314102000000
+              9802F840A760E040020000001B2A11411447B74002000000C69E1D41DC35A340
+              020000009B11374189388140020000004EC36941360DF63F02000000982C9341
+              FC220E3F02000000C113B3410037B33D02000000DDACBD4134FD8ABD02000000
+              7645D741107D27BD02000000E777E241F9BE0C3E02000000110807420FF1543F
+              02000000E2641A423CE2494002000000E5282A42E9E8DE400200000003B93642
+              E20C204102000000249E3F42F4E9594102000000988A444228898D4102000000
+              B5C4474276E3A241020000003AD04842B927B34102000000C5904842162DCC41
+              020000000F5D4842088DE041020000002FC4474259E5E941020000006D974542
+              7FB4FA41020000004C9B3C422413204202000000DCC620421CEB3B4202000000
+              0441FC413CDA4442020000006F95EA416A21474202000000EB41E241ECA14742
+              020000000614CC41CDC1474202000000E9E7C041DBD1474202000000CCB5B641
+              A2CB474202000000C86BB541FAB3474203000000C76BB541FBB3474200000000
+              4C23A741DBA1F44101000000FE57C941DD6ED24101000000B08CEB41DBA1F441
+              0200000004230942A4AC0D4202000000E67808426C2C0D420200000066300B42
+              ED740A4202000000E4E70D426EBD0742020000001D680E428B67084202000000
+              CA18F641BD15EA4101000000CBE5D3410DE1C74101000000CA18F6415DACA541
+              020000001D680E4208E67D4102000000E4E70D423E4780410200000066300B42
+              80B0754102000000E678084283D26A410200000004230942A2D1684102000000
+              B08CEB413F209B4101000000FE57C9413D53BD41010000004C23A7413F209B41
+              02000000F4698041A2D16841020000002EBE814184D26A4102000000609E7841
+              80B075410200000063C06D413E4780410200000082BF6B4108E67D4102000000
+              32979C415DACA541010000002CCABE410DE1C7410100000032979C41BD15EA41
+              0200000083BF6B418B6708420200000064C06D416EBD074202000000619E7841
+              ED740A42020000002EBE81416C2C0D4202000000F4698041A5AC0D4202000000
+              4C23A741DBA1F441030000004C23A741DBA1F441}
+            Fill.Color = xFFD75A4A
+            HitTest = False
+            Size.Width = 40.000000000000000000
+            Size.Height = 30.000000000000000000
+            Size.PlatformDefault = False
+            Stroke.Kind = None
+            WrapMode = Fit
+          end
+        end
+        object btn_Delete: TSpeedButton
+          Align = Center
+          Padding.Top = 5.000000000000000000
+          Padding.Bottom = 5.000000000000000000
+          Margins.Left = 10.000000000000000000
+          Margins.Right = 10.000000000000000000
+          Size.Width = 40.000000000000000000
+          Size.Height = 40.000000000000000000
+          Size.PlatformDefault = False
+          StyleLookup = 'trashtoolbutton'
+          TextSettings.Trimming = None
+          TouchTargetExpansion.Left = 12.000000000000000000
+          TouchTargetExpansion.Top = 12.000000000000000000
+          TouchTargetExpansion.Right = 12.000000000000000000
+          TouchTargetExpansion.Bottom = 12.000000000000000000
+          OnClick = btn_DeleteClick
+        end
+      end
+      object edt_Number: TEdit
+        Touch.InteractiveGestures = [LongTap, DoubleTap]
+        Anchors = [akLeft, akTop, akRight]
+        TabOrder = 1
+        MaxLength = 3
+        TextSettings.Font.Size = 18.000000000000000000
+        Position.X = 16.000000000000000000
+        Position.Y = 88.000000000000000000
+        Size.Width = 341.000000000000000000
+        Size.Height = 30.000000000000000000
+        Size.PlatformDefault = False
+        StyledSettings = [Family, Style, FontColor]
+        CharCase = ecUpperCase
+        object lbl_Number: TLabel
+          StyledSettings = [Family, FontColor]
+          Position.Y = -24.000000000000000000
+          TextSettings.Font.Size = 20.000000000000000000
+          TextSettings.Font.StyleExt = {00070000000000000004000000}
+          TextSettings.WordWrap = False
+          Text = 'Number'
+          TabOrder = 0
+        end
+      end
+      object switch_Active: TSwitch
+        IsChecked = False
+        Position.X = 112.000000000000000000
+        Position.Y = 152.000000000000000000
+        TabOrder = 2
+      end
+      object lbl_Active: TLabel
+        StyledSettings = [Family, FontColor]
+        Position.X = 16.000000000000000000
+        Position.Y = 152.000000000000000000
+        TextSettings.Font.Size = 20.000000000000000000
+        TextSettings.Font.StyleExt = {00070000000000000004000000}
+        Text = 'Active'
+        TabOrder = 3
+      end
+    end
+  end
+  object ActionList: TActionList
+    Left = 264
+    Top = 232
+    object Action1: TAction
+      Text = 'Action1'
+    end
+  end
+end

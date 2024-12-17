@@ -281,6 +281,16 @@
         </DCCReference>
         <DCCReference Include="src\unt_Printer.pas"/>
         <DCCReference Include="src\unt_DeviceUtils.pas"/>
+        <DCCReference Include="src\ufrm_Waiting.pas">
+            <Form>frm_Waiting</Form>
+            <FormType>fmx</FormType>
+            <DesignClass>TFrame</DesignClass>
+        </DCCReference>
+        <DCCReference Include="src\ufrm_Boats.pas">
+            <Form>frm_Boats</Form>
+            <FormType>fmx</FormType>
+            <DesignClass>TFrame</DesignClass>
+        </DCCReference>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

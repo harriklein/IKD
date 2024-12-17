@@ -1,0 +1,39 @@
+object frm_Waiting: Tfrm_Waiting
+  Align = Contents
+  Size.Width = 287.000000000000000000
+  Size.Height = 398.000000000000000000
+  Size.PlatformDefault = False
+  object rect_Background: TRectangle
+    Align = Client
+    Fill.Color = claWhite
+    HitTest = False
+    Opacity = 0.800000011920929000
+    Size.Width = 287.000000000000000000
+    Size.Height = 398.000000000000000000
+    Size.PlatformDefault = False
+    Stroke.Kind = None
+  end
+  object ani_Indicator: TAniIndicator
+    Align = Center
+    Enabled = True
+    HitTest = False
+    Margins.Bottom = 80.000000000000000000
+    Size.Width = 287.000000000000000000
+    Size.Height = 75.000000000000000000
+    Size.PlatformDefault = False
+    Style = Circular
+  end
+  object Label1: TLabel
+    Align = Center
+    StyledSettings = [Family, FontColor]
+    Margins.Top = 30.000000000000000000
+    Size.Width = 287.000000000000000000
+    Size.Height = 44.000000000000000000
+    Size.PlatformDefault = False
+    TextSettings.Font.Size = 22.000000000000000000
+    TextSettings.Font.StyleExt = {00070000000000000004000000}
+    TextSettings.HorzAlign = Center
+    Text = 'Waiting...'
+    TabOrder = 1
+  end
+end

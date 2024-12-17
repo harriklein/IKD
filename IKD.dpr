@@ -10,7 +10,9 @@ uses
   ufrm_Message in 'src\ufrm_Message.pas' {frm_Message: TFrame},
   udm_Main in 'src\udm_Main.pas' {dm_Main: TDataModule},
   unt_Printer in 'src\unt_Printer.pas',
-  unt_DeviceUtils in 'src\unt_DeviceUtils.pas';
+  unt_DeviceUtils in 'src\unt_DeviceUtils.pas',
+  ufrm_Waiting in 'src\ufrm_Waiting.pas' {frm_Waiting: TFrame},
+  ufrm_Boats in 'src\ufrm_Boats.pas' {frm_Boats: TFrame};
 
 {$R *.res}
 

@@ -83,7 +83,8 @@ implementation
 
 {$R *.fmx}
 
-uses FMX.DialogService, unt_Printer, ufrm_Login, ufrm_Default, ufrm_Config;
+uses FMX.DialogService, unt_Printer, ufrm_Login, ufrm_Default, ufrm_Config,
+  ufrm_Boats;
 
 
 //******************************************************************************
@@ -203,7 +204,7 @@ begin
 //      1 : begin Tfrm_Rental(EmbeddFrame( Tfrm_Rental )).Prepare; end;
 //
 //     10 : begin Tfrm_Users (EmbeddFrame( Tfrm_Users  )).Prepare; end;
-//     11 : begin Tfrm_Boats (EmbeddFrame( Tfrm_Boats  )).Prepare; end;
+     11 : begin Tfrm_Boats (CreateEmbeddedFrame( Tfrm_Boats  )).Prepare; end;
      12 : begin Tfrm_Config(CreateEmbeddedFrame( Tfrm_Config )).Prepare; end;
 //
 //     15 : begin Tfrm_Historical(EmbeddFrame( Tfrm_Historical )).Prepare; end;
