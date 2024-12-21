@@ -5,11 +5,10 @@
         <FrameworkType>FMX</FrameworkType>
         <Base>True</Base>
         <Config Condition="'$(Config)'==''">Debug</Config>
-        <Platform Condition="'$(Platform)'==''">Win32</Platform>
+        <Platform Condition="'$(Platform)'==''">Android</Platform>
         <TargetedPlatforms>32787</TargetedPlatforms>
         <AppType>Application</AppType>
         <MainSource>IKD.dpr</MainSource>
-        <ProjectName Condition="'$(ProjectName)'==''">IKD</ProjectName>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Config)'=='Base' or '$(Base)'!=''">
         <Base>true</Base>
@@ -286,6 +285,23 @@
             <FormType>fmx</FormType>
             <DesignClass>TFrame</DesignClass>
         </DCCReference>
+        <DCCReference Include="src\ufrm_Report.pas">
+            <Form>frm_Report</Form>
+            <FormType>fmx</FormType>
+            <DesignClass>TFrame</DesignClass>
+        </DCCReference>
+        <DCCReference Include="src\ufrm_Boat.pas">
+            <Form>frm_Boat</Form>
+            <FormType>fmx</FormType>
+            <DesignClass>TFrame</DesignClass>
+        </DCCReference>
+        <DCCReference Include="src\ufrm_Rental.pas">
+            <Form>frm_Rental</Form>
+            <FormType>fmx</FormType>
+            <DesignClass>TFrame</DesignClass>
+        </DCCReference>
+        <DCCReference Include="src\unt_ResourceStrings.pas"/>
+        <DCCReference Include="src\unt_VSoftUUIDv7.pas"/>
         <DCCReference Include="src\ufrm_Boats.pas">
             <Form>frm_Boats</Form>
             <FormType>fmx</FormType>

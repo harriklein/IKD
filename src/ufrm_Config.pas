@@ -5,7 +5,7 @@ interface
 uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants, 
   FMX.Types, FMX.Graphics, FMX.Controls, FMX.Forms, FMX.Dialogs, FMX.StdCtrls,
-  FMX.ListBox, FMX.Controls.Presentation, FMX.Layouts;
+  FMX.ListBox, FMX.Controls.Presentation, FMX.Layouts, System.IniFiles;
 
 type
   Tfrm_Config = class(TFrame)
@@ -34,23 +34,23 @@ implementation
 
 {$R *.fmx}
 
-uses unt_Printer;
+uses unt_Printer, unt_DeviceUtils;
 
 { Tfrm_Config }
 
 procedure Tfrm_Config.btn_SaveClick(Sender: TObject);
-//var
-//  iniCFG : TiniFile;
+var
+  iniCFG : TiniFile;
 begin
  if (cbBox_Printers.Selected <> nil) and (cbBox_Printers.Selected.Text <> '') then
   begin
     PRINTER_NAME := cbBox_Printers.Selected.Text;
-//    iniCFG := TIniFile.Create(GetPath('KleinAppConfig.ini'));
-//    try
-//      iniCFG.WriteString('CLIENT', 'Printer'  , PRINTER_NAME);
-//    finally
-//      iniCFG.Free;
-//    end;
+    iniCFG := TIniFile.Create(GetPath('IKDAppConfig.ini'));
+    try
+      iniCFG.WriteString('CLIENT', 'Printer'  , PRINTER_NAME);
+    finally
+      iniCFG.Free;
+    end;
     if BTConnectPrinter(cbBox_Printers.Selected.Text) then
       begin
         ShowMessage('Dispositivo conectado corretamente: ' + PRINTER_NAME);

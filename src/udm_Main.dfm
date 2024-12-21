@@ -94,15 +94,18 @@ object dm_Main: Tdm_Main
     UpdateOptions.AutoCommitUpdates = True
     Left = 56
     Top = 168
-    object tb_Boatid: TFDAutoIncField
-      FieldName = 'id'
-    end
     object tb_BoatNumber: TStringField
       FieldName = 'Number'
       Size = 3
     end
     object tb_BoatActive: TBooleanField
       FieldName = 'Active'
+    end
+    object tb_BoatColor: TLongWordField
+      FieldName = 'Color'
+    end
+    object tb_BoatDefaultValue: TLongWordField
+      FieldName = 'DefaultValue'
     end
     object tb_BoatRented: TBooleanField
       FieldName = 'Rented'
@@ -118,6 +121,7 @@ object dm_Main: Tdm_Main
     end
   end
   object tb_Rental: TFDMemTable
+    OnNewRecord = tb_RentalNewRecord
     FieldDefs = <>
     CachedUpdates = True
     IndexDefs = <>
@@ -134,8 +138,11 @@ object dm_Main: Tdm_Main
     StoreDefs = True
     Left = 56
     Top = 232
-    object FDAutoIncField1: TFDAutoIncField
+    object tb_Rentalid: TGuidField
       FieldName = 'id'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+      Size = 38
     end
     object tb_RentalBoat_id: TLongWordField
       FieldName = 'Boat_id'

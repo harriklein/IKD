@@ -9,7 +9,8 @@ uses
   FMX.ListView.Appearances, FMX.ListView.Adapters.Base, FMX.Edit, FMX.Objects, FMX.Effects,
   FMX.Controls.Presentation, FMX.ListView, FMX.TabControl, System.Rtti, System.Bindings.Outputs,
   Fmx.Bind.Editors, Data.Bind.EngExt, Fmx.Bind.DBEngExt, Data.Bind.Components, Data.Bind.DBScope,
-  System.Actions, FMX.ActnList;
+  System.Actions, FMX.ActnList, FMX.ListBox, FMX.Colors, FMX.EditBox,
+  FMX.NumberBox;
 
 type
   Tfrm_Boats = class(TFrame)
@@ -30,10 +31,14 @@ type
     edt_Number: TEdit;
     lbl_Number: TLabel;
     btn_Delete: TSpeedButton;
-    ActionList: TActionList;
     switch_Active: TSwitch;
     lbl_Active: TLabel;
-    Action1: TAction;
+    lbl_Color: TLabel;
+    edt_Color: TColorComboBox;
+    edt_DefaultValue: TNumberBox;
+    lbl_DefaultValue: TLabel;
+    lbl_DefaultValueDec: TLabel;
+    lbl_DefaultValueRS: TLabel;
     procedure btn_AddClick(Sender: TObject);
     procedure btn_SaveClick(Sender: TObject);
     procedure btn_CancelClick(Sender: TObject);
@@ -116,10 +121,10 @@ begin
   while not dm_Main.tb_Boat.Eof do
     begin
       Item := lst_Boats.Items.Add;
-      Item.Tag := dm_Main.tb_Boat.FieldByName('id').AsInteger;
+      Item.TagString := dm_Main.tb_Boat.FieldByName('Number').AsString;
 
 
-      Item.Objects.FindDrawable('txtId'    ).Data := dm_Main.tb_Boat.FieldByName('id'    ).AsString;
+//      Item.Objects.FindDrawable('txtId'    ).Data := dm_Main.tb_Boat.FieldByName('id'    ).AsString;
       Item.Objects.FindDrawable('txtNumber').Data := dm_Main.tb_Boat.FieldByName('Number').AsString;
       if dm_Main.tb_Boat.FieldByName('Active').AsBoolean then
         Item.Objects.FindDrawable('txtActive').Data := '🔵'
@@ -162,14 +167,16 @@ end;
 
 procedure Tfrm_Boats.lst_BoatsItemClick(const Sender: TObject; const AItem: TListViewItem);
 begin
-  if not dm_Main.tb_Boat.Locate( 'id', AItem.Tag, [] ) then
+  if not dm_Main.tb_Boat.Locate( 'Number', AItem.TagString, [] ) then
     begin
       Exit;
     end;
 
   dm_Main.tb_Boat.Edit;
-  edt_Number.Text         := dm_Main.tb_Boat.FieldByName('Number').AsString;
-  switch_Active.IsChecked := dm_Main.tb_Boat.FieldByName('Active').AsBoolean;
+  edt_Number.Text         :=             dm_Main.tb_Boat.FieldByName('Number'      ).AsString;
+  switch_Active.IsChecked :=             dm_Main.tb_Boat.FieldByName('Active'      ).AsBoolean;
+  edt_Color.Color         := TAlphaColor(dm_Main.tb_Boat.FieldByName('Color'       ).AsLongWord);
+  edt_DefaultValue.Text   :=             dm_Main.tb_Boat.FieldByName('DefaultValue').AsString;
 
   tabCtrl_List.Next;
 end;
@@ -192,8 +199,10 @@ begin
     end;
 
   dm_Main.tb_Boat.Append;
-  edt_Number.Text         := dm_Main.tb_Boat.FieldByName('Number').AsString;
-  switch_Active.IsChecked := dm_Main.tb_Boat.FieldByName('Active').AsBoolean;
+  edt_Number.Text         :=        dm_Main.tb_Boat.FieldByName('Number'      ).AsString;
+  switch_Active.IsChecked :=        dm_Main.tb_Boat.FieldByName('Active'      ).AsBoolean;
+  edt_Color.Color         := TColor(dm_Main.tb_Boat.FieldByName('Color'       ).AsLongWord);
+  edt_DefaultValue.Value  :=        dm_Main.tb_Boat.FieldByName('DefaultValue').AsInteger;
 
   tabCtrl_List.Next;
 end;
@@ -216,9 +225,13 @@ begin
       Exit;
     end;
 
+  if edt_DefaultValue.IsFocused then
+    edt_Number.SetFocus;
 
-  dm_Main.tb_Boat.FieldByName('Number').AsString  := edt_Number.Text;
-  dm_Main.tb_Boat.FieldByName('Active').AsBoolean := switch_Active.IsChecked;
+  dm_Main.tb_Boat.FieldByName('Number'      ).AsString   := edt_Number.Text;
+  dm_Main.tb_Boat.FieldByName('Active'      ).AsBoolean  := switch_Active.IsChecked;
+  dm_Main.tb_Boat.FieldByName('Color'       ).AsLongWord := edt_Color.Color ;
+  dm_Main.tb_Boat.FieldByName('DefaultValue').AsInteger  := Trunc(edt_DefaultValue.Value);
 
   if dm_Main.tb_Boat.FieldByName('Number').AsString.IsEmpty then
     begin

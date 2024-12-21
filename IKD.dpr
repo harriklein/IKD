@@ -12,6 +12,11 @@ uses
   unt_Printer in 'src\unt_Printer.pas',
   unt_DeviceUtils in 'src\unt_DeviceUtils.pas',
   ufrm_Waiting in 'src\ufrm_Waiting.pas' {frm_Waiting: TFrame},
+  ufrm_Report in 'src\ufrm_Report.pas' {frm_Report: TFrame},
+  ufrm_Boat in 'src\ufrm_Boat.pas' {frm_Boat: TFrame},
+  ufrm_Rental in 'src\ufrm_Rental.pas' {frm_Rental: TFrame},
+  unt_ResourceStrings in 'src\unt_ResourceStrings.pas',
+  unt_VSoftUUIDv7 in 'src\unt_VSoftUUIDv7.pas',
   ufrm_Boats in 'src\ufrm_Boats.pas' {frm_Boats: TFrame};
 
 {$R *.res}

@@ -5,7 +5,7 @@
     </ProjectExtensions>
     <PropertyGroup>
         <DeviceId Condition="'$(Platform)'=='Android'">EP10023092402613</DeviceId>
-        <DeviceId Condition="'$(Platform)'=='Android64'"/>
+        <DeviceId Condition="'$(Platform)'=='Android64'">EP10023092402613</DeviceId>
     </PropertyGroup>
     <ItemGroup Condition="'$(Platform)'=='Win32'">
         <DeployFile Include="release\Win32\Debug\IKD.exe" Condition="'$(Config)'=='Debug'">

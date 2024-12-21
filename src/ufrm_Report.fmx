@@ -1,0 +1,213 @@
+object frm_Report: Tfrm_Report
+  Align = Client
+  Hint = 'Boats'
+  Size.Width = 377.000000000000000000
+  Size.Height = 644.000000000000000000
+  Size.PlatformDefault = False
+  ParentShowHint = False
+  ShowHint = False
+  object tabCtrl_List: TTabControl
+    Align = Client
+    Size.Width = 377.000000000000000000
+    Size.Height = 644.000000000000000000
+    Size.PlatformDefault = False
+    TabHeight = 49.000000000000000000
+    TabIndex = 0
+    TabOrder = 0
+    TabPosition = None
+    Sizes = (
+      377s
+      644s
+      377s
+      644s)
+    object tabItem_List: TTabItem
+      Touch.InteractiveGestures = []
+      CustomIcon = <
+        item
+        end>
+      TextSettings.Font.Size = 16.000000000000000000
+      TextSettings.Trimming = None
+      StyledSettings = [Family, Style, FontColor]
+      IsSelected = True
+      Size.Width = 8.000000000000000000
+      Size.Height = 8.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = ''
+      TabOrder = 0
+      Text = 'tabItem_List'
+      ExplicitSize.cx = 8.000000000000000000
+      ExplicitSize.cy = 8.000000000000000000
+      object lst_Rental: TListView
+        ItemAppearanceClassName = 'TDynamicAppearance'
+        ItemEditAppearanceClassName = 'TDynamicAppearance'
+        HeaderAppearanceClassName = 'TListHeaderObjects'
+        FooterAppearanceClassName = 'TListHeaderObjects'
+        Align = Client
+        Size.Width = 377.000000000000000000
+        Size.Height = 604.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 0
+        ItemAppearance.HeaderHeight = 44
+        ItemAppearance.FooterHeight = 44
+        ItemAppearanceObjects.ItemObjects.ObjectsCollection = <
+          item
+            AppearanceObjectName = 'txtNumber'
+            AppearanceClassName = 'TTextObjectAppearance'
+            Appearance.Font.Size = 18.000000000000000000
+            Appearance.Font.StyleExt = {00070000000000000004000000}
+            Appearance.TextAlign = Leading
+            Appearance.Width = 41.000000000000000000
+            Appearance.Height = 44.000000000000000000
+            Appearance.PlaceOffset.X = 6.000000000000000000
+          end
+          item
+            AppearanceObjectName = 'txtDateTime'
+            AppearanceClassName = 'TTextObjectAppearance'
+            Appearance.Font.Size = 16.000000000000000000
+            Appearance.WordWrap = True
+            Appearance.TextColor = claSlategray
+            Appearance.Width = 113.000000000000000000
+            Appearance.Height = 44.000000000000000000
+            Appearance.PlaceOffset.X = 54.000000000000000000
+          end
+          item
+            AppearanceObjectName = 'txtType'
+            AppearanceClassName = 'TTextObjectAppearance'
+            Appearance.Font.Size = 18.000000000000000000
+            Appearance.Font.StyleExt = {00060000000000000004000000}
+            Appearance.TextAlign = Trailing
+            Appearance.TextShadow.Enabled = False
+            Appearance.TextColor = claBlack
+            Appearance.Width = 28.000000000000000000
+            Appearance.Height = 45.000000000000000000
+            Appearance.Align = Trailing
+            Appearance.PlaceOffset.X = -160.000000000000000000
+          end
+          item
+            AppearanceObjectName = 'txtTime'
+            AppearanceClassName = 'TTextObjectAppearance'
+            Appearance.Font.Size = 16.000000000000000000
+            Appearance.TextAlign = Trailing
+            Appearance.WordWrap = True
+            Appearance.Width = 75.000000000000000000
+            Appearance.Height = 45.000000000000000000
+            Appearance.Align = Trailing
+            Appearance.PlaceOffset.X = -82.000000000000000000
+          end
+          item
+            AppearanceObjectName = 'txtValue'
+            AppearanceClassName = 'TTextObjectAppearance'
+            Appearance.Font.Size = 16.000000000000000000
+            Appearance.TextAlign = Trailing
+            Appearance.WordWrap = True
+            Appearance.Width = 78.000000000000000000
+            Appearance.Height = 45.000000000000000000
+            Appearance.Align = Trailing
+            Appearance.VertAlign = Center
+            Appearance.PlaceOffset.X = -5.000000000000000000
+          end>
+        ItemAppearanceObjects.ItemEditObjects.ObjectsCollection = <
+          item
+            AppearanceObjectName = 'Text1'
+            AppearanceClassName = 'TTextObjectAppearance'
+          end>
+        CanSwipeDelete = False
+        OnItemClick = lst_RentalItemClick
+        OnPullRefresh = lst_RentalPullRefresh
+        AutoTapScroll = True
+        ShowSelection = False
+        SearchVisible = True
+        SelectionCrossfade = True
+        PullToRefresh = True
+        PullRefreshWait = True
+      end
+      object toolBar_List: TToolBar
+        Size.Width = 377.000000000000000000
+        Size.Height = 40.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 1
+        object shadow_List: TShadowEffect
+          Distance = 3.000000000000000000
+          Direction = 90.000000000000000000
+          Softness = 0.300000011920929000
+          Opacity = 0.600000023841857900
+          ShadowColor = claBlack
+        end
+      end
+    end
+    object tabItem_Detail: TTabItem
+      Touch.InteractiveGestures = []
+      CustomIcon = <
+        item
+        end>
+      TextSettings.Font.Size = 16.000000000000000000
+      TextSettings.Trimming = None
+      StyledSettings = [Family, Style, FontColor]
+      HitTest = False
+      IsSelected = False
+      Size.Width = 8.000000000000000000
+      Size.Height = 8.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = ''
+      TabOrder = 0
+      Text = 'tabItem_Detail'
+      ExplicitSize.cx = 8.000000000000000000
+      ExplicitSize.cy = 8.000000000000000000
+      object toolBar_Detail: TToolBar
+        Size.Width = 377.000000000000000000
+        Size.Height = 40.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 0
+        object shadow_Detail: TShadowEffect
+          Distance = 3.000000000000000000
+          Direction = 90.000000000000000000
+          Softness = 0.300000011920929000
+          Opacity = 0.600000023841857900
+          ShadowColor = claBlack
+        end
+        object btn_CancelFinish: TSpeedButton
+          Align = Left
+          Padding.Top = 5.000000000000000000
+          Padding.Bottom = 5.000000000000000000
+          Margins.Left = 10.000000000000000000
+          Margins.Right = 10.000000000000000000
+          Position.X = 10.000000000000000000
+          Size.Width = 40.000000000000000000
+          Size.Height = 40.000000000000000000
+          Size.PlatformDefault = False
+          StyleLookup = 'priortoolbutton'
+          Text = 'Go to tabItem_List'
+          TextSettings.Trimming = None
+          TouchTargetExpansion.Left = 12.000000000000000000
+          TouchTargetExpansion.Top = 12.000000000000000000
+          TouchTargetExpansion.Right = 12.000000000000000000
+          TouchTargetExpansion.Bottom = 12.000000000000000000
+        end
+      end
+      object edt_Number: TEdit
+        Touch.InteractiveGestures = [LongTap, DoubleTap]
+        Anchors = [akLeft, akTop, akRight]
+        TabOrder = 1
+        MaxLength = 3
+        TextSettings.Font.Size = 18.000000000000000000
+        Position.X = 38.000000000000000000
+        Position.Y = 97.000000000000000000
+        Size.Width = 139.000000000000000000
+        Size.Height = 30.000000000000000000
+        Size.PlatformDefault = False
+        TextPrompt = 'G00'
+        StyledSettings = [Family, Style, FontColor]
+        CharCase = ecUpperCase
+        object lbl_Number: TLabel
+          StyledSettings = [Family, FontColor]
+          Position.Y = -24.000000000000000000
+          TextSettings.Font.Size = 20.000000000000000000
+          TextSettings.Font.StyleExt = {00070000000000000004000000}
+          TextSettings.WordWrap = False
+          Text = 'Number'
+          TabOrder = 0
+        end
+      end
+    end
+  end
+end

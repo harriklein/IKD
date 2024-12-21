@@ -1,0 +1,129 @@
+object frm_Boat: Tfrm_Boat
+  HitTest = False
+  Padding.Left = 3.000000000000000000
+  Padding.Top = 3.000000000000000000
+  Padding.Right = 3.000000000000000000
+  Padding.Bottom = 3.000000000000000000
+  Size.Width = 100.000000000000000000
+  Size.Height = 100.000000000000000000
+  Size.PlatformDefault = False
+  OnResize = FrameResize
+  object rect_Background: TRectangle
+    Align = Client
+    Fill.Color = claLightgreen
+    HitTest = False
+    Size.Width = 94.000000000000000000
+    Size.Height = 94.000000000000000000
+    Size.PlatformDefault = False
+    XRadius = 5.000000000000000000
+    YRadius = 5.000000000000000000
+    object path_Swan: TPath
+      Align = Client
+      Data.Path = {
+        2C000000000000000E2D7E42B052214302000000BCF41C438D772F4302000000
+        2F3D20437E2AEB42020000002F3D20437E2AEB4202000000B8DE2343B3489842
+        0200000022DBF24264E67F42020000005839D942CACC234202000000508DBF42
+        01818F41020000007B14FB42C0A16741020000003974F7429C45EA4102000000
+        22DBF342A54630420200000095A302432CDD3A42020000008F220343C6763F42
+        020000007D9F03433509444202000000EF4710435CBA76420200000093181243
+        30336D420200000024E61343AF9D6342020000007FEA0C43C6763F4202000000
+        7FEA0C43C6763F42020000007FEA0C43C6763F42020000008756124389EC3242
+        0200000096631443FFAA1642020000009E4F1A430A58AC41020000001819FA42
+        5C0E8AC1020000002C47BC42C8780B4102000000F67D7F4242B6124202000000
+        55A3D042DCE48542020000004DB7E5425223A442020000001AC4FA42D563C242
+        0200000072FDF942CD37D942020000001CEFEC42335EDD42020000000C97DF42
+        8596E142020000000A2CD5424E4DD442020000002EB2CF427BBFBF4202000000
+        9A99CA427B94AC420200000066E6A84264BB5D42020000003B5F4242DF8F8242
+        02000000FCA9AF41A4B09342020000005C8FC84158B9A8420200000081956B40
+        4EE29C42020000009EEF77C0CF771643020000000E2D7E42B052214302000000
+        0E2D7E42B0522143030000000E2D7E42B0522143}
+      Fill.Color = claWhite
+      HitTest = False
+      Size.Width = 94.000000000000000000
+      Size.Height = 94.000000000000000000
+      Size.PlatformDefault = False
+      object layout_Resize: TGridPanelLayout
+        Align = Client
+        HitTest = False
+        Size.Width = 94.000000000000000000
+        Size.Height = 94.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 0
+        ColumnCollection = <
+          item
+            Value = 12.129500500951000000
+          end
+          item
+            Value = 39.677655820645110000
+          end
+          item
+            Value = 9.730880534928231000
+          end
+          item
+            Value = 38.461963143475650000
+          end>
+        ControlCollection = <
+          item
+            Column = 0
+            ColumnSpan = 2
+            Control = lbl_Minutes
+            Row = 0
+          end
+          item
+            Column = 1
+            ColumnSpan = 2
+            Control = lbl_Number
+            Row = 1
+          end>
+        RowCollection = <
+          item
+            Value = 46.669333866773360000
+          end
+          item
+            Value = 40.008001600320060000
+          end
+          item
+            Value = 13.322664532906580000
+          end>
+        object lbl_Minutes: TLabel
+          Align = Client
+          StyledSettings = [Family, FontColor]
+          Size.Width = 48.698726654052730000
+          Size.Height = 43.869174957275390000
+          Size.PlatformDefault = False
+          TextSettings.Font.Size = 22.000000000000000000
+          TextSettings.Font.StyleExt = {00070000000000000004000000}
+          TextSettings.HorzAlign = Trailing
+          Text = '0'#39
+          TabOrder = 0
+        end
+        object lbl_Number: TLabel
+          Align = Client
+          StyledSettings = [Family, FontColor]
+          Size.Width = 46.444026947021480000
+          Size.Height = 37.607524871826170000
+          Size.PlatformDefault = False
+          TextSettings.Font.Size = 22.000000000000000000
+          TextSettings.Font.StyleExt = {00070000000000000004000000}
+          TextSettings.HorzAlign = Center
+          Text = 'G00'
+          TabOrder = 1
+        end
+      end
+    end
+  end
+  object Timer: TTimer
+    Enabled = False
+    Interval = 200
+    OnTimer = TimerTimer
+    Left = 59
+    Top = 51
+  end
+  object btn: TSpeedButton
+    Align = Contents
+    Size.Width = 100.000000000000000000
+    Size.Height = 100.000000000000000000
+    Size.PlatformDefault = False
+    TextSettings.Trimming = None
+  end
+end

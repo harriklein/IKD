@@ -35,7 +35,7 @@ uses
     Winapi.Windows,
 {$ENDIF}
 {$IFDEF ANDROID}
-    FMX.Helpers.Android,
+    FMX.Helpers.Android,  FMX.DialogService,
     Androidapi.JNI.GraphicsContentViewText, AndroidApi.Helpers,
     Androidapi.JNI.Telephony,Androidapi.JNI.Provider, Androidapi.JNIBridge,
     Androidapi.JNI.JavaTypes, Androidapi.JNI.OS, Androidapi.JNI.App,

@@ -7,7 +7,7 @@ uses
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs,
   FMX.Controls.Presentation, FMX.StdCtrls, FMX.Ani, FMX.Objects, FMX.ListBox,
   FMX.Layouts, FMX.MultiView, System.ImageList, FMX.ImgList, FMX.Effects,
-  System.Bluetooth, System.Bluetooth.Components;
+  System.Bluetooth, System.Bluetooth.Components, System.IniFiles;
 
 type
   TSyncStatus = (ssOffline, ssSyncOK, ssSyncFailed, ssSyncInProcess);
@@ -42,7 +42,7 @@ type
     menu_AdminUsers: TListBoxItem;
     menu_AdminBoats: TListBoxItem;
     menu_AdminConfig: TListBoxItem;
-    menu_Historical: TListBoxItem;
+    menu_Report: TListBoxItem;
     rect_MenuFooter: TRectangle;
     btn_Logout: TSpeedButton;
     Circle1: TCircle;
@@ -83,8 +83,8 @@ implementation
 
 {$R *.fmx}
 
-uses FMX.DialogService, unt_Printer, ufrm_Login, ufrm_Default, ufrm_Config,
-  ufrm_Boats;
+uses FMX.DialogService, unt_Printer, ufrm_Login, ufrm_Default, ufrm_Config, unt_DeviceUtils,
+  ufrm_Boats, ufrm_Rental, ufrm_Report;
 
 
 //******************************************************************************
@@ -201,13 +201,13 @@ begin
   // --- Embedded from
   // Use property TAG of the Items to define the form
   case Item.Tag of
-//      1 : begin Tfrm_Rental(EmbeddFrame( Tfrm_Rental )).Prepare; end;
+      1 : begin Tfrm_Rental(CreateEmbeddedFrame( Tfrm_Rental )).Prepare; end;
 //
 //     10 : begin Tfrm_Users (EmbeddFrame( Tfrm_Users  )).Prepare; end;
      11 : begin Tfrm_Boats (CreateEmbeddedFrame( Tfrm_Boats  )).Prepare; end;
      12 : begin Tfrm_Config(CreateEmbeddedFrame( Tfrm_Config )).Prepare; end;
 //
-//     15 : begin Tfrm_Historical(EmbeddFrame( Tfrm_Historical )).Prepare; end;
+     15 : begin Tfrm_Report(CreateEmbeddedFrame( Tfrm_Report )).Prepare; end;
   else
     Tfrm_Default(CreateEmbeddedFrame( Tfrm_Default )).Prepare;
   end;
@@ -218,6 +218,8 @@ end;
 //******************************************************************************
 
 procedure Tfrm_Main.FormCreate(Sender: TObject);
+var
+  iniCFG : TIniFile;
 begin
 
   // Set the initial state, at the design enviroment it is better to keep it showing.
@@ -233,16 +235,16 @@ begin
   // User := TUser.Create;
 
   PRINTER_BLUETOOTH := Bluetooth;
-//  iniCFG := TIniFile.Create(GetPath('KleinAppConfig.ini'));
-//  try
-//    PRINTER_NAME   := iniCFG.ReadString('CLIENT', 'Printer'  , '');
-//  finally
-//    iniCFG.DisposeOf;
-//  end;
+  iniCFG := TIniFile.Create(GetPath('KleinAppConfig.ini'));
+  try
+    PRINTER_NAME   := iniCFG.ReadString('CLIENT', 'Printer'  , '');
+  finally
+    iniCFG.Free;
+  end;
 
   if BTConnectPrinter(PRINTER_NAME) then
     begin
-      //BTSendData( EP_INITIALIZE_PRINTER );
+      BTSendData( EP_INITIALIZE_PRINTER );
     end;
 
   // Show default frame

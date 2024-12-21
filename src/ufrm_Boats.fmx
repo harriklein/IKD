@@ -12,7 +12,7 @@ object frm_Boats: Tfrm_Boats
     Size.Height = 644.000000000000000000
     Size.PlatformDefault = False
     TabHeight = 49.000000000000000000
-    TabIndex = 0
+    TabIndex = 1
     TabOrder = 0
     TabPosition = None
     OnChange = tabCtrl_ListChange
@@ -29,7 +29,7 @@ object frm_Boats: Tfrm_Boats
       TextSettings.Font.Size = 16.000000000000000000
       TextSettings.Trimming = None
       StyledSettings = [Family, Style, FontColor]
-      IsSelected = True
+      IsSelected = False
       Size.Width = 8.000000000000000000
       Size.Height = 8.000000000000000000
       Size.PlatformDefault = False
@@ -188,7 +188,7 @@ object frm_Boats: Tfrm_Boats
       TextSettings.Trimming = None
       StyledSettings = [Family, Style, FontColor]
       HitTest = False
-      IsSelected = False
+      IsSelected = True
       Size.Width = 8.000000000000000000
       Size.Height = 8.000000000000000000
       Size.PlatformDefault = False
@@ -350,11 +350,12 @@ object frm_Boats: Tfrm_Boats
         TabOrder = 1
         MaxLength = 3
         TextSettings.Font.Size = 18.000000000000000000
-        Position.X = 16.000000000000000000
-        Position.Y = 88.000000000000000000
-        Size.Width = 341.000000000000000000
+        Position.X = 38.000000000000000000
+        Position.Y = 97.000000000000000000
+        Size.Width = 139.000000000000000000
         Size.Height = 30.000000000000000000
         Size.PlatformDefault = False
+        TextPrompt = 'G00'
         StyledSettings = [Family, Style, FontColor]
         CharCase = ecUpperCase
         object lbl_Number: TLabel
@@ -369,26 +370,99 @@ object frm_Boats: Tfrm_Boats
       end
       object switch_Active: TSwitch
         IsChecked = False
-        Position.X = 112.000000000000000000
-        Position.Y = 152.000000000000000000
-        TabOrder = 2
+        Position.X = 226.000000000000000000
+        Position.Y = 97.000000000000000000
+        TabOrder = 3
       end
       object lbl_Active: TLabel
         StyledSettings = [Family, FontColor]
-        Position.X = 16.000000000000000000
-        Position.Y = 152.000000000000000000
+        Position.X = 226.000000000000000000
+        Position.Y = 72.000000000000000000
         TextSettings.Font.Size = 20.000000000000000000
         TextSettings.Font.StyleExt = {00070000000000000004000000}
         Text = 'Active'
-        TabOrder = 3
+        TabOrder = 4
       end
-    end
-  end
-  object ActionList: TActionList
-    Left = 264
-    Top = 232
-    object Action1: TAction
-      Text = 'Action1'
+      object edt_Color: TColorComboBox
+        DropDownKind = Custom
+        Color = claNull
+        DisableFocusEffect = False
+        Position.X = 38.000000000000000000
+        Position.Y = 176.000000000000000000
+        Size.Width = 266.000000000000000000
+        Size.Height = 33.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 5
+        object lbl_Color: TLabel
+          StyledSettings = [Family, FontColor]
+          Position.Y = -33.000000000000000000
+          Size.Width = 120.000000000000000000
+          Size.Height = 34.000000000000000000
+          Size.PlatformDefault = False
+          TextSettings.Font.Size = 20.000000000000000000
+          TextSettings.Font.StyleExt = {00070000000000000004000000}
+          TextSettings.WordWrap = False
+          Text = 'Color'
+          TabOrder = 0
+        end
+      end
+      object edt_DefaultValue: TNumberBox
+        Touch.InteractiveGestures = [LongTap, DoubleTap]
+        TabOrder = 2
+        Cursor = crIBeam
+        DecimalDigits = 0
+        Max = 100000.000000000000000000
+        TextSettings.Font.Size = 22.000000000000000000
+        TextSettings.Font.StyleExt = {00070000000000000004000000}
+        TextSettings.HorzAlign = Center
+        TextSettings.VertAlign = Trailing
+        Position.X = 72.000000000000000000
+        Position.Y = 273.000000000000000000
+        HorzIncrement = 0.000000000000000000
+        VertIncrement = 0.000000000000000000
+        Size.Width = 105.000000000000000000
+        Size.Height = 32.000000000000000000
+        Size.PlatformDefault = False
+        StyledSettings = [FontColor]
+        KillFocusByReturn = True
+        object lbl_DefaultValue: TLabel
+          StyledSettings = [Family, FontColor]
+          Position.X = -34.000000000000000000
+          Position.Y = -25.000000000000000000
+          Size.Width = 235.000000000000000000
+          Size.Height = 17.000000000000000000
+          Size.PlatformDefault = False
+          TextSettings.Font.Size = 20.000000000000000000
+          TextSettings.Font.StyleExt = {00070000000000000004000000}
+          TextSettings.WordWrap = False
+          Text = 'Default Value'
+          TabOrder = 2
+        end
+        object lbl_DefaultValueDec: TLabel
+          StyledSettings = [Family, FontColor]
+          Position.X = 112.000000000000000000
+          Size.Width = 49.000000000000000000
+          Size.Height = 25.000000000000000000
+          Size.PlatformDefault = False
+          TextSettings.Font.Size = 20.000000000000000000
+          TextSettings.Font.StyleExt = {00070000000000000004000000}
+          TextSettings.WordWrap = False
+          Text = ',00'
+          TabOrder = 1
+        end
+        object lbl_DefaultValueRS: TLabel
+          StyledSettings = [Family, FontColor]
+          Position.X = -34.000000000000000000
+          Size.Width = 35.000000000000000000
+          Size.Height = 24.000000000000000000
+          Size.PlatformDefault = False
+          TextSettings.Font.Size = 20.000000000000000000
+          TextSettings.Font.StyleExt = {00070000000000000004000000}
+          TextSettings.WordWrap = False
+          Text = 'R$'
+          TabOrder = 0
+        end
+      end
     end
   end
 end
