@@ -50,7 +50,6 @@ type
     tb_BoatDefaultValue: TLongWordField;
     tb_Rentalid: TGuidField;
     procedure DataModuleCreate(Sender: TObject);
-    procedure tb_RentalNewRecord(DataSet: TDataSet);
   private
     { Private declarations }
   public
@@ -76,15 +75,7 @@ begin
        tb_Boat.ResourceOptions.PersistentFileName :=  GetPath(     tb_Boat.ResourceOptions.PersistentFileName);
      tb_Rental.ResourceOptions.PersistentFileName :=  GetPath(   tb_Rental.ResourceOptions.PersistentFileName);
 
-//  if false then
-//    begin
-//      DeleteFile(GetPath(tb_UserLogin.ResourceOptions.PersistentFileName));
-//      DeleteFile(GetPath(     tb_User.ResourceOptions.PersistentFileName));
-//      DeleteFile(GetPath(     tb_Boat.ResourceOptions.PersistentFileName));
-//      DeleteFile(GetPath(   tb_Rental.ResourceOptions.PersistentFileName));
-//    end;
-
-  // Meka sure that we have a file to Load, this avoid exception with LocaFromFile in Prepare procedures
+  // Make sure that we have a file to Load, this avoid exception with LocaFromFile in Prepare procedures
   if not FileExists(tb_UserLogin.ResourceOptions.PersistentFileName) then
     begin
       tb_UserLogin.CreateDataSet;  // We have to create the basic structure, otherwise it reises an exception
@@ -107,11 +98,13 @@ begin
     end
   else
     begin
-//      DeleteFile(tb_Rental.ResourceOptions.PersistentFileName);
-//      tb_Rental.CreateDataSet;
-//      tb_Rental.SaveToFile();
+      // DeleteFile(tb_Rental.ResourceOptions.PersistentFileName);
+      // tb_Rental.CreateDataSet;
+      // tb_Rental.SaveToFile();
     end;
 
+
+  // Fail to load probably means we have changed the structure
   try
     tb_UserLogin.LoadFromFile();
   except
@@ -139,15 +132,6 @@ begin
     tb_Rental.CreateDataSet;
     tb_Rental.SaveToFile();
   end;
-end;
-
-procedure Tdm_Main.tb_RentalNewRecord(DataSet: TDataSet);
-var
-  uuid : TGuid;
-begin
-  uuid := TUUIDv7Helper.CreateV7;
-  tb_Rentalid.AsGuid := uuid;
-//  TDialogService.ShowMessage(tb_Rentalid.AsString);
 end;
 
 end.

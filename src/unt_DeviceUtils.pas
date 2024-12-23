@@ -3,9 +3,9 @@ unit unt_DeviceUtils;
 interface
 
 
-function MD5(S: String): String;
-function GetPath(filename: String = '') : String;
-function GetDownloadPath(filename: String = '') : String;
+function MD5(AString: String): String;
+function GetPath(AFileName: String = ''): String;
+function GetDownloadPath(AFileName: String = ''): String;
 
 function getDeviceInfoPlatform          : String;
 function getDeviceInfoPlatform2         : String;
@@ -37,7 +37,7 @@ uses
 {$IFDEF ANDROID}
     FMX.Helpers.Android,  FMX.DialogService,
     Androidapi.JNI.GraphicsContentViewText, AndroidApi.Helpers,
-    Androidapi.JNI.Telephony,Androidapi.JNI.Provider, Androidapi.JNIBridge,
+    Androidapi.JNI.Telephony, Androidapi.JNI.Provider, Androidapi.JNIBridge,
     Androidapi.JNI.JavaTypes, Androidapi.JNI.OS, Androidapi.JNI.App,
 {$ENDIF}
 {$IFDEF OSX}
@@ -53,16 +53,16 @@ uses
   System.SysUtils;
 
 
-function MD5(S: String): String;
+function MD5(AString: String): String;
 begin
   with TIdHashMessageDigest5.Create do
     begin
-      Result := HashStringAsHex(S);
-      DisposeOf;
+      Result := HashStringAsHex(AString);
+      Free;
     end;
 end;
 
-function GetPath(filename: String = ''): String;
+function GetPath(AFileName: String = ''): String;
 begin
 {$IF DEFINED(LINUX64) OR DEFINED(MSWINDOWS) }
   Result := ExtractFilePath(ParamStr(0));
@@ -70,11 +70,11 @@ begin
   Result := TPath.GetDocumentsPath;
 {$ENDIF}
 
-  if not filename.IsEmpty then
-    Result := TPath.Combine(Result, filename);
+  if not AFileName.IsEmpty then
+    Result := TPath.Combine(Result, AFileName);
 end;
 
-function GetDownloadPath(filename: String = ''): String;
+function GetDownloadPath(AFileName: String = ''): String;
 begin
 {$IF DEFINED(LINUX64) OR DEFINED(MSWINDOWS) }
   Result := ExtractFilePath(ParamStr(0));
@@ -82,69 +82,68 @@ begin
   Result := TPath.GetDownloadsPath;
 {$ENDIF}
 
-  if not filename.IsEmpty then
-    Result := TPath.Combine(Result, filename);
+  if not AFileName.IsEmpty then
+    Result := TPath.Combine(Result, AFileName);
 end;
 
 //------------------------------------------------------------------------------
 
 {$IFDEF MSWINDOWS}
-function GetBuildInfo(const AFileName: string; var AMajor, AMinor, ARelease, ABuild: WORD): Boolean;
+function GetBuildInfo(const AFileName: String; var AMajor, AMinor, ARelease, ABuild: WORD): Boolean;
 var
-  FileName: string;
-  InfoSize, Wnd: DWORD;
-  VerBuf: Pointer;
-  FI: PVSFixedFileInfo;
-  VerSize: DWORD;
+  _FileName: String;
+  _InfoSize: DWORD;
+  _WND     : DWORD;
+  _VerBuf  : Pointer;
+  _FI      : PVSFixedFileInfo;
+  _VerSize : DWORD;
 begin
   Result := False;
   // GetFileVersionInfo modifies the filename parameter data while parsing.
-  // Copy the string const into a local variable to create a writeable copy.
+  // Copy the String const into a local variable to create a writeable copy.
   if AFileName = '' then
-    FileName := ParamStr(0)
+    _FileName := ParamStr(0)
   else
-    FileName := AFileName;
-  UniqueString(FileName);
-  InfoSize := GetFileVersionInfoSize(PChar(FileName), Wnd);
-  if InfoSize <> 0 then
+    _FileName := AFileName;
+  UniqueString(_FileName);
+  _InfoSize := GetFileVersionInfoSize(PChar(_FileName), _WND);
+  if _InfoSize <> 0 then
   begin
-    GetMem(VerBuf, InfoSize);
+    GetMem(_VerBuf, _InfoSize);
     try
-      if GetFileVersionInfo(PChar(FileName), Wnd, InfoSize, VerBuf) then
-        if VerQueryValue(VerBuf, '\', Pointer(FI), VerSize) then
+      if GetFileVersionInfo(PChar(_FileName), _WND, _InfoSize, _VerBuf) then
+        if VerQueryValue(_VerBuf, '\', Pointer(_FI), _VerSize) then
         begin
-          AMajor   := HiWord(FI.dwProductVersionMS);
-          AMinor   := LoWord(FI.dwProductVersionMS);
-          ARelease := HiWord(FI.dwProductVersionLS);
-          ABuild   := LoWord(FI.dwProductVersionLS);
+          AMajor   := HiWord(_FI.dwProductVersionMS);
+          AMinor   := LoWord(_FI.dwProductVersionMS);
+          ARelease := HiWord(_FI.dwProductVersionLS);
+          ABuild   := LoWord(_FI.dwProductVersionLS);
           Result:= True;
         end;
     finally
-      FreeMem(VerBuf);
+      FreeMem(_VerBuf);
     end;
   end;
 end;
 
 function getAppVersion: String;
 var
-  V1, V2, V3, V4: Word;
+  _V1, _V2, _V3, _V4: WORD;
 begin
-  GetBuildInfo('', V1, V2, V3, V4);
-  Result := IntToStr(V1) + '.' + IntToStr(V2) + '.' +  IntToStr(V3);
+  GetBuildInfo('', _V1, _V2, _V3, _V4);
+  Result := IntToStr(_V1) + '.' + IntToStr(_V2) + '.' +  IntToStr(_V3);
 end;
 {$ENDIF}
 
 {$IFDEF ANDROID}
 function getAppVersion: String;
 var
-  PackageManager: JPackageManager;
-  PackageInfo : JPackageInfo;
+  _PackageManager: JPackageManager;
+  _PackageInfo   : JPackageInfo;
 begin
-
-
-  PackageManager := TAndroidHelper.Activity.getPackageManager;
-  PackageInfo := PackageManager.getPackageInfo(TAndroidHelper.Context.getPackageName(), TJPackageManager.JavaClass.GET_ACTIVITIES);
-  Result := JStringToString(PackageInfo.versionName);
+  _PackageManager := TAndroidHelper.Activity.getPackageManager;
+  _PackageInfo    := _PackageManager.getPackageInfo(TAndroidHelper.Context.getPackageName(), TJPackageManager.JavaClass.GET_ACTIVITIES);
+  Result          := JStringToString(_PackageInfo.VersionName);
 end;
 {$ENDIF}
 
@@ -169,20 +168,20 @@ end;
 {$IFDEF MSWINDOWS}
 function getDeviceInfoPlatform: String;
 begin
-  result := 'WINDOWS';
+  Result := 'WINDOWS';
 end;
 {$ENDIF}
 
 {$IFDEF OSX}
 function getDeviceInfoPlatform: String;
 begin
-  result := 'MACOS';
+  Result := 'MACOS';
 end;
 {$ELSE}
 {$IFDEF IOS}
 function getDeviceInfoPlatform: String;
 begin
-  result := 'IOS';
+  Result := 'IOS';
 end;
 {$ENDIF}
 {$ENDIF}
@@ -190,7 +189,7 @@ end;
 {$IFDEF ANDROID}
 function getDeviceInfoPlatform: String;
 begin
-  result := 'ANDROID';
+  Result := 'ANDROID';
 end;
 {$ENDIF}
 
@@ -201,22 +200,22 @@ end;
 {$IFDEF MSWINDOWS}
 function getDeviceInfoDeviceManufacturer: String;
 var
-  FSWbemLocator : OLEVariant;
-  FWMIService   : OLEVariant;
-  FWbemObjectSet: OLEVariant;
-  FWbemObject   : OLEVariant;
-  oEnum         : IEnumvariant;
-  iValue        : LongWord;
+  _FSWbemLocator : OLEVariant;
+  _FWMIService   : OLEVariant;
+  _FWbemObjectSet: OLEVariant;
+  _FWbemObject   : OLEVariant;
+  _oEnum         : IEnumvariant;
+  _iValue        : LongWord;
 begin
   try
     CoInitialize(nil);
     try
-      FSWbemLocator := CreateOleObject('WbemScripting.SWbemLocator');
-      FWMIService   := FSWbemLocator.ConnectServer('localhost', 'root\CIMV2', '', '');
-      FWbemObjectSet:= FWMIService.ExecQuery('SELECT Manufacturer FROM Win32_ComputerSystem','WQL',$00000020);
-      oEnum         := IUnknown(FWbemObjectSet._NewEnum) as IEnumVariant;
-      if oEnum.Next(1, FWbemObject, iValue) = 0 then
-        Result := Format('%s',[String(FWbemObject.Manufacturer)]);
+      _FSWbemLocator := CreateOleObject('WbemScripting.SWbemLocator');
+      _FWMIService   := _FSWbemLocator.ConnectServer('localhost', 'root\CIMV2', '', '');
+      _FWbemObjectSet:= _FWMIService.ExecQuery('SELECT Manufacturer FROM Win32_ComputerSystem','WQL',$00000020);
+      _oEnum         := IUnknown(_FWbemObjectSet._NewEnum) as IEnumVariant;
+      if _oEnum.Next(1, _FWbemObject, _iValue) = 0 then
+        Result := Format('%s',[String(_FWbemObject.Manufacturer)]);
     finally
       CoUninitialize;
     end;
@@ -229,14 +228,14 @@ end;
 {$IFDEF OSX}
 function getDeviceInfoDeviceManufacturer: String;
 begin
-  result := 'Apple';
+  Result := 'Apple';
   Result := Result.ToUpper;
 end;
 {$ELSE}
 {$IFDEF IOS}
 function getDeviceInfoDeviceManufacturer: String;
 begin
-  result := 'Apple';
+  Result := 'Apple';
   Result := Result.ToUpper;
 end;
 {$ENDIF}
@@ -246,7 +245,7 @@ end;
 {$IFDEF ANDROID}
 function getDeviceInfoDeviceManufacturer: String;
 begin
-  result := JStringToString(TJBuild.JavaClass.MANUFACTURER);
+  Result := JStringToString(TJBuild.JavaClass.MANUFACTURER);
   Result := Result.ToUpper;
 end;
 {$ENDIF}
@@ -259,23 +258,23 @@ end;
 {$IFDEF MSWINDOWS}
 function getDeviceInfoDeviceModel: String;
 var
-  FSWbemLocator : OLEVariant;
-  FWMIService   : OLEVariant;
-  FWbemObjectSet: OLEVariant;
-  FWbemObject   : OLEVariant;
-  oEnum         : IEnumvariant;
-  iValue        : LongWord;
+  _FSWbemLocator : OLEVariant;
+  _FWMIService   : OLEVariant;
+  _FWbemObjectSet: OLEVariant;
+  _FWbemObject   : OLEVariant;
+  _oEnum         : IEnumvariant;
+  _iValue        : LongWord;
 begin
-  result := '';
+  Result := '';
   try
     CoInitialize(nil);
     try
-      FSWbemLocator := CreateOleObject('WbemScripting.SWbemLocator');
-      FWMIService   := FSWbemLocator.ConnectServer('localhost', 'root\CIMV2', '', '');
-      FWbemObjectSet:= FWMIService.ExecQuery('SELECT Model FROM Win32_ComputerSystem','WQL',$00000020);
-      oEnum         := IUnknown(FWbemObjectSet._NewEnum) as IEnumVariant;
-      if oEnum.Next(1, FWbemObject, iValue) = 0 then
-        Result := Format('%s',[String(FWbemObject.Model)]);
+      _FSWbemLocator := CreateOleObject('WbemScripting.SWbemLocator');
+      _FWMIService   := _FSWbemLocator.ConnectServer('localhost', 'root\CIMV2', '', '');
+      _FWbemObjectSet:= _FWMIService.ExecQuery('SELECT Model FROM Win32_ComputerSystem','WQL',$00000020);
+      _oEnum         := IUnknown(_FWbemObjectSet._NewEnum) as IEnumVariant;
+      if _oEnum.Next(1, _FWbemObject, _iValue) = 0 then
+        Result := Format('%s',[String(_FWbemObject.Model)]);
     finally
       CoUninitialize;
     end;
@@ -288,20 +287,20 @@ end;
 {$IFDEF OSX}
 function getDeviceInfoDeviceModel: String;
 var
-  Device : UIDevice;
+  _Device : UIDevice;
 begin
-  Device := TUIDevice.Wrap(TUIDevice.OCClass.currentDevice);
-  result := NSStrToStr(Device.model);
+  _Device := TUIDevice.Wrap(TUIDevice.OCClass.currentDevice);
+  Result := NSStrToStr(_Device.model);
   Result := Result.ToUpper;
 end;
 {$ELSE}
 {$IFDEF IOS}
 function getDeviceInfoDeviceModel: String;
 var
-  Device : UIDevice;
+  _Device : UIDevice;
 begin
-  Device := TUIDevice.Wrap(TUIDevice.OCClass.currentDevice);
-  result := NSStrToStr(Device.model);
+  _Device := TUIDevice.Wrap(TUIDevice.OCClass.currentDevice);
+  Result := NSStrToStr(_Device.model);
   Result := Result.ToUpper;
 end;
 {$ENDIF}
@@ -310,7 +309,7 @@ end;
 {$IFDEF ANDROID}
 function getDeviceInfoDeviceModel: String;
 begin
-  result := JStringToString(TJBuild.JavaClass.MODEL);
+  Result := JStringToString(TJBuild.JavaClass.MODEL);
   Result := Result.ToUpper;
 end;
 {$ENDIF}
@@ -328,23 +327,23 @@ end;
 {$IFDEF MSWINDOWS}
 function getDeviceInfoOSName: String;
 var
-  FSWbemLocator : OLEVariant;
-  FWMIService   : OLEVariant;
-  FWbemObjectSet: OLEVariant;
-  FWbemObject   : OLEVariant;
-  oEnum         : IEnumvariant;
-  iValue        : LongWord;
+  _FSWbemLocator : OLEVariant;
+  _FWMIService   : OLEVariant;
+  _FWbemObjectSet: OLEVariant;
+  _FWbemObject   : OLEVariant;
+  _oEnum         : IEnumvariant;
+  _iValue        : LongWord;
 begin
-  result := '';
+  Result := '';
   try
     CoInitialize(nil);
     try
-      FSWbemLocator := CreateOleObject('WbemScripting.SWbemLocator');
-      FWMIService   := FSWbemLocator.ConnectServer('localhost', 'root\CIMV2', '', '');
-      FWbemObjectSet:= FWMIService.ExecQuery('SELECT Caption FROM Win32_OperatingSystem','WQL',$00000020);
-      oEnum         := IUnknown(FWbemObjectSet._NewEnum) as IEnumVariant;
-      if oEnum.Next(1, FWbemObject, iValue) = 0 then
-        Result := Format('%s',[String(FWbemObject.Caption)]);
+      _FSWbemLocator := CreateOleObject('WbemScripting.SWbemLocator');
+      _FWMIService   := _FSWbemLocator.ConnectServer('localhost', 'root\CIMV2', '', '');
+      _FWbemObjectSet:= _FWMIService.ExecQuery('SELECT Caption FROM Win32_OperatingSystem','WQL',$00000020);
+      _oEnum         := IUnknown(_FWbemObjectSet._NewEnum) as IEnumVariant;
+      if _oEnum.Next(1, _FWbemObject, _iValue) = 0 then
+        Result := Format('%s',[String(_FWbemObject.Caption)]);
     finally
       CoUninitialize;
     end;
@@ -357,18 +356,18 @@ end;
 {$IFDEF OSX}
 function getDeviceInfoOSName: String;
 begin
-  result := '';
+  Result := '';
   Result := Result.ToUpper;
 end;
 {$ELSE}
 {$IFDEF IOS}
 function getDeviceInfoOSName: String;
 var
-  Device : UIDevice;
+  _Device : UIDevice;
 begin
-  Device := TUIDevice.Wrap(TUIDevice.OCClass.currentDevice);
-  result := NSStrToStr(Device.systemName);
-  Result := Result.ToUpper;
+  _Device := TUIDevice.Wrap(TUIDevice.OCClass.currentDevice);
+  Result  := NSStrToStr(_Device.systemName);
+  Result  := Result.ToUpper;
 end;
 {$ENDIF}
 {$ENDIF}
@@ -376,7 +375,7 @@ end;
 {$IFDEF ANDROID}
 function getDeviceInfoOSName: String;
 begin
-  result := JStringToString(TJBuild_VERSION.JavaClass.RELEASE);
+  Result := JStringToString(TJBuild_VERSION.JavaClass.RELEASE);
   Result := Result.ToUpper;
 end;
 {$ENDIF}
@@ -402,23 +401,23 @@ end;
 {$IFDEF MSWINDOWS}
 function getDeviceInfoOSVersion: String;
 var
-  FSWbemLocator : OLEVariant;
-  FWMIService   : OLEVariant;
-  FWbemObjectSet: OLEVariant;
-  FWbemObject   : OLEVariant;
-  oEnum         : IEnumvariant;
-  iValue        : LongWord;
+  _FSWbemLocator : OLEVariant;
+  _FWMIService   : OLEVariant;
+  _FWbemObjectSet: OLEVariant;
+  _FWbemObject   : OLEVariant;
+  _oEnum         : IEnumvariant;
+  _iValue        : LongWord;
 begin
-  result := '';
+  Result := '';
   try
     CoInitialize(nil);
     try
-      FSWbemLocator := CreateOleObject('WbemScripting.SWbemLocator');
-      FWMIService   := FSWbemLocator.ConnectServer('localhost', 'root\CIMV2', '', '');
-      FWbemObjectSet:= FWMIService.ExecQuery('SELECT CSDVersion FROM Win32_ComputerSystem','WQL',$00000020);
-      oEnum         := IUnknown(FWbemObjectSet._NewEnum) as IEnumVariant;
-      if oEnum.Next(1, FWbemObject, iValue) = 0 then
-        Result := Format('%s',[String(FWbemObject.CSDVersion)]);
+      _FSWbemLocator := CreateOleObject('WbemScripting.SWbemLocator');
+      _FWMIService   := _FSWbemLocator.ConnectServer('localhost', 'root\CIMV2', '', '');
+      _FWbemObjectSet:= _FWMIService.ExecQuery('SELECT CSDVersion FROM Win32_ComputerSystem','WQL',$00000020);
+      _oEnum         := IUnknown(_FWbemObjectSet._NewEnum) as IEnumVariant;
+      if _oEnum.Next(1, _FWbemObject, _iValue) = 0 then
+        Result := Format('%s',[String(_FWbemObject.CSDVersion)]);
     finally
       CoUninitialize;
     end;
@@ -431,18 +430,18 @@ end;
 {$IFDEF OSX}
 function getDeviceInfoOSVersion: String;
 begin
-  result := '';
+  Result := '';
   Result := Result.ToUpper;
 end;
 {$ELSE}
 {$IFDEF IOS}
 function getDeviceInfoOSVersion: String;
 var
-  Device : UIDevice;
+  _Device : UIDevice;
 begin
-  Device := TUIDevice.Wrap(TUIDevice.OCClass.currentDevice);
-  result := NSStrToStr(Device.systemVersion);
-  Result := Result.ToUpper;
+  _Device := TUIDevice.Wrap(TUIDevice.OCClass.currentDevice);
+  Result  := NSStrToStr(_Device.systemVersion);
+  Result  := Result.ToUpper;
 end;
 {$ENDIF}
 {$ENDIF}
@@ -450,7 +449,7 @@ end;
 {$IFDEF ANDROID}
 function getDeviceInfoOSVersion: String;
 begin
-  result := JStringToString(TJBuild_VERSION.JavaClass.RELEASE);
+  Result := JStringToString(TJBuild_VERSION.JavaClass.RELEASE);
   Result := Result.ToUpper;
 end;
 {$ENDIF}
@@ -462,23 +461,23 @@ end;
 {$IFDEF MSWINDOWS}
 function getDeviceInfoDeviceUID: String;
 var
-  FSWbemLocator : OLEVariant;
-  FWMIService   : OLEVariant;
-  FWbemObjectSet: OLEVariant;
-  FWbemObject   : OLEVariant;
-  oEnum         : IEnumvariant;
-  iValue        : LongWord;
+  _FSWbemLocator : OLEVariant;
+  _FWMIService   : OLEVariant;
+  _FWbemObjectSet: OLEVariant;
+  _FWbemObject   : OLEVariant;
+  _oEnum         : IEnumvariant;
+  _iValue        : LongWord;
 begin
-  result := '';
+  Result := '';
   try
     CoInitialize(nil);
     try
-      FSWbemLocator := CreateOleObject('WbemScripting.SWbemLocator');
-      FWMIService   := FSWbemLocator.ConnectServer('localhost', 'root\CIMV2', '', '');
-      FWbemObjectSet:= FWMIService.ExecQuery('SELECT SerialNumber FROM Win32_BIOS','WQL',$00000020);
-      oEnum         := IUnknown(FWbemObjectSet._NewEnum) as IEnumVariant;
-      if oEnum.Next(1, FWbemObject, iValue) = 0 then
-        Result := Format('%s',[String(FWbemObject.SerialNumber)]);
+      _FSWbemLocator := CreateOleObject('WbemScripting.SWbemLocator');
+      _FWMIService   := _FSWbemLocator.ConnectServer('localhost', 'root\CIMV2', '', '');
+      _FWbemObjectSet:= _FWMIService.ExecQuery('SELECT SerialNumber FROM Win32_BIOS','WQL',$00000020);
+      _oEnum         := IUnknown(_FWbemObjectSet._NewEnum) as IEnumVariant;
+      if _oEnum.Next(1, _FWbemObject, _iValue) = 0 then
+        Result := Format('%s',[String(_FWbemObject.SerialNumber)]);
     finally
       CoUninitialize;
     end;
@@ -492,26 +491,26 @@ end;
 {$IFDEF OSX}
 function getDeviceInfoDeviceUID: String;
 begin
-  result := '';
+  Result := '';
   Result := Result.ToUpper;
 end;
 {$ELSE}
 {$IFDEF IOS}
 function getDeviceInfoDeviceUID: String;
 var
-  IMEI: String;
-  device : UIDevice;
+  _IMEI: String;
+  _Device : UIDevice;
 begin
-  IMEI := '';
+  _IMEI := '';
 
-  device := TUIDevice.Wrap(TUIDevice.OCClass.currentDevice);
+  _Device := TUIDevice.Wrap(TUIDevice.OCClass.currentDevice);
 
-  IMEI :=           device.identifierForVendor.UUIDString.UTF8String;
-  //IMEI   := NSStrToStr(Device.identifierForVendor.UUIDString);
-//ShowMessage(Device.uniqueIdentifier.UTF8String);
- //   ShowMessage(Device.identifierForVendor.UUIDString.UTF8String);
+  _IMEI :=           _Device.identifierForVendor.UUIDString.UTF8String;
+  //_IMEI   := NSStrToStr(_Device.identifierForVendor.UUIDString);
+//ShowMessage(_Device.uniqueIdentifier.UTF8String);
+ //   ShowMessage(_Device.identifierForVendor.UUIDString.UTF8String);
 
-  result := IMEI;
+  Result := _IMEI;
   Result := Result.ToUpper;
 end;
 {$ENDIF}
@@ -520,34 +519,34 @@ end;
 {$IFDEF ANDROID}
 function getDeviceInfoDeviceUID: String;
 var
-  IMEI: String;
-  obj: JObject;
-  TM: JTelephonyManager;
-  strPermission : String;
+  _IMEI: String;
+  _obj : JObject;
+  _TM  : JTelephonyManager;
+  _strPermission : String;
 begin
-  IMEI := '';
+  _IMEI := '';
 
-  strPermission := JStringToString(TJManifest_permission.JavaClass.READ_PHONE_STATE);
-  PermissionsService.RequestPermissions([strPermission],nil, nil);
+  _strPermission := JStringToString(TJManifest_permission.JavaClass.READ_PHONE_STATE);
+  PermissionsService.RequestPermissions([_strPermission],nil, nil);
 
-  TM   := TJTelephonyManager.Create;
-  IMEI := JStringToString(TM.getImei);
+  _TM   := TJTelephonyManager.Create;
+  _IMEI := JStringToString(_TM.getImei);
 
-  if IMEI = '' then
-    IMEI := JStringToString(TJSettings_Secure.JavaClass.getString( TAndroidHelper.Activity.getContentResolver, TJSettings_Secure.JavaClass.ANDROID_ID));
+  if _IMEI = '' then
+    _IMEI := JStringToString(TJSettings_Secure.JavaClass.getString( TAndroidHelper.Activity.getContentResolver, TJSettings_Secure.JavaClass.ANDROID_ID));
 
 //  // OLD WAY
-//  obj := TAndroidHelper.Activity.getSystemService(TJContext.JavaClass.TELEPHONY_SERVICE);
-//  if obj <> nil then
+//  _obj := TAndroidHelper.Activity.getSystemService(TJContext.JavaClass.TELEPHONY_SERVICE);
+//  if _obj <> nil then
 //    begin
-//      TM := TJTelephonyManager.Wrap( (obj as ILocalObject).GetObjectID );
+//      _TM := TJTelephonyManager.Wrap( (_obj as ILocalObject).GetObjectID );
 //      if TM <> nil then
-//        IMEI := JStringToString(tm.getDeviceId);
+//        _IMEI := JStringToString(_TM.getDeviceId);
 //    end;
-//  if IMEI = '' then
-//    IMEI := JStringToString(TJSettings_Secure.JavaClass.getString( TAndroidHelper.Activity.getContentResolver, TJSettings_Secure.JavaClass.ANDROID_ID));
+//  if _IMEI = '' then
+//    _IMEI := JStringToString(TJSettings_Secure.JavaClass.getString( TAndroidHelper.Activity.getContentResolver, TJSettings_Secure.JavaClass.ANDROID_ID));
 
-  Result := IMEI;
+  Result := _IMEI;
   Result := Result.ToUpper;
 end;
 {$ENDIF}
@@ -561,19 +560,19 @@ end;
 {$IFDEF MSWINDOWS}
 function getDeviceInfoOSLang: String;
 var
-  buffer: MarshaledString;
-  UserLCID: LCID;
-  BufLen: Integer;
+  _buffer: MarshaledString;
+  _userLCID: LCID;
+  _bufLen: Integer;
 begin
   // defaults
-  UserLCID := GetUserDefaultLCID;
-  BufLen := GetLocaleInfo(UserLCID, LOCALE_SISO639LANGNAME, nil, 0);
-  buffer := StrAlloc(BufLen);
-  if GetLocaleInfo(UserLCID, LOCALE_SISO639LANGNAME, buffer, BufLen) <> 0 then
-    Result := buffer
+  _userLCID := GetUserDefaultLCID;
+  _bufLen := GetLocaleInfo(_userLCID, LOCALE_SISO639LANGNAME, nil, 0);
+  _buffer := StrAlloc(_bufLen);
+  if GetLocaleInfo(_userLCID, LOCALE_SISO639LANGNAME, _buffer, _bufLen) <> 0 then
+    Result := _buffer
   else
     Result := 'en';
-  StrDispose(buffer);
+  StrDispose(_buffer);
   Result := Result.ToUpper;
 end;
 {$ENDIF}
@@ -581,17 +580,17 @@ end;
 {$IFDEF OSX}
 function getDeviceInfoOSLang: String;
 begin
-  result := '';
+  Result := '';
   Result := Result.ToUpper;
 end;
 {$ELSE}
 {$IFDEF IOS}
 function getDeviceInfoOSLang: String;
 var
-  Languages: NSArray;
+  _languages: NSArray;
 begin
-  Languages := TNSLocale.OCClass.preferredLanguages;
-  Result := TNSString.Wrap(Languages.objectAtIndex(0)).UTF8String;
+  _languages := TNSLocale.OCClass.preferredLanguages;
+  Result := TNSString.Wrap(_languages.objectAtIndex(0)).UTF8String;
   Result := Result.ToUpper;
 end;
 {$ENDIF}
@@ -601,10 +600,10 @@ end;
 {$IFDEF ANDROID}
 function getDeviceInfoOSLang: String;
 var
-  LocServ: IFMXLocaleService;
+  _locServ: IFMXLocaleService;
 begin
-  if TPlatformServices.Current.SupportsPlatformService(IFMXLocaleService, IInterface(LocServ)) then
-    Result := LocServ.GetCurrentLangID;
+  if TPlatformServices.Current.SupportsPlatformService(IFMXLocaleService, IInterface(_locServ)) then
+    Result := _locServ.GetCurrentLangID;
   Result := Result.ToUpper;
 end;
 {$ENDIF}
@@ -638,13 +637,13 @@ end;
 {$IFDEF ANDROID}
 function getSettings_AutoTime: Boolean;
 var
-  str : String;
+  _str : String;
 begin
-  Result := False;
+  Result := false;
 
-  str := JStringToString( TJSettings_System.JavaClass.getString( TAndroidHelper.ContentResolver, TJSettings_System.JavaClass.AUTO_TIME ) );
+  _str := JStringToString( TJSettings_System.JavaClass.getString( TAndroidHelper.ContentResolver, TJSettings_System.JavaClass.AUTO_TIME ) );
 
-  if str = '1' then
+  if _str = '1' then
     Result := True;
 end;
 {$ENDIF}
@@ -657,16 +656,15 @@ end;
 //          SCALE
 //****************************
 
-function getDeviceScreenScale: Single ;
+function getDeviceScreenScale: Single;
 var
-  ScreenService: IFMXScreenService;
+  _ScreenService: IFMXScreenService;
 begin
   Result := 0;
-  if TPlatformServices.Current.SupportsPlatformService (IFMXScreenService, IInterface(ScreenService)) then
+  if TPlatformServices.Current.SupportsPlatformService (IFMXScreenService, IInterface(_ScreenService)) then
     begin
-      Result := ScreenService.GetScreenScale;
+      Result := _ScreenService.GetScreenScale;
     end;
-
 end;
 
 

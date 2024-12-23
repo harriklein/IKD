@@ -31,19 +31,19 @@ type
     { Public declarations }
     Frm : TFmxObject;
 
-    FNumber   : String;
-    FActive   : Boolean;
-    FColor    : TAlphaColor;
+    FNumber      : String;
+    FActive      : Boolean;
+    FColor       : TAlphaColor;
     FDefaultValue: Integer;
-    FRented   : Boolean;
-    FRentedAt : TDateTime;
-    FMinutes  : Int64;
-    FWarning  : Boolean;
+    FRented      : Boolean;
+    FRentedAt    : TDateTime;
+    FMinutes     : Int64;
+    FWarning     : Boolean;
     FAdvancedPaymentValue   : Integer;
     FAdvancedPaymentMinutes : Integer;
 
-    constructor Create( AOwner: TFmxObject; AFrame: TFmxObject; Number: String; Active: Boolean; Color: TAlphaColor; DefaultValue: Integer; Rented:Boolean; RentedAt: TDateTime; AdvancedPaymentValue, AdvancedPaymentMinutes: Integer); overload;
-    procedure   Update( ADate: TDateTime );
+    constructor Create(AOwner: TFmxObject; AFrame: TFmxObject; ANumber: String; AActive: Boolean; AColor: TAlphaColor; ADefaultValue: Integer; ARented:Boolean; ARentedAt: TDateTime; AAdvancedPaymentValue, AAdvancedPaymentMinutes: Integer); overload;
+    procedure   Update(ADate: TDateTime);
   end;
 
 const
@@ -61,74 +61,31 @@ uses udm_Main, ufrm_Main, System.UIConsts;
 
 
 
-constructor Tfrm_Boat.Create( AOwner: TFmxObject; AFrame: TFmxObject; Number: String; Active: Boolean; Color: TAlphaColor; DefaultValue: Integer; Rented:Boolean; RentedAt: TDateTime; AdvancedPaymentValue, AdvancedPaymentMinutes: Integer );
+constructor Tfrm_Boat.Create( AOwner: TFmxObject; AFrame: TFmxObject; ANumber: String; AActive: Boolean; AColor: TAlphaColor; ADefaultValue: Integer; ARented:Boolean; ARentedAt: TDateTime; AAdvancedPaymentValue, AAdvancedPaymentMinutes: Integer );
 begin
-  inherited Create( Owner );
+  inherited Create(Owner);
   Parent := AOwner;
   Frm       := AFrame;
-  Name      := Number;
+  Name      := ANumber;
 
-
-
-  FNumber       := Number;
-  FActive       := Active;
-  if Color = TAlphaColors.Null then
+  if AColor = TAlphaColors.Null then
     FColor := TAlphaColors.White
   else
-    FColor        := Color;
-  FDefaultValue := DefaultValue;
-  FRented       := Rented;
-  FRentedAt     := RentedAt;
-  FAdvancedPaymentValue   := AdvancedPaymentValue;
-  FAdvancedPaymentMinutes := AdvancedPaymentMinutes;
+    FColor := AColor;
+  FNumber       := ANumber;
+  FActive       := AActive;
+  FDefaultValue := ADefaultValue;
+  FRented       := ARented;
+  FRentedAt     := ARentedAt;
+  FMinutes      := 0;
+  FAdvancedPaymentValue   := AAdvancedPaymentValue;
+  FAdvancedPaymentMinutes := AAdvancedPaymentMinutes;
 
-  FMinutes  := 0;
-
-  Update( Now );
+  Update(Now);
 
   lbl_Number.Text  := FNumber;
 end;
 
-
-function AlphaColorToNegative(Color: TAlphaColor): TAlphaColor;
-var
-  R, G, B: Byte;
-  A: Byte;
-begin
-  // Extrai os componentes RGBA da cor
-  A := TAlphaColorRec(Color).A;
-  R := TAlphaColorRec(Color).R;
-  G := TAlphaColorRec(Color).G;
-  B := TAlphaColorRec(Color).B;
-
-  // Calcula o negativo da cor
-  R := 255 - R;
-  G := 255 - G;
-  B := 255 - B;
-
-  // Retorna a cor invertida com o mesmo valor de Alpha
-  Result := MakeColor(A, R, G, B);
-end;
-
-function AlphaColorToGray(Color: TAlphaColor): TAlphaColor;
-var
-  R, G, B, Gray: Byte;
-  A: Byte;
-  R1 : TAlphaColor;
-begin
-  // Extrai os componentes RGBA da cor
-  A := TAlphaColorRec(Color).A;
-  R := TAlphaColorRec(Color).R;
-  G := TAlphaColorRec(Color).G;
-  B := TAlphaColorRec(Color).B;
-
-  // Calcula o valor em escala de cinza
-  Gray := Round(0.299 * R + 0.587 * G + 0.114 * B);
-
-
-  // Retorna a cor em tons de cinza com o mesmo valor de Alpha
-  Result := MakeColor(A, Gray, Gray, Gray);
-end;
 
 procedure Tfrm_Boat.FrameResize(Sender: TObject);
 begin
@@ -155,23 +112,23 @@ end;
 
 procedure Tfrm_Boat.TimerTimer(Sender: TObject);
 begin
-  Update( Now );
+  Update(Now);
 end;
 
-procedure Tfrm_Boat.Update( ADate: TDateTime );
+procedure Tfrm_Boat.Update(ADate: TDateTime);
 var
-  _minutes: Int64;
-  _tolerance: Integer;
+  _Minutes  : Int64;
+  _Tolerance: Integer;
 begin
   FWarning  := False;
-  _tolerance := 10; // minutes of tolerance
-  _minutes   := SecondsBetween( ADate, FRentedAt );  // Change to minutes
+  _Tolerance := 10; // minutes of tolerance
+  _Minutes   := SecondsBetween( ADate, FRentedAt );  // Change to minutes
 
   if FRented then
     begin
-      if _minutes > FAdvancedPaymentMinutes then
+      if _Minutes > FAdvancedPaymentMinutes then
         begin
-          if _minutes > (FAdvancedPaymentMinutes + _tolerance) then
+          if _Minutes > (FAdvancedPaymentMinutes + _Tolerance) then
             begin
               FWarning := True;
               if rect_Background.Fill.Color <> BoatColorCritical then
@@ -204,9 +161,9 @@ begin
         end;
     end;
 
-  if _minutes <> FMinutes then
+  if _Minutes <> FMinutes then
     begin
-      FMinutes := _minutes;
+      FMinutes := _Minutes;
       lbl_Minutes.Text := IntToStr(FMinutes)+ '''';
     end;
 

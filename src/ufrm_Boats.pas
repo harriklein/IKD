@@ -10,7 +10,7 @@ uses
   FMX.Controls.Presentation, FMX.ListView, FMX.TabControl, System.Rtti, System.Bindings.Outputs,
   Fmx.Bind.Editors, Data.Bind.EngExt, Fmx.Bind.DBEngExt, Data.Bind.Components, Data.Bind.DBScope,
   System.Actions, FMX.ActnList, FMX.ListBox, FMX.Colors, FMX.EditBox,
-  FMX.NumberBox;
+  FMX.NumberBox, FMX.Layouts;
 
 type
   Tfrm_Boats = class(TFrame)
@@ -39,6 +39,10 @@ type
     lbl_DefaultValue: TLabel;
     lbl_DefaultValueDec: TLabel;
     lbl_DefaultValueRS: TLabel;
+    VertScrollBox1: TVertScrollBox;
+    vScrollBox_Config: TVertScrollBox;
+    FlowLayout1: TFlowLayout;
+    Layout1: TLayout;
     procedure btn_AddClick(Sender: TObject);
     procedure btn_SaveClick(Sender: TObject);
     procedure btn_CancelClick(Sender: TObject);

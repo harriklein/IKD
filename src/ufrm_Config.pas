@@ -16,18 +16,14 @@ type
     btn_Save: TButton;
     cbBox_Printers: TComboBox;
     btn_Test: TButton;
-    Button1: TButton;
-    Button2: TButton;
     procedure btn_SaveClick(Sender: TObject);
     procedure btn_TestClick(Sender: TObject);
-    procedure Button1Click(Sender: TObject);
-    procedure Button2Click(Sender: TObject);
   private
     { Private declarations }
   public
     { Public declarations }
     procedure prepare();
-    procedure print_receipt();
+    procedure PrintReceipt();
   end;
 
 implementation
@@ -37,6 +33,13 @@ implementation
 uses unt_Printer, unt_DeviceUtils;
 
 { Tfrm_Config }
+
+procedure Tfrm_Config.prepare;
+begin
+  BTDeviceList( cbBox_Printers.Items );
+
+  cbBox_Printers.ItemIndex := cbBox_Printers.Items.IndexOf( PRINTER_NAME );
+end;
 
 procedure Tfrm_Config.btn_SaveClick(Sender: TObject);
 var
@@ -66,40 +69,22 @@ begin
   end;
 end;
 
+//******************************************************************************
+
 procedure Tfrm_Config.btn_TestClick(Sender: TObject);
 begin
-  print_receipt();
+  PrintReceipt();
 end;
 
-procedure Tfrm_Config.Button1Click(Sender: TObject);
-begin
-  BTSendData(  EP_PRINT_LINE_FEED );
-
-end;
-
-procedure Tfrm_Config.Button2Click(Sender: TObject);
-begin
-   BTSendData(  EP_LF );
-end;
-
-procedure Tfrm_Config.prepare;
-begin
-  BTDeviceList( cbBox_Printers.Items );
-
-  cbBox_Printers.ItemIndex := cbBox_Printers.Items.IndexOf( PRINTER_NAME );
-end;
-
-procedure Tfrm_Config.print_receipt;
+procedure Tfrm_Config.PrintReceipt;
 var
-  xLineSeq, xLineObs, xLineDate, XLineValue, xLineMin : String;
+  _LineSeq, _LineObs, _LineDate, _LineValue, _LineMin : String;
 begin
-  xLineSeq   := '00' + '     ' + '1';
-  xLineDate  := 'Data  : '     + FormatDateTime( 'dd/MM/yyyy HH:mm', Now );
-  XLineValue := 'Valor : R$ '  +       IntToStr( 99         ) + ',00';
-  xLineMin   := 'Tempo : '     +       IntToStr( 35         ) + ' min';
-  xLineObs   := 'R$ 10,00 a cada 10 min excedente';
-
-
+  _LineSeq   := '00' + '     ' + '1';
+  _LineDate  := 'Data  : '     + FormatDateTime( 'dd/MM/yyyy HH:mm', Now );
+  _LineValue := 'Valor : R$ '  +       IntToStr( 99         ) + ',00';
+  _LineMin   := 'Tempo : '     +       IntToStr( 35         ) + ' min';
+  _LineObs   := 'R$ 10,00 a cada 10 min excedente';
 
   BTSendData( EP_INITIALIZE_PRINTER           );
   BTSendData( EP_SELECT_JUSTIFICATION_CENTER  );
@@ -113,7 +98,7 @@ begin
 
   BTSendData( EP_SELECT_PRINTER_MODE_ + CHR( EP_MODE_DOUBLE_WIDTH OR EP_MODE_DOUBLE_HEIGHT OR EP_MODE_EMPHASIZED ));
 //BTSendData( '01     G01' + EP_PRINT_RETURN_STANDARD_MODE + EP_PRINT  );
-  BTSendData( xLineSeq + EP_PRINT_RETURN_STANDARD_MODE + EP_PRINT  );
+  BTSendData( _LineSeq + EP_PRINT_RETURN_STANDARD_MODE + EP_PRINT  );
 
   BTSendData( EP_SELECT_PRINTER_MODE_ + CHR( EP_MODE_STANDARD   ));
   BTSendData( EP_SELECT_JUSTIFICATION_LEFT  );
@@ -122,18 +107,16 @@ begin
 //BTSendData( 'Data  : 01/01/2019 13:00' + EP_PRINT );
 //BTSendData( 'Valor : R$ 30,00'         + EP_PRINT );
 //BTSendData( 'Tempo : 30 min'           + EP_PRINT );
-  BTSendData( xLineDate  + EP_PRINT );
-  BTSendData( XLineValue + EP_PRINT );
-  BTSendData( xLineMin   + EP_PRINT );
+  BTSendData( _LineDate  + EP_PRINT );
+  BTSendData( _LineValue + EP_PRINT );
+  BTSendData( _LineMin   + EP_PRINT );
   BTSendData( EP_LF );
 
   BTSendData( EP_SELECT_JUSTIFICATION_CENTER  );
 //BTSendData( 'R$ 10,00 a cada 10 min excedente' + EP_PRINT );
-  BTSendData( xLineObs + EP_PRINT );
+  BTSendData( _LineObs + EP_PRINT );
 
   BTSendData(  EP_LF + EP_LF + EP_LF + EP_LF + EP_LF + EP_LF );
-
-
 end;
 
 

@@ -2,7 +2,7 @@ object frm_Main: Tfrm_Main
   Left = 0
   Top = 0
   Caption = 'Pedalinhos'
-  ClientHeight = 640
+  ClientHeight = 613
   ClientWidth = 360
   Fill.Kind = Solid
   FormFactor.Width = 320
@@ -103,9 +103,9 @@ object frm_Main: Tfrm_Main
       4C000D000A00}
   end
   object layout_Main: TLayout
-    Align = Contents
+    Align = Client
     Size.Width = 360.000000000000000000
-    Size.Height = 640.000000000000000000
+    Size.Height = 613.000000000000000000
     Size.PlatformDefault = False
     TabOrder = 12
     object toolBar: TToolBar
@@ -426,7 +426,7 @@ object frm_Main: Tfrm_Main
     object layout_Content: TLayout
       Align = Client
       Size.Width = 360.000000000000000000
-      Size.Height = 592.000000000000000000
+      Size.Height = 565.000000000000000000
       Size.PlatformDefault = False
       TabOrder = 9
     end
@@ -438,12 +438,13 @@ object frm_Main: Tfrm_Main
       Size.Width = 250.000000000000000000
       Size.Height = 50.000000000000000000
       Size.PlatformDefault = False
+      Visible = False
       TabOrder = 11
       object lstBox_Menu: TListBox
         Align = Client
         Margins.Right = -1.000000000000000000
         Size.Width = 251.000000000000000000
-        Size.Height = 423.000000000000000000
+        Size.Height = 0.000000000000000000
         Size.PlatformDefault = False
         TabOrder = 0
         DisableFocusEffect = True
@@ -452,8 +453,8 @@ object frm_Main: Tfrm_Main
         DefaultItemStyles.GroupHeaderStyle = ''
         DefaultItemStyles.GroupFooterStyle = ''
         OnItemClick = lstBox_MenuItemClick
-        Viewport.Width = 247.000000000000000000
-        Viewport.Height = 419.000000000000000000
+        Viewport.Width = 231.000000000000000000
+        Viewport.Height = 0.000000000000000000
         object menu_BoatTitle: TListBoxGroupHeader
           Selectable = False
           TextSettings.Font.Family = 'Segoe UI Emoji'
@@ -465,7 +466,7 @@ object frm_Main: Tfrm_Main
           Margins.Left = -2.000000000000000000
           Margins.Right = -2.000000000000000000
           Position.X = -2.000000000000000000
-          Size.Width = 251.000000000000000000
+          Size.Width = 235.000000000000000000
           Size.Height = 30.000000000000000000
           Size.PlatformDefault = False
           TabOrder = 0
@@ -479,7 +480,7 @@ object frm_Main: Tfrm_Main
           StyledSettings = [FontColor, Other]
           ImageIndex = 10
           Position.Y = 30.000000000000000000
-          Size.Width = 247.000000000000000000
+          Size.Width = 231.000000000000000000
           Size.Height = 40.000000000000000000
           Size.PlatformDefault = False
           TabOrder = 1
@@ -492,7 +493,7 @@ object frm_Main: Tfrm_Main
           StyledSettings = [FontColor, Other]
           ImageIndex = 1
           Position.Y = 70.000000000000000000
-          Size.Width = 247.000000000000000000
+          Size.Width = 231.000000000000000000
           Size.Height = 40.000000000000000000
           Size.PlatformDefault = False
           TabOrder = 2
@@ -510,7 +511,7 @@ object frm_Main: Tfrm_Main
           Margins.Right = -2.000000000000000000
           Position.X = -2.000000000000000000
           Position.Y = 110.000000000000000000
-          Size.Width = 251.000000000000000000
+          Size.Width = 235.000000000000000000
           Size.Height = 30.000000000000000000
           Size.PlatformDefault = False
           TabOrder = 3
@@ -524,7 +525,7 @@ object frm_Main: Tfrm_Main
           StyledSettings = [FontColor, Other]
           ImageIndex = 2
           Position.Y = 140.000000000000000000
-          Size.Width = 247.000000000000000000
+          Size.Width = 231.000000000000000000
           Size.Height = 40.000000000000000000
           Size.PlatformDefault = False
           TabOrder = 4
@@ -538,7 +539,7 @@ object frm_Main: Tfrm_Main
           StyledSettings = [FontColor, Other]
           ImageIndex = 9
           Position.Y = 180.000000000000000000
-          Size.Width = 247.000000000000000000
+          Size.Width = 231.000000000000000000
           Size.Height = 44.000000000000000000
           Size.PlatformDefault = False
           TabOrder = 5
@@ -551,7 +552,7 @@ object frm_Main: Tfrm_Main
           StyledSettings = [Family, FontColor, Other]
           ImageIndex = 16
           Position.Y = 224.000000000000000000
-          Size.Width = 247.000000000000000000
+          Size.Width = 231.000000000000000000
           Size.Height = 44.000000000000000000
           Size.PlatformDefault = False
           TabOrder = 6
@@ -564,7 +565,7 @@ object frm_Main: Tfrm_Main
           StyledSettings = [Family, FontColor, Other]
           ImageIndex = 18
           Position.Y = 268.000000000000000000
-          Size.Width = 247.000000000000000000
+          Size.Width = 231.000000000000000000
           Size.Height = 44.000000000000000000
           Size.PlatformDefault = False
           TabOrder = 7
@@ -590,7 +591,7 @@ object frm_Main: Tfrm_Main
         Margins.Left = -1.000000000000000000
         Margins.Right = -1.000000000000000000
         Position.X = -1.000000000000000000
-        Position.Y = 544.000000000000000000
+        Position.Y = 2.000000000000000000
         Size.Width = 252.000000000000000000
         Size.Height = 48.000000000000000000
         Size.PlatformDefault = False
@@ -755,7 +756,7 @@ object frm_Main: Tfrm_Main
     Padding.Right = 10.000000000000000000
     Padding.Bottom = 10.000000000000000000
     Position.X = -186.000000000000000000
-    Position.Y = 377.000000000000000000
+    Position.Y = 350.000000000000000000
     Size.Width = 320.000000000000000000
     Size.Height = 81.000000000000000000
     Size.PlatformDefault = False

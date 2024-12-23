@@ -12,7 +12,7 @@ object frm_Report: Tfrm_Report
     Size.Height = 644.000000000000000000
     Size.PlatformDefault = False
     TabHeight = 49.000000000000000000
-    TabIndex = 0
+    TabIndex = 1
     TabOrder = 0
     TabPosition = None
     Sizes = (
@@ -28,7 +28,7 @@ object frm_Report: Tfrm_Report
       TextSettings.Font.Size = 16.000000000000000000
       TextSettings.Trimming = None
       StyledSettings = [Family, Style, FontColor]
-      IsSelected = True
+      IsSelected = False
       Size.Width = 8.000000000000000000
       Size.Height = 8.000000000000000000
       Size.PlatformDefault = False
@@ -133,6 +133,56 @@ object frm_Report: Tfrm_Report
           Opacity = 0.600000023841857900
           ShadowColor = claBlack
         end
+        object btn_DatePrevious: TSpeedButton
+          Align = Left
+          Padding.Top = 5.000000000000000000
+          Padding.Bottom = 5.000000000000000000
+          Margins.Left = 10.000000000000000000
+          Margins.Right = 10.000000000000000000
+          Position.X = 10.000000000000000000
+          Size.Width = 40.000000000000000000
+          Size.Height = 40.000000000000000000
+          Size.PlatformDefault = False
+          StyleLookup = 'priortoolbutton'
+          Text = 'Go to tabItem_List'
+          TextSettings.Trimming = None
+          TouchTargetExpansion.Left = 12.000000000000000000
+          TouchTargetExpansion.Top = 12.000000000000000000
+          TouchTargetExpansion.Right = 12.000000000000000000
+          TouchTargetExpansion.Bottom = 12.000000000000000000
+          OnClick = btn_DatePreviousClick
+        end
+        object btn_DateNext: TSpeedButton
+          Align = Right
+          Padding.Top = 5.000000000000000000
+          Padding.Bottom = 5.000000000000000000
+          Margins.Left = 10.000000000000000000
+          Margins.Right = 10.000000000000000000
+          Position.X = 327.000000000000000000
+          Size.Width = 40.000000000000000000
+          Size.Height = 40.000000000000000000
+          Size.PlatformDefault = False
+          StyleLookup = 'nexttoolbutton'
+          Text = 'Go to tabItem_List'
+          TextSettings.Trimming = None
+          TouchTargetExpansion.Left = 12.000000000000000000
+          TouchTargetExpansion.Top = 12.000000000000000000
+          TouchTargetExpansion.Right = 12.000000000000000000
+          TouchTargetExpansion.Bottom = 12.000000000000000000
+          OnClick = btn_DateNextClick
+        end
+        object lbl_Date: TLabel
+          Align = Client
+          StyledSettings = [Family, FontColor]
+          Size.Width = 257.000000000000000000
+          Size.Height = 40.000000000000000000
+          Size.PlatformDefault = False
+          TextSettings.Font.Size = 22.000000000000000000
+          TextSettings.Font.StyleExt = {00070000000000000004000000}
+          TextSettings.HorzAlign = Center
+          Text = 'dd/mm/aaaa'
+          TabOrder = 0
+        end
       end
     end
     object tabItem_Detail: TTabItem
@@ -144,7 +194,7 @@ object frm_Report: Tfrm_Report
       TextSettings.Trimming = None
       StyledSettings = [Family, Style, FontColor]
       HitTest = False
-      IsSelected = False
+      IsSelected = True
       Size.Width = 8.000000000000000000
       Size.Height = 8.000000000000000000
       Size.PlatformDefault = False
@@ -182,6 +232,7 @@ object frm_Report: Tfrm_Report
           TouchTargetExpansion.Top = 12.000000000000000000
           TouchTargetExpansion.Right = 12.000000000000000000
           TouchTargetExpansion.Bottom = 12.000000000000000000
+          OnClick = btn_CancelFinishClick
         end
       end
       object edt_Number: TEdit

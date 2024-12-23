@@ -154,25 +154,25 @@ end;
 
 procedure Tfrm_Login.FrameResize(Sender: TObject);
 var
-  i : Single;
+  _tmp : Single;
 begin
 //   --- Change the Login layout depends on device orientation (Logo/Form)
   if (Width > Height) then                                                          // If it is portrait
     begin
       if (layout_Login.Width < layout_Login.Height) then                            // Resize to move form below to logo
         begin
-          i := layout_Login.Width;
-          layout_Login.Width := layout_Login.Height;
-          layout_Login.Height := i;
+          _tmp := layout_Login.Width;
+          layout_Login.Width  := layout_Login.Height;
+          layout_Login.Height := _tmp;
         end;
     end
   else                                                                              // If it is Landscape
     begin
       if (layout_Login.Height < layout_Login.Width) then                            // Resize to move form next to logo
         begin
-          i := layout_Login.Width;
-          layout_Login.Width := layout_Login.Height;
-          layout_Login.Height := i;
+          _tmp := layout_Login.Width;
+          layout_Login.Width  := layout_Login.Height;
+          layout_Login.Height := _tmp;
         end;
     end;
 

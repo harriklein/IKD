@@ -19,12 +19,12 @@ type
     procedure ballon_TimerTimer(Sender: TObject);
   private
     { Private declarations }
-    procedure ballonShow(argMsg: string);
+    procedure ballonShow(AMsg: string);
   public
     { Public declarations }
   end;
 
-  procedure ShowAlert(argTxt: String);
+  procedure ShowAlert(ATxt: String);
   procedure HideAlert();
 
 var
@@ -37,12 +37,12 @@ implementation
 
 uses ufrm_Main;
 
-procedure Tfrm_Message.ballonShow(argMsg: string);
+procedure Tfrm_Message.ballonShow(AMsg: string);
 begin
-  ballon_Message.Text   := argMsg;
-  Self.Position.Y     := frm_Main.Height;
-  Self.Position.X     := 15;
-  Self.Width          := frm_Main.Width - 45;
+  ballon_Message.Text   := AMsg;
+  Self.Position.Y       := frm_Main.Height;
+  Self.Position.X       := 15;
+  Self.Width            := frm_Main.Width - 45;
   ballon.Visible        := True;
   ballon_ani.StopValue  := Self.Position.Y - 180;
   ballon_ani.Start;
@@ -53,7 +53,7 @@ end;
 procedure Tfrm_Message.ballon_TimerTimer(Sender: TObject);
 begin
   ballon_timer.Enabled := False;
-  Self.Visible := False;
+  Self.Visible         := False;
 end;
 
 
@@ -62,14 +62,13 @@ begin
   Self.Visible := False;
 end;
 
-procedure ShowAlert(argTxt: String);
+procedure ShowAlert(ATxt: String);
 begin
   HideAlert();
 
   frm_Message := Tfrm_Message.Create(frm_Main);
   frm_Message.Parent := frm_Main;
-  frm_Message.ballonShow(argTxt);
-
+  frm_Message.ballonShow(ATxt);
 end;
 
 
@@ -80,8 +79,6 @@ begin
        frm_Message.Free;
        frm_Message := nil;
     end;
-
-
 end;
 
 

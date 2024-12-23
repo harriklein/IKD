@@ -25,12 +25,17 @@ type
     edt_Number: TEdit;
     lbl_Number: TLabel;
     btn_CancelFinish: TSpeedButton;
-    procedure btn_CancelClick(Sender: TObject);
+    btn_DatePrevious: TSpeedButton;
+    btn_DateNext: TSpeedButton;
+    lbl_Date: TLabel;
     procedure lst_RentalPullRefresh(Sender: TObject);
     procedure lst_RentalItemClick(const Sender: TObject; const AItem: TListViewItem);
+    procedure btn_DatePreviousClick(Sender: TObject);
+    procedure btn_DateNextClick(Sender: TObject);
+    procedure btn_CancelFinishClick(Sender: TObject);
   private
     { Private declarations }
-    // BASIC HANDLE
+    FDate                    : TDate;
     FApplyUpdatesErrorMessage: String;
     FGetErrorMessage         : String;
   public
@@ -39,7 +44,7 @@ type
     procedure Prepare;
     procedure ApplyUpdates;
     procedure ApplyUpdateTerminated(Sender: TObject);
-    procedure Refresh;
+    procedure Refresh(ADate: TDate);
     procedure RefreshTerminated(Sender: TObject);
   end;
 
@@ -64,9 +69,7 @@ uses udm_Main, ufrm_Main, ufrm_Waiting;
 procedure Tfrm_Report.Prepare;       // Call it before open the frame
 begin
   tabCtrl_List.ActiveTab := tabItem_List;
-                                    // Load from file is important
-  dm_Main.tb_Rental.LoadFromFile(); // to check for pending updates from the previous offline mode
-  Refresh;                          // or if we are currently in offline mode
+  Refresh(Now);
 end;
 
 procedure Tfrm_Report.ApplyUpdates;
@@ -78,7 +81,7 @@ begin
   if frm_Main.Sync = ssOffline then
     begin
       dm_Main.tb_Rental.SaveToFile;
-      Refresh;
+      Refresh(FDate);
       Exit;
     end;
 
@@ -89,32 +92,34 @@ begin
 
 end;
 
-procedure Tfrm_Report.Refresh;
+procedure Tfrm_Report.Refresh(ADate: TDate);
 var
-  Item : TListViewItem;
+  _Item : TListViewItem;
 begin
-  dm_Main.tb_Rental.Active := false;
+  FDate := ADate;
+
+  lbl_Date.Text := FormatDateTime('dd/mm/yyyy', FDate);
+
+  dm_Main.tb_Rental.Active   := false;
   dm_Main.tb_Rental.LoadFromFile();
-  dm_Main.tb_Rental.Active := true;
+  dm_Main.tb_Rental.Filtered := false;
+  dm_Main.tb_Rental.Filter   := 'RentedAt >= {d ' + (FormatDateTime('yyyy-mm-dd', FDate)) + '} AND RentedAt < {d ' + (FormatDateTime('yyyy-mm-dd', FDate + 1)) + '}';
+  dm_Main.tb_Rental.Filtered := true;
+  dm_Main.tb_Rental.Active   := true;
   dm_Main.tb_Rental.First;
 
   lst_Rental.Items.BeginUpdate;
   lst_Rental.Items.Clear;
   while not dm_Main.tb_Rental.Eof do
     begin
-      Item := lst_Rental.Items.Add;
-      Item.TagString := dm_Main.tb_Rental.FieldByName('id').AsString;
+      _Item := lst_Rental.Items.Add;
+      _Item.TagString := dm_Main.tb_Rental.FieldByName('id').AsString;
 
-
-      Item.Objects.FindDrawable('txtNumber'  ).Data := dm_Main.tb_Rental.FieldByName('Number').AsString;
-      Item.Objects.FindDrawable('txtDateTime').Data := dm_Main.tb_Rental.FieldByName('RentedAt'    ).AsString;
-      Item.Objects.FindDrawable('txtType'    ).Data := 'D';
-      Item.Objects.FindDrawable('txtTime'    ).Data := dm_Main.tb_Rental.FieldByName('PaymentMinutes'  ).AsString + ' min';
-      Item.Objects.FindDrawable('txtValue'   ).Data := 'R$ ' + dm_Main.tb_Rental.FieldByName('PaymentValue'    ).AsString + ',00';
-//      if dm_Main.tb_Rental.FieldByName('Active').AsBoolean then
-//        Item.Objects.FindDrawable('txtActive').Data := '🔵'
-//      else
-//        Item.Objects.FindDrawable('txtActive').Data := '⚫';
+      _Item.Objects.FindDrawable('txtNumber'  ).Data :=         dm_Main.tb_Rental.FieldByName('Number'          ).AsString;
+      _Item.Objects.FindDrawable('txtDateTime').Data :=         dm_Main.tb_Rental.FieldByName('RentedAt'        ).AsString;
+      _Item.Objects.FindDrawable('txtType'    ).Data := 'D';
+      _Item.Objects.FindDrawable('txtTime'    ).Data :=         dm_Main.tb_Rental.FieldByName('PaymentMinutes'  ).AsString + ' min';
+      _Item.Objects.FindDrawable('txtValue'   ).Data := 'R$ ' + dm_Main.tb_Rental.FieldByName('PaymentValue'    ).AsString + ',00';
 
       dm_Main.tb_Rental.Next;
     end;
@@ -145,9 +150,24 @@ end;
 //
 //------------------------------------------------------------------------------
 
+procedure Tfrm_Report.btn_CancelFinishClick(Sender: TObject);
+begin
+  tabCtrl_List.Previous;
+end;
+
+procedure Tfrm_Report.btn_DateNextClick(Sender: TObject);
+begin
+  Refresh(FDate+1);
+end;
+
+procedure Tfrm_Report.btn_DatePreviousClick(Sender: TObject);
+begin
+  Refresh(FDate-1);
+end;
+
 procedure Tfrm_Report.lst_RentalPullRefresh(Sender: TObject);
 begin
-  Refresh;
+  Refresh(FDate);
 end;
 
 procedure Tfrm_Report.lst_RentalItemClick(const Sender: TObject; const AItem: TListViewItem);
@@ -173,11 +193,5 @@ end;
 //      Save
 //      Delete
 //------------------------------------------------------------------------------
-
-
-procedure Tfrm_Report.btn_CancelClick(Sender: TObject);
-begin
-  tabCtrl_List.Previous;
-end;
 
 end.

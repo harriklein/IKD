@@ -65,13 +65,13 @@ type
   private
     { Private declarations }
     FSync : TSyncStatus;
-    procedure SetSync(const argValue: TSyncStatus);
+    procedure SetSync(const AValue: TSyncStatus);
     procedure InitSync;
   public
     { Public declarations }
     property Sync : TSyncStatus read FSync write SetSync;
 
-    function  CreateEmbeddedFrame(argForm: TComponentClass): TFrame;
+    function  CreateEmbeddedFrame(AForm: TComponentClass): TFrame;
     procedure RemoveEmbeddedFrame;
   end;
 
@@ -108,11 +108,11 @@ end;
 // EMBEDDED FRAME
 //******************************************************************************
 
-function Tfrm_Main.CreateEmbeddedFrame(argForm: TComponentClass): TFrame;
+function Tfrm_Main.CreateEmbeddedFrame(AForm: TComponentClass): TFrame;
 begin
   RemoveEmbeddedFrame();
 
-  frm_Active        := TFrame(argForm.Create(frm_Main));
+  frm_Active        := TFrame(AForm.Create(frm_Main));
   frm_Active.Parent := layout_Content;
   lbl_Title.Text    := frm_Active.Hint;
 
@@ -138,10 +138,10 @@ begin
   Sync := ssOffline;  // Set the initial state, it is just to make sure.
 end;
 
-procedure Tfrm_Main.SetSync(const argValue: TSyncStatus);
+procedure Tfrm_Main.SetSync(const AValue: TSyncStatus);
 begin
-  FSync := argValue;
-  case argValue of
+  FSync := AValue;
+  case AValue of
     ssOffline       : begin
                         path_Offline.Visible     := True;
                         path_SyncOK.Visible      := False;
@@ -184,7 +184,7 @@ end;
 
 procedure Tfrm_Main.MultiViewHidden(Sender: TObject);
 begin
-    lstBox_Menu.ItemIndex := -1;
+  lstBox_Menu.ItemIndex := -1;
 end;
 
 procedure Tfrm_Main.btn_LogoutClick(Sender: TObject);
@@ -219,11 +219,11 @@ end;
 
 procedure Tfrm_Main.FormCreate(Sender: TObject);
 var
-  iniCFG : TIniFile;
+  _IniConfig: TIniFile;
 begin
 
   // Set the initial state, at the design enviroment it is better to keep it showing.
-  MultiView.Visible := false;
+  MultiView.Visible := False;
   MultiView.Mode    := TMultiViewMode.Drawer;
   MultiView.HideMaster;
   lbl_Title.Text    := Caption;
@@ -235,11 +235,11 @@ begin
   // User := TUser.Create;
 
   PRINTER_BLUETOOTH := Bluetooth;
-  iniCFG := TIniFile.Create(GetPath('KleinAppConfig.ini'));
+  _IniConfig := TIniFile.Create(GetPath('KleinAppConfig.ini'));
   try
-    PRINTER_NAME   := iniCFG.ReadString('CLIENT', 'Printer'  , '');
+    PRINTER_NAME   := _IniConfig.ReadString('CLIENT', 'Printer'  , '');
   finally
-    iniCFG.Free;
+    _IniConfig.Free;
   end;
 
   if BTConnectPrinter(PRINTER_NAME) then

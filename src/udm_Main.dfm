@@ -121,7 +121,6 @@ object dm_Main: Tdm_Main
     end
   end
   object tb_Rental: TFDMemTable
-    OnNewRecord = tb_RentalNewRecord
     FieldDefs = <>
     CachedUpdates = True
     IndexDefs = <>

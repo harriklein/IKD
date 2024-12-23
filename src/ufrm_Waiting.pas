@@ -43,7 +43,7 @@ procedure Waiting_Hide;
 begin
   if Assigned(frm_Waiting) then
     begin
-      frm_Waiting.DisposeOf;
+      frm_Waiting.Free;
       frm_Waiting := nil;
     end;
 end;

@@ -81,6 +81,29 @@ type
     Label10: TLabel;
     Rectangle2: TRectangle;
     Rectangle3: TRectangle;
+    tabItem_Config: TTabItem;
+    ToolBar2: TToolBar;
+    ShadowEffect2: TShadowEffect;
+    btn_ConfigBack: TSpeedButton;
+    lbl_SubTitleConfig: TLabel;
+    vScrollBox_Config: TVertScrollBox;
+    FlowLayout1: TFlowLayout;
+    Layout1: TLayout;
+    edt_ConfigMinutes: TNumberBox;
+    lbl_ConfigMinutes1: TLabel;
+    edt_ConfigValue: TNumberBox;
+    lbl_ConfigValue2: TLabel;
+    lbl_ConfigValue1: TLabel;
+    btn_ConfigSave: TButton;
+    lbl_ConfigMinutes: TLabel;
+    lbl_ConfigValue: TLabel;
+    edt_ConfigSizePortrait: TNumberBox;
+    lbl_ConfigSizePortrait: TLabel;
+    lbl_ConfigSizePortrait1: TLabel;
+    edt_ConfigSizeLandscape: TNumberBox;
+    lbl_ConfigSizeLandscape: TLabel;
+    lbl_ConfigSizeLandscape1: TLabel;
+    actTabChange_Config: TChangeTabAction;
     procedure layout_BoatsResized(Sender: TObject);
     procedure btn_ConfigClick(Sender: TObject);
     procedure timer_UpdateSizeTimer(Sender: TObject);
@@ -91,24 +114,21 @@ type
     procedure btn_CancelFinishClick(Sender: TObject);
     procedure btn_RefreshClick(Sender: TObject);
     procedure trackBar_RentStartMinutesChange(Sender: TObject);
-    procedure Label2Click(Sender: TObject);
     procedure switch_RentFinishChangeSwitch(Sender: TObject);
+    procedure btn_ConfigSaveClick(Sender: TObject);
   private
     { Private declarations }
+    FBoat                         : Tfrm_Boat;
+
     FBoatSizePortrait, FBoatSizeLandscape   : Integer;
     FBoatDefaultValue, FBoatDefaultMinutes  : Integer;
-    FBoat : Tfrm_Boat;
-    // BASIC HANDLER:
-//    FTableList                    : TObjectDictionary<String, TFDMemTable>;
-    FTable                        : TFDMemTable;
-//    FBoatsDataSetList             : TFDJSONDataSets;
+
     FBoatsApplyUpdatesErrorMessage: String;
     FBoatsGetErrorMessage         : String;
   public
     { Public declarations }
     // BASIC HANDLER: Prepare; ApplyUpdates; Refresh
     procedure Prepare;
-    procedure PrepareDestroy;
     procedure BoatsRentalApplyUpdates;
     procedure BoatsRentalApplyUpdatesTerminated(Sender: TObject);
     procedure BoatsRefresh;
@@ -117,8 +137,6 @@ type
     procedure RefreshGrid;
     procedure FixLayoutSize;
     procedure DoFixLayoutSize;
-    procedure SetupSize;
-
     procedure print_receipt;
     procedure BoatOnClick(Sender: TObject);
     procedure BoatOnTap(Sender: TObject; const Point: TPointF);
@@ -138,7 +156,8 @@ implementation
 
 {$R *.fmx}
 
-uses unt_DeviceUtils, unt_ResourceStrings,unt_Printer, ufrm_Waiting, udm_Main, ufrm_Boats, ufrm_Main;
+uses unt_DeviceUtils, unt_ResourceStrings,unt_Printer, ufrm_Waiting,
+  udm_Main, ufrm_Boats, ufrm_Main, unt_VSoftUUIDv7;
 
 //------------------------------------------------------------------------------
 // BASE HANDLE
@@ -149,52 +168,40 @@ uses unt_DeviceUtils, unt_ResourceStrings,unt_Printer, ufrm_Waiting, udm_Main, u
 
 procedure Tfrm_Rental.Prepare;
 var
-  iniCFG : TiniFile;
-  Table : TFDMemTable;
+  _IniConfig : TiniFile;
 begin
   tabCtrl_List.ActiveTab := tabItem_List;
 
-  iniCFG := TIniFile.Create(GetPath('IKDAppConfig.ini'));
+  _IniConfig := TIniFile.Create(GetPath('IKDAppConfig.ini'));
   try
-    FBoatSizePortrait   := iniCFG.ReadInteger('CLIENT', 'BoatSizePortrait'  , 100);
-    FBoatSizeLandscape  := iniCFG.ReadInteger('CLIENT', 'BoatSizeLandscape' , 100);
-    FBoatDefaultValue   := iniCFG.ReadInteger('CLIENT', 'BoatDefaultValue'  ,  30);
-    FBoatDefaultMinutes := iniCFG.ReadInteger('CLIENT', 'BoatDefaultMinutes',  30);
+    FBoatSizePortrait   := _IniConfig.ReadInteger('CLIENT', 'BoatSizePortrait'  , 100);
+    FBoatSizeLandscape  := _IniConfig.ReadInteger('CLIENT', 'BoatSizeLandscape' , 100);
+    FBoatDefaultValue   := _IniConfig.ReadInteger('CLIENT', 'BoatDefaultValue'  ,  30);
+    FBoatDefaultMinutes := _IniConfig.ReadInteger('CLIENT', 'BoatDefaultMinutes',  30);
   finally
-    iniCFG.Free;
+    _IniConfig.Free;
   end;
-
-
-//  FTableList := TObjectDictionary<String, TFDMemTable>.Create([]);
-//  FTableList.Clear;
-//  FTableList.Add('Boat'  , dm_Main.tb_Boat  );
-//  FTableList.Add('Rental', dm_Main.tb_Rental);
 
   dm_Main.tb_Boat.LoadFromFile();
   dm_Main.tb_Rental.LoadFromFile();
-//  for Table in FTableList.Values do
-//    Table.LoadFromFile();
 
-  BoatsRefresh;
+  BoatsRefresh();
 end;
 
 procedure Tfrm_Rental.BoatsRentalApplyUpdates;
 var
 //  ADeltaList: TFDJSONDeltas;
-  idx       : Integer;
+  _idx       : Integer;
 //  Table : TFDMemTable;
 begin
   if dm_Main.tb_Boat.State   in dsEditModes then dm_Main.tb_Boat.Post;
   if dm_Main.tb_Rental.State in dsEditModes then dm_Main.tb_Rental.Post;
-//  for Table in FTableList.Values do
-//    if Table.State   in dsEditModes then Table.Post;
 
   if frm_Main.Sync = ssOffline then
     begin
-      dm_Main.tb_Boat.SaveToFile;
-      dm_Main.tb_Rental.SaveToFile;
-//      for Table in FTableList.Values do
-//        Table.SaveToFile;
+      dm_Main.tb_Boat.SaveToFile();
+      dm_Main.tb_Rental.SaveToFile();
+
       Exit;
     end;
 
@@ -236,8 +243,8 @@ begin
 end;
 
 procedure Tfrm_Rental.BoatsRentalApplyUpdatesTerminated(Sender: TObject);
-var
-  Table: TFDMemTable;
+//var
+//  Table: TFDMemTable;
 begin
 //  try
 //    dm_Server.CloseSession;
@@ -346,11 +353,6 @@ begin
 //  end;
 end;
 
-procedure Tfrm_Rental.PrepareDestroy;
-begin
-
-end;
-
 //------------------------------------------------------------------------------
 // BASE HANDLE COOMPLEMENT REFRESH
 //    RefreshGrid
@@ -448,11 +450,6 @@ begin
   layout_Boats.OnResized := layout_BoatsResized;
 end;
 
-procedure Tfrm_Rental.Label2Click(Sender: TObject);
-begin
-
-end;
-
 //------------------------------------------------------------------------------
 // BUTTONS
 //      TabControl Changed -> Handle Buttons Visibility
@@ -464,7 +461,35 @@ end;
 
 procedure Tfrm_Rental.btn_ConfigClick(Sender: TObject);
 begin
-  SetupSize;
+  edt_ConfigValue.Value         := FBoatDefaultValue;
+  edt_ConfigMinutes.Value       := FBoatDefaultMinutes;
+  edt_ConfigSizePortrait.Value  := FBoatSizePortrait;
+  edt_ConfigSizeLandscape.Value := FBoatSizeLandscape;
+
+  actTabChange_Config.Execute;
+end;
+
+procedure Tfrm_Rental.btn_ConfigSaveClick(Sender: TObject);
+var
+  _IniConfig : TiniFile;
+begin
+  _IniConfig := TIniFile.Create(GetPath('IKDAppConfig.ini'));
+  try
+    FBoatDefaultValue   := Trunc(edt_ConfigValue.Value);
+    FBoatDefaultMinutes := Trunc(edt_ConfigMinutes.Value);
+    FBoatSizePortrait   := Trunc(edt_ConfigSizePortrait .Value);
+    FBoatSizeLandscape  := Trunc(edt_ConfigSizeLandscape .Value);
+    _IniConfig.WriteInteger ('CLIENT', 'BoatDefaultValue'  , FBoatDefaultValue   );
+    _IniConfig.WriteInteger ('CLIENT', 'BoatDefaultMinutes', FBoatDefaultMinutes );
+    _IniConfig.WriteInteger ('CLIENT', 'BoatSizePortrait'  , FBoatSizePortrait   );
+    _IniConfig.WriteInteger ('CLIENT', 'BoatSizeLandscape' , FBoatSizeLandscape  );
+  finally
+    _IniConfig.Free;
+  end;
+
+  DoFixLayoutSize;
+
+  actTabChange_List.Execute;
 end;
 
 procedure Tfrm_Rental.btn_RefreshClick(Sender: TObject);
@@ -484,7 +509,6 @@ begin
   actTabChange_List.Execute;
 end;
 
-
 procedure Tfrm_Rental.BoatOnTap(Sender: TObject; const Point: TPointF);
 begin
   BoatOnClick(Sender);
@@ -492,52 +516,48 @@ end;
 
 procedure Tfrm_Rental.BoatOnClick(Sender: TObject);
 var
-  Boat : Tfrm_Boat;
-  //Frm_Rental : Tfrm_Rental;
-  dateFinish  : TDateTime;
-  CalcMinutes, CalcValue : Integer;
+  _Boat : Tfrm_Boat;
+  _DateFinish  : TDateTime;
+  _CalcMinutes, _CalcValue : Integer;
 begin
-  Boat := TFrm_Boat(TRectangle(Sender).Parent);
-  if not Boat.FActive then Exit;
+  _Boat := TFrm_Boat(TRectangle(Sender).Parent);
+  if not _Boat.FActive then Exit;
 
-
-  //Frm_Rental := TFrm_Rental( Boat.Frm );
-
-  if not Boat.FRented then
+  if not _Boat.FRented then
     begin
       Timer.Enabled                   := False;
-      FBoat                           := Boat;
+      FBoat                           := _Boat;
       edit_RentStartMinutes.Value     := FBoatDefaultMinutes;
-      if Boat.FDefaultValue = 0 then
+      if _Boat.FDefaultValue = 0 then
         edit_RentStartValue.Value       := FBoatDefaultValue
       else
-        edit_RentStartValue.Value       := Boat.FDefaultValue;
-      trackBar_RentStartMinutes.Value := FBoatDefaultMinutes;
-      lbl_SubTitleStart.Text          := Boat.FNumber;
+        edit_RentStartValue.Value       := _Boat.FDefaultValue;
+      trackBar_RentStartMinutes.Value := 1;
+      lbl_SubTitleStart.Text          := _Boat.FNumber;
       cbBox_Payment.ItemIndex         := 0;
       actTabChange_Start.Execute;
     end
   else
     begin
       Timer.Enabled := False;
-      FBoat       := Boat;
-      dateFinish  := Now;
-      CalcMinutes := SecondsBetween( dateFinish, Boat.FRentedAt);
-      CalcValue   := CalcMinutes;
+      FBoat         := _Boat;
+      _DateFinish   := Now;
+      _CalcMinutes  := SecondsBetween( _DateFinish, _Boat.FRentedAt);
+      _CalcValue    := _CalcMinutes;
 
-      edit_RentFinishStartMinutes.Value    := Boat.FAdvancedPaymentMinutes;
-      edit_RentFinishStartValue.Value      := Boat.FAdvancedPaymentValue;
-      edit_RentFinishStartDate.Date     := Boat.FRentedAt;
-      edit_RentFinishStartHour.Time     := Boat.FRentedAt;
-      edit_RentFinishCalcMinutes.Value  := CalcMinutes;
-      edit_RentFinishCalcValue.Value    := CalcValue;
-      edit_RentFinishMinutes.Value      := Boat.FAdvancedPaymentMinutes;
-      edit_RentFinishValue.Value        := Boat.FAdvancedPaymentValue;
+      edit_RentFinishStartMinutes.Value := _Boat.FAdvancedPaymentMinutes;
+      edit_RentFinishStartValue.Value   := _Boat.FAdvancedPaymentValue;
+      edit_RentFinishStartDate.Date     := _Boat.FRentedAt;
+      edit_RentFinishStartHour.Time     := _Boat.FRentedAt;
+      edit_RentFinishCalcMinutes.Value  := _CalcMinutes;
+      edit_RentFinishCalcValue.Value    := _CalcValue;
+      edit_RentFinishMinutes.Value      := _Boat.FAdvancedPaymentMinutes;
+      edit_RentFinishValue.Value        := _Boat.FAdvancedPaymentValue;
       switch_RentFinishChange.IsChecked := False;
-      lbl_SubTitleFinish.Text           := Boat.FNumber;
+      lbl_SubTitleFinish.Text           := _Boat.FNumber;
       actTabChange_Finish.Execute;
     end;
-//  ShowMessage( Boat.lbl_Number.Text );
+
 end;
 
 //------------------------------------------------------------------------------
@@ -587,9 +607,15 @@ begin
 end;
 
 procedure Tfrm_Rental.trackBar_RentStartMinutesChange(Sender: TObject);
+var
+  _Value : Integer;
 begin
-  edit_RentStartMinutes.Value := trackBar_RentStartMinutes.Value;
-  edit_RentStartValue.Value   := trackBar_RentStartMinutes.Value;
+  if FBoat.FDefaultValue = 0 then
+    _Value       := FBoatDefaultValue
+  else
+    _Value       := FBoat.FDefaultValue;
+  edit_RentStartMinutes.Value := trackBar_RentStartMinutes.Value * FBoatDefaultMinutes;
+  edit_RentStartValue.Value   := trackBar_RentStartMinutes.Value * _Value;
 end;
 
 procedure Tfrm_Rental.btn_RentFinishClick(Sender: TObject);
@@ -613,7 +639,8 @@ begin
         // Add Rental Record
         dm_Main.tb_Rental.Open;
         dm_Main.tb_Rental.Append;
-        // dm_Main.tb_Rental.FieldByName('Boat_ID'               ).AsInteger  := FBoat.FID;
+        // dm_Main.tb_Rental.FieldByName('Boat_ID'            ).AsInteger  := FBoat.FID;
+        dm_Main.tb_Rental.FieldByName('id'                    ).AsGuid     := TUUIDv7Helper.CreateV7;
         dm_Main.tb_Rental.FieldByName('Number'                ).AsString   := FBoat.FNumber;
         dm_Main.tb_Rental.FieldByName('RentedAt'              ).AsDateTime := FBoat.FRentedAt;
         dm_Main.tb_Rental.FieldByName('RentFinishedAt'        ).AsDateTime := Now;
@@ -645,47 +672,6 @@ end;
 // GRID SETUP SIZE
 //------------------------------------------------------------------------------
 
-procedure Tfrm_Rental.SetupSize;
-var
-  strPrompts, strValues : array[0..3] of String;
-
-begin
-  strPrompts[0] := frm_Rental_dlg_SetupSize_DefValue;
-  strPrompts[1] := frm_Rental_dlg_SetupSize_DefMin;
-  strPrompts[2] := frm_Rental_dlg_SetupSize_Portrait;
-  strPrompts[3] := frm_Rental_dlg_SetupSize_Landscape;
-
-  strValues[0] := IntToStr(FBoatDefaultValue );
-  strValues[1] := IntToStr(FBoatDefaultMinutes);
-  strValues[2] := IntToStr(FBoatSizePortrait );
-  strValues[3] := IntToStr(FBoatSizeLandscape);
-
-  TDialogService.InputQuery ( frm_Rental_dlg_SetupSize_Title, strPrompts, strValues,
-                              procedure(const AResult: TModalResult; const AValues: array of string)
-                                var
-                                  iniCFG : TiniFile;
-                                begin
-                                  if AResult = mrOK then
-                                    begin
-                                      iniCFG := TIniFile.Create(GetPath('IKDAppConfig.ini'));
-                                      try
-                                        FBoatDefaultValue   := StrToIntDef(AValues[0],  30);
-                                        FBoatDefaultMinutes := StrToIntDef(AValues[1],  30);
-                                        FBoatSizePortrait   := StrToIntDef(AValues[2], 100);
-                                        FBoatSizeLandscape  := StrToIntDef(AValues[3], 100);
-                                        iniCFG.WriteInteger ('CLIENT', 'BoatDefaultValue'  , FBoatDefaultValue   );
-                                        iniCFG.WriteInteger ('CLIENT', 'BoatDefaultMinutes', FBoatDefaultMinutes );
-                                        iniCFG.WriteInteger ('CLIENT', 'BoatSizePortrait'  , FBoatSizePortrait   );
-                                        iniCFG.WriteInteger ('CLIENT', 'BoatSizeLandscape' , FBoatSizeLandscape  );
-                                      finally
-                                        iniCFG.Free;
-                                      end;
-                                    end;
-                                end
-                            );
-  DoFixLayoutSize;
-end;
-
 procedure Tfrm_Rental.switch_RentFinishChangeSwitch(Sender: TObject);
 begin
   edit_RentFinishMinutes.Enabled := switch_RentFinishChange.isChecked;
@@ -709,16 +695,16 @@ end;
 
 procedure Tfrm_Rental.print_receipt;
 var
-  xLineSeq, xLineObs, xLineDate, XLineValue, xLineMin : String;
+  _LineSeq, _LineObs, _LineDate, _LineValue, _LineMin : String;
 begin
 
   Exit;
 
-  xLineSeq   := '00' + '     ' + FBoat.FNumber;
-  xLineDate  := 'Data  : '     + FormatDateTime( 'dd/MM/yyyy HH:mm', FBoat.FRentedAt );
-  XLineValue := 'Valor : R$ '  +       IntToStr( FBoat.FAdvancedPaymentValue         ) + ',00';
-  xLineMin   := 'Tempo : '     +       IntToStr( FBoat.FAdvancedPaymentMinutes       ) + ' min';
-  xLineObs   := 'R$ 10,00 a cada 10 min excedente';
+  _LineSeq   := '00' + '     ' + FBoat.FNumber;
+  _LineDate  := 'Data  : '     + FormatDateTime( 'dd/MM/yyyy HH:mm', FBoat.FRentedAt );
+  _LineValue := 'Valor : R$ '  +       IntToStr( FBoat.FAdvancedPaymentValue         ) + ',00';
+  _LineMin   := 'Tempo : '     +       IntToStr( FBoat.FAdvancedPaymentMinutes       ) + ' min';
+  _LineObs   := 'R$ 10,00 a cada 10 min excedente';
 
 
 
@@ -734,7 +720,7 @@ begin
 
   BTSendData( EP_SELECT_PRINTER_MODE_ + CHR( EP_MODE_DOUBLE_WIDTH OR EP_MODE_DOUBLE_HEIGHT OR EP_MODE_EMPHASIZED ));
 //BTSendData( '01     G01' + EP_PRINT_RETURN_STANDARD_MODE + EP_PRINT  );
-  BTSendData( xLineSeq + EP_PRINT_RETURN_STANDARD_MODE + EP_PRINT  );
+  BTSendData( _LineSeq + EP_PRINT_RETURN_STANDARD_MODE + EP_PRINT  );
 
   BTSendData( EP_SELECT_PRINTER_MODE_ + CHR( EP_MODE_STANDARD   ));
   BTSendData( EP_SELECT_JUSTIFICATION_LEFT  );
@@ -743,14 +729,14 @@ begin
 //BTSendData( 'Data  : 01/01/2019 13:00' + EP_PRINT );
 //BTSendData( 'Valor : R$ 30,00'         + EP_PRINT );
 //BTSendData( 'Tempo : 30 min'           + EP_PRINT );
-  BTSendData( xLineDate  + EP_PRINT );
-  BTSendData( XLineValue + EP_PRINT );
-  BTSendData( xLineMin   + EP_PRINT );
+  BTSendData( _LineDate  + EP_PRINT );
+  BTSendData( _LineValue + EP_PRINT );
+  BTSendData( _LineMin   + EP_PRINT );
   BTSendData( EP_LF );
 
   BTSendData( EP_SELECT_JUSTIFICATION_CENTER  );
 //BTSendData( 'R$ 10,00 a cada 10 min excedente' + EP_PRINT );
-  BTSendData( xLineObs + EP_PRINT );
+  BTSendData( _LineObs + EP_PRINT );
 
   BTSendData(  EP_LF + EP_LF + EP_LF + EP_LF + EP_LF + EP_PRINT );
 end;
@@ -761,15 +747,14 @@ end;
 
 procedure Tfrm_Rental.TimerTimer(Sender: TObject);
 var
-  I : Integer;
-  xDate : TDatetime;
-
+  _Idx  : integer;
+  _Date : TDatetime;
 begin
   layout_Boats.BeginUpdate;
-  xDate := Now;
-  for I := 0 to layout_Boats.Controls.Count - 1 do
+  _Date := Now;
+  for _Idx := 0 to layout_Boats.Controls.Count - 1 do
     begin
-      TFrm_Boat(layout_Boats.Controls.Items[I]).Update( xDate );
+      TFrm_Boat(layout_Boats.Controls.Items[_Idx]).Update(_Date);
     end;
   layout_Boats.EndUpdate;
 end;
