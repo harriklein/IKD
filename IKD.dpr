@@ -25,6 +25,7 @@ begin
   {$IFDEF DEBUG}
   ReportMemoryLeaksOnShutdown := True;
   {$ENDIF}
+  Application.Title := 'Pedalinhos Klein';
   Application.Initialize;
   Application.CreateForm(Tfrm_Main, frm_Main);
   Application.CreateForm(Tdm_Main, dm_Main);

@@ -1,6 +1,6 @@
 object frm_Boats: Tfrm_Boats
   Align = Client
-  Hint = 'Boats'
+  Hint = 'Pedalinhos'
   Size.Width = 377.000000000000000000
   Size.Height = 613.000000000000000000
   Size.PlatformDefault = False
@@ -344,15 +344,6 @@ object frm_Boats: Tfrm_Boats
           OnClick = btn_DeleteClick
         end
       end
-      object VertScrollBox1: TVertScrollBox
-        Align = Client
-        Size.Width = 377.000000000000000000
-        Size.Height = 573.000000000000000000
-        Size.PlatformDefault = False
-        TabOrder = 2
-        Viewport.Width = 377.000000000000000000
-        Viewport.Height = 573.000000000000000000
-      end
       object vScrollBox_Config: TVertScrollBox
         Align = Client
         Size.Width = 377.000000000000000000
@@ -361,7 +352,7 @@ object frm_Boats: Tfrm_Boats
         TabOrder = 1
         Viewport.Width = 377.000000000000000000
         Viewport.Height = 573.000000000000000000
-        object FlowLayout1: TFlowLayout
+        object layoutFlow_Config: TFlowLayout
           Align = Top
           Margins.Top = 50.000000000000000000
           Position.Y = 50.000000000000000000
@@ -372,7 +363,7 @@ object frm_Boats: Tfrm_Boats
           Justify = Center
           JustifyLastLine = Center
           FlowDirection = LeftToRight
-          object Layout1: TLayout
+          object layout_Config: TLayout
             Align = Center
             Size.Width = 320.000000000000000000
             Size.Height = 388.000000000000000000
@@ -380,30 +371,29 @@ object frm_Boats: Tfrm_Boats
             TabOrder = 0
             object switch_Active: TSwitch
               IsChecked = False
-              Position.X = 202.000000000000000000
-              Position.Y = 63.000000000000000000
-              TabOrder = 1
+              Position.X = 24.000000000000000000
+              Position.Y = 47.000000000000000000
+              TabOrder = 0
               object lbl_Active: TLabel
                 StyledSettings = [Family, FontColor]
-                Position.X = 6.000000000000000000
-                Position.Y = -22.000000000000000000
+                Position.Y = -25.000000000000000000
                 Size.Width = 99.000000000000000000
                 Size.Height = 17.000000000000000000
                 Size.PlatformDefault = False
                 TextSettings.Font.Size = 20.000000000000000000
                 TextSettings.Font.StyleExt = {00070000000000000004000000}
-                Text = 'Active'
+                Text = 'Ativo:'
                 TabOrder = 4
               end
             end
             object edt_Number: TEdit
               Touch.InteractiveGestures = [LongTap, DoubleTap]
               Anchors = [akLeft, akTop, akRight]
-              TabOrder = 0
+              TabOrder = 1
               MaxLength = 3
               TextSettings.Font.Size = 18.000000000000000000
-              Position.X = 24.000000000000000000
-              Position.Y = 63.000000000000000000
+              Position.X = 22.000000000000000000
+              Position.Y = 111.000000000000000000
               Size.Width = 137.000000000000000000
               Size.Height = 30.000000000000000000
               Size.PlatformDefault = False
@@ -416,78 +406,21 @@ object frm_Boats: Tfrm_Boats
                 TextSettings.Font.Size = 20.000000000000000000
                 TextSettings.Font.StyleExt = {00070000000000000004000000}
                 TextSettings.WordWrap = False
-                Text = 'Number'
-                TabOrder = 0
-              end
-            end
-            object edt_DefaultValue: TNumberBox
-              Touch.InteractiveGestures = [LongTap, DoubleTap]
-              TabOrder = 2
-              Cursor = crIBeam
-              DecimalDigits = 0
-              Max = 100000.000000000000000000
-              TextSettings.Font.Size = 22.000000000000000000
-              TextSettings.Font.StyleExt = {00070000000000000004000000}
-              TextSettings.HorzAlign = Center
-              TextSettings.VertAlign = Trailing
-              Position.X = 56.000000000000000000
-              Position.Y = 146.000000000000000000
-              HorzIncrement = 0.000000000000000000
-              VertIncrement = 0.000000000000000000
-              Size.Width = 105.000000000000000000
-              Size.Height = 32.000000000000000000
-              Size.PlatformDefault = False
-              StyledSettings = [FontColor]
-              KillFocusByReturn = True
-              object lbl_DefaultValue: TLabel
-                StyledSettings = [Family, FontColor]
-                Position.X = -34.000000000000000000
-                Position.Y = -25.000000000000000000
-                Size.Width = 235.000000000000000000
-                Size.Height = 17.000000000000000000
-                Size.PlatformDefault = False
-                TextSettings.Font.Size = 20.000000000000000000
-                TextSettings.Font.StyleExt = {00070000000000000004000000}
-                TextSettings.WordWrap = False
-                Text = 'Default Value'
-                TabOrder = 2
-              end
-              object lbl_DefaultValueDec: TLabel
-                StyledSettings = [Family, FontColor]
-                Position.X = 112.000000000000000000
-                Size.Width = 49.000000000000000000
-                Size.Height = 25.000000000000000000
-                Size.PlatformDefault = False
-                TextSettings.Font.Size = 20.000000000000000000
-                TextSettings.Font.StyleExt = {00070000000000000004000000}
-                TextSettings.WordWrap = False
-                Text = ',00'
-                TabOrder = 1
-              end
-              object lbl_DefaultValueRS: TLabel
-                StyledSettings = [Family, FontColor]
-                Position.X = -34.000000000000000000
-                Size.Width = 35.000000000000000000
-                Size.Height = 24.000000000000000000
-                Size.PlatformDefault = False
-                TextSettings.Font.Size = 20.000000000000000000
-                TextSettings.Font.StyleExt = {00070000000000000004000000}
-                TextSettings.WordWrap = False
-                Text = 'R$'
+                Text = 'N'#250'mero:'
                 TabOrder = 0
               end
             end
             object edt_Color: TColorComboBox
               DropDownKind = Custom
-              Color = claNull
+              Color = claWhite
               DisableFocusEffect = False
-              ItemIndex = 147
+              ItemIndex = 143
               Position.X = 22.000000000000000000
-              Position.Y = 219.000000000000000000
+              Position.Y = 323.000000000000000000
               Size.Width = 273.000000000000000000
               Size.Height = 33.000000000000000000
               Size.PlatformDefault = False
-              TabOrder = 3
+              TabOrder = 4
               object lbl_Color: TLabel
                 StyledSettings = [Family, FontColor]
                 Position.Y = -33.000000000000000000
@@ -497,8 +430,107 @@ object frm_Boats: Tfrm_Boats
                 TextSettings.Font.Size = 20.000000000000000000
                 TextSettings.Font.StyleExt = {00070000000000000004000000}
                 TextSettings.WordWrap = False
-                Text = 'Color'
+                Text = 'Cor:'
                 TabOrder = 0
+              end
+            end
+            object edt_DefaultMinutes: TEdit
+              Touch.InteractiveGestures = [LongTap, DoubleTap]
+              TabOrder = 2
+              AutoSelect = True
+              KeyboardType = NumberPad
+              MaxLength = 5
+              FilterChar = '0123456789'
+              TextSettings.Font.Size = 22.000000000000000000
+              TextSettings.Font.StyleExt = {00070000000000000004000000}
+              TextSettings.HorzAlign = Trailing
+              Position.X = 63.000000000000000000
+              Position.Y = 181.000000000000000000
+              Size.Width = 81.000000000000000000
+              Size.Height = 32.000000000000000000
+              Size.PlatformDefault = False
+              TextPrompt = '0'
+              StyledSettings = [Family, FontColor]
+              object lbl_DefaultMinutesT: TLabel
+                StyledSettings = []
+                Position.X = -41.000000000000000000
+                Position.Y = -32.000000000000000000
+                Size.Width = 178.000000000000000000
+                Size.Height = 31.000000000000000000
+                Size.PlatformDefault = False
+                TextSettings.Font.Size = 22.000000000000000000
+                TextSettings.Font.StyleExt = {00070000000000000004000000}
+                TextSettings.FontColor = xFF212529
+                Text = 'Tempo Padr'#227'o:'
+                TabOrder = 1
+              end
+              object lbl_DefaultMinutesC: TLabel
+                StyledSettings = []
+                Position.X = 84.000000000000000000
+                Size.Width = 57.000000000000000000
+                Size.Height = 32.000000000000000000
+                Size.PlatformDefault = False
+                TextSettings.Font.Size = 22.000000000000000000
+                TextSettings.Font.StyleExt = {00070000000000000004000000}
+                TextSettings.FontColor = xFF495057
+                Text = 'min.'
+                TabOrder = 8
+              end
+            end
+            object edt_DefaultValue: TEdit
+              Touch.InteractiveGestures = [LongTap, DoubleTap]
+              TabOrder = 3
+              AutoSelect = True
+              KeyboardType = NumberPad
+              MaxLength = 5
+              FilterChar = '0123456789'
+              TextSettings.Font.Size = 22.000000000000000000
+              TextSettings.Font.StyleExt = {00070000000000000004000000}
+              TextSettings.HorzAlign = Trailing
+              Position.X = 61.000000000000000000
+              Position.Y = 250.000000000000000000
+              Size.Width = 82.000000000000000000
+              Size.Height = 32.000000000000000000
+              Size.PlatformDefault = False
+              TextPrompt = '0'
+              StyledSettings = [Family, FontColor]
+              object lbl_DefaultValueT: TLabel
+                StyledSettings = []
+                Position.X = -37.000000000000000000
+                Position.Y = -29.000000000000000000
+                Size.Width = 138.000000000000000000
+                Size.Height = 31.000000000000000000
+                Size.PlatformDefault = False
+                TextSettings.Font.Size = 22.000000000000000000
+                TextSettings.Font.StyleExt = {00070000000000000004000000}
+                TextSettings.FontColor = xFF212529
+                Text = 'Valor Padr'#227'o:'
+                TabOrder = 1
+              end
+              object lbl_DefaultValueC: TLabel
+                StyledSettings = []
+                Position.X = 88.000000000000000000
+                Size.Width = 42.000000000000000000
+                Size.Height = 32.000000000000000000
+                Size.PlatformDefault = False
+                TextSettings.Font.Size = 22.000000000000000000
+                TextSettings.Font.StyleExt = {00070000000000000004000000}
+                TextSettings.FontColor = xFF495057
+                Text = ',00'
+                TabOrder = 9
+              end
+              object lbl_DefaultValueR: TLabel
+                StyledSettings = []
+                Position.X = -37.000000000000000000
+                Position.Y = 2.000000000000000000
+                Size.Width = 36.000000000000000000
+                Size.Height = 32.000000000000000000
+                Size.PlatformDefault = False
+                TextSettings.Font.Size = 22.000000000000000000
+                TextSettings.Font.StyleExt = {00070000000000000004000000}
+                TextSettings.FontColor = xFF495057
+                Text = 'R$'
+                TabOrder = 5
               end
             end
           end

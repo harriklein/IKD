@@ -208,7 +208,7 @@ object frm_Login: Tfrm_Login
               Size.PlatformDefault = False
               TextSettings.Font.Size = 22.000000000000000000
               TextSettings.Font.StyleExt = {00070000000000000004000000}
-              Text = 'Username :'
+              Text = 'Usu'#225'rio :'
             end
             object lbl_Password: TLabel
               Align = Top
@@ -220,7 +220,7 @@ object frm_Login: Tfrm_Login
               Size.PlatformDefault = False
               TextSettings.Font.Size = 22.000000000000000000
               TextSettings.Font.StyleExt = {00070000000000000004000000}
-              Text = 'Password :'
+              Text = 'Senha :'
             end
             object btn_Login: TButton
               Default = True
@@ -231,7 +231,7 @@ object frm_Login: Tfrm_Login
               Size.Height = 45.000000000000000000
               Size.PlatformDefault = False
               TabOrder = 2
-              Text = 'Login'
+              Text = 'Entrar'
               TextSettings.Font.Size = 22.000000000000000000
               TextSettings.Font.StyleExt = {00070000000000000004000000}
               TextSettings.Trimming = None
@@ -303,7 +303,7 @@ object frm_Login: Tfrm_Login
           TextSettings.Font.StyleExt = {00070000000000000004000000}
           TextSettings.HorzAlign = Center
           TextSettings.WordWrap = False
-          Text = 'INFORMATION'
+          Text = 'Informa'#231#227'o do Dispositivo'
           TabOrder = 0
         end
         object mmo_Information: TMemo

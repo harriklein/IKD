@@ -10,7 +10,7 @@ uses
   FMX.Controls.Presentation, FMX.ListView, FMX.TabControl, System.Rtti, System.Bindings.Outputs,
   Fmx.Bind.Editors, Data.Bind.EngExt, Fmx.Bind.DBEngExt, Data.Bind.Components, Data.Bind.DBScope,
   System.Actions, FMX.ActnList, FMX.ListBox, FMX.Colors, FMX.EditBox,
-  FMX.NumberBox;
+  FMX.NumberBox, FMX.DateTimeCtrls, FMX.Layouts;
 
 type
   Tfrm_Report = class(TFrame)
@@ -22,12 +22,46 @@ type
     tabItem_Detail: TTabItem;
     toolBar_Detail: TToolBar;
     shadow_Detail: TShadowEffect;
-    edt_Number: TEdit;
-    lbl_Number: TLabel;
     btn_CancelFinish: TSpeedButton;
     btn_DatePrevious: TSpeedButton;
     btn_DateNext: TSpeedButton;
     lbl_Date: TLabel;
+    vScroll_RentFinish: TVertScrollBox;
+    layout_RentFinish: TFlowLayout;
+    Layout1: TLayout;
+    lbl_ID: TLabel;
+    Label12: TLabel;
+    lbl_Number: TLabel;
+    Rectangle1: TRectangle;
+    layout_RentFinish1: TLayout;
+    edt_RentFinishStartHour: TTimeEdit;
+    edt_RentFinishStartDate: TDateEdit;
+    edt_RentFinishStartMinutes: TNumberBox;
+    Label1: TLabel;
+    edt_RentFinishStartValue: TNumberBox;
+    Label2: TLabel;
+    Label3: TLabel;
+    lbl_Start: TLabel;
+    Rectangle2: TRectangle;
+    layout_RentFinish2: TLayout;
+    edt_RentFinishCalcMinutes: TNumberBox;
+    Label4: TLabel;
+    Label5: TLabel;
+    edt_RentFinishCalcValue: TNumberBox;
+    Label6: TLabel;
+    lbl_Calculation: TLabel;
+    Rectangle3: TRectangle;
+    layout_RentFinish3: TLayout;
+    edt_RentFinishMinutes: TNumberBox;
+    Label7: TLabel;
+    Label8: TLabel;
+    edt_RentFinishValue: TNumberBox;
+    Label9: TLabel;
+    lbl_Finish: TLabel;
+    switch_RentFinishChange: TSwitch;
+    Label10: TLabel;
+    lbl_PaymentType: TLabel;
+    lbl_PaymentTypeValue: TLabel;
     procedure lst_RentalPullRefresh(Sender: TObject);
     procedure lst_RentalItemClick(const Sender: TObject; const AItem: TListViewItem);
     procedure btn_DatePreviousClick(Sender: TObject);
@@ -57,7 +91,7 @@ implementation
 
 {$R *.fmx}
 
-uses udm_Main, ufrm_Main, ufrm_Waiting;
+uses udm_Main, ufrm_Main, ufrm_Waiting, ufrm_Boat;
 
 //------------------------------------------------------------------------------
 // BASE HANDLE
@@ -94,7 +128,7 @@ end;
 
 procedure Tfrm_Report.Refresh(ADate: TDate);
 var
-  _Item : TListViewItem;
+  LItem : TListViewItem;
 begin
   FDate := ADate;
 
@@ -112,14 +146,14 @@ begin
   lst_Rental.Items.Clear;
   while not dm_Main.tb_Rental.Eof do
     begin
-      _Item := lst_Rental.Items.Add;
-      _Item.TagString := dm_Main.tb_Rental.FieldByName('id').AsString;
+      LItem := lst_Rental.Items.Add;
+      LItem.TagString := dm_Main.tb_Rental.FieldByName('id').AsString;
 
-      _Item.Objects.FindDrawable('txtNumber'  ).Data :=         dm_Main.tb_Rental.FieldByName('Number'          ).AsString;
-      _Item.Objects.FindDrawable('txtDateTime').Data :=         dm_Main.tb_Rental.FieldByName('RentedAt'        ).AsString;
-      _Item.Objects.FindDrawable('txtType'    ).Data := 'D';
-      _Item.Objects.FindDrawable('txtTime'    ).Data :=         dm_Main.tb_Rental.FieldByName('PaymentMinutes'  ).AsString + ' min';
-      _Item.Objects.FindDrawable('txtValue'   ).Data := 'R$ ' + dm_Main.tb_Rental.FieldByName('PaymentValue'    ).AsString + ',00';
+      LItem.Objects.FindDrawable('txtNumber'  ).Data :=                         dm_Main.tb_Rental.FieldByName('Number'    ).AsString;
+      LItem.Objects.FindDrawable('txtDateTime').Data :=                         dm_Main.tb_Rental.FieldByName('RentedAt'  ).AsString;
+      LItem.Objects.FindDrawable('txtType'    ).Data := PaymentMethod_EN_to_PT3(dm_Main.tb_Rental.FieldByName('PayMethod' ).AsString);
+      LItem.Objects.FindDrawable('txtTime'    ).Data :=                         dm_Main.tb_Rental.FieldByName('PayMinutes').AsString + ' min.';
+      LItem.Objects.FindDrawable('txtValue'   ).Data :=                 'R$ ' + dm_Main.tb_Rental.FieldByName('PayValue'  ).AsString + ',00';
 
       dm_Main.tb_Rental.Next;
     end;
@@ -177,10 +211,20 @@ begin
       Exit;
     end;
 
-  edt_Number.Text         :=             dm_Main.tb_Rental.FieldByName('id'      ).AsString;
-//  switch_Active.IsChecked :=             dm_Main.tb_Rental.FieldByName('Active'      ).AsBoolean;
-//  edt_Color.Color         := TAlphaColor(dm_Main.tb_Rental.FieldByName('Color'       ).AsLongWord);
-//  edt_DefaultValue.Text   :=             dm_Main.tb_Rental.FieldByName('DefaultValue').AsString;
+  lbl_ID.Text                       := dm_Main.tb_Rental.FieldByName('id'                      ).AsString;
+  lbl_Number.Text                   := dm_Main.tb_Rental.FieldByName('Number'                  ).AsString;
+  edt_RentFinishStartDate.Date      := dm_Main.tb_Rental.FieldByName('RentedAt'                ).AsDateTime;
+  edt_RentFinishStartHour.Date      := dm_Main.tb_Rental.FieldByName('RentedAt'                ).AsDateTime;
+  edt_RentFinishStartMinutes.Value  := dm_Main.tb_Rental.FieldByName('AdvancedPaymentMinutes'  ).AsInteger;
+  edt_RentFinishStartValue.Value    := dm_Main.tb_Rental.FieldByName('AdvancedPaymentValue'    ).AsInteger;
+  edt_RentFinishCalcMinutes.Value   := dm_Main.tb_Rental.FieldByName('CalculedPaymentMinutes'  ).AsInteger;
+  edt_RentFinishCalcValue.Value     := dm_Main.tb_Rental.FieldByName('CalculedPaymentValue'    ).AsInteger;
+  edt_RentFinishMinutes.Value       := dm_Main.tb_Rental.FieldByName('PaymentMinutes'          ).AsInteger;
+  edt_RentFinishValue.Value         := dm_Main.tb_Rental.FieldByName('PaymentValue'            ).AsInteger;
+
+  lbl_PaymentTypeValue.Text         := PaymentMethod_EN_to_PT(dm_Main.tb_Rental.FieldByName('AdvancedPaymentType'    ).AsString);
+
+  switch_RentFinishChange.IsChecked := dm_Main.tb_Rental.FieldByName('PaymentChanged'          ).AsBoolean;
 
   tabCtrl_List.Next;
 end;

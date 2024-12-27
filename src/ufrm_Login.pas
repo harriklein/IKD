@@ -90,6 +90,7 @@ begin
       frm_Login := Tfrm_Login.Create(frm_Main);
       with frm_Login do
         begin
+          tabCtrl_Login.TabIndex := 0;
           Parent := frm_Main;
 
           // Retrieve the Local App & Device information, and expose it
@@ -154,25 +155,25 @@ end;
 
 procedure Tfrm_Login.FrameResize(Sender: TObject);
 var
-  _tmp : Single;
+  LTmp : Single;
 begin
 //   --- Change the Login layout depends on device orientation (Logo/Form)
   if (Width > Height) then                                                          // If it is portrait
     begin
       if (layout_Login.Width < layout_Login.Height) then                            // Resize to move form below to logo
         begin
-          _tmp := layout_Login.Width;
+          LTmp := layout_Login.Width;
           layout_Login.Width  := layout_Login.Height;
-          layout_Login.Height := _tmp;
+          layout_Login.Height := LTmp;
         end;
     end
   else                                                                              // If it is Landscape
     begin
       if (layout_Login.Height < layout_Login.Width) then                            // Resize to move form next to logo
         begin
-          _tmp := layout_Login.Width;
+          LTmp := layout_Login.Width;
           layout_Login.Width  := layout_Login.Height;
-          layout_Login.Height := _tmp;
+          layout_Login.Height := LTmp;
         end;
     end;
 

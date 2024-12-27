@@ -10,13 +10,13 @@ uses
 type
   Tfrm_Message = class(TFrame)
     ballon: TRectangle;
-    ShadowEffect1: TShadowEffect;
-    ballon_Message: TLabel;
-    ballon_ani: TFloatAnimation;
-    ballon_Close: TSpeedButton;
-    ballon_Timer: TTimer;
+    ShadowEffect_Ballon: TShadowEffect;
+    lbl_Message: TLabel;
+    aniFloat_Ballon: TFloatAnimation;
+    btn_Close: TSpeedButton;
+    timer_Timeout: TTimer;
     procedure ballonClick(Sender: TObject);
-    procedure ballon_TimerTimer(Sender: TObject);
+    procedure timer_TimeoutTimer(Sender: TObject);
   private
     { Private declarations }
     procedure ballonShow(AMsg: string);
@@ -39,20 +39,20 @@ uses ufrm_Main;
 
 procedure Tfrm_Message.ballonShow(AMsg: string);
 begin
-  ballon_Message.Text   := AMsg;
+  lbl_Message.Text   := AMsg;
   Self.Position.Y       := frm_Main.Height;
   Self.Position.X       := 15;
   Self.Width            := frm_Main.Width - 45;
   ballon.Visible        := True;
-  ballon_ani.StopValue  := Self.Position.Y - 180;
-  ballon_ani.Start;
-  ballon_timer.Interval := 5000;
-  ballon_timer.Enabled  := True;
+  aniFloat_Ballon.StopValue  := Self.Position.Y - 180;
+  aniFloat_Ballon.Start;
+  timer_Timeout.Interval := 5000;
+  timer_Timeout.Enabled  := True;
 end;
 
-procedure Tfrm_Message.ballon_TimerTimer(Sender: TObject);
+procedure Tfrm_Message.timer_TimeoutTimer(Sender: TObject);
 begin
-  ballon_timer.Enabled := False;
+  timer_Timeout.Enabled := False;
   Self.Visible         := False;
 end;
 

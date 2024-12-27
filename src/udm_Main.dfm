@@ -107,17 +107,43 @@ object dm_Main: Tdm_Main
     object tb_BoatDefaultValue: TLongWordField
       FieldName = 'DefaultValue'
     end
+    object tb_BoatDefaultMinutes: TIntegerField
+      FieldName = 'DefaultMinutes'
+    end
     object tb_BoatRented: TBooleanField
       FieldName = 'Rented'
     end
     object tb_BoatRentedAt: TDateTimeField
       FieldName = 'RentedAt'
     end
-    object tb_BoatAdvancedPaymentValue: TLongWordField
-      FieldName = 'AdvancedPaymentValue'
+    object tb_BoatStartPayMinutes: TLongWordField
+      FieldName = 'StartPayMinutes'
     end
-    object tb_BoatAdvancedPaymentMinutes: TLongWordField
-      FieldName = 'AdvancedPaymentMinutes'
+    object tb_BoatStartPayValue: TLongWordField
+      FieldName = 'StartPayValue'
+    end
+    object tb_BoatStartPayMethod: TStringField
+      FieldName = 'StartPayMethod'
+      Size = 50
+    end
+    object tb_BoatStartPayValueCash: TLongWordField
+      FieldName = 'StartPayValueCash'
+    end
+    object tb_BoatStartPayValueCard: TLongWordField
+      FieldName = 'StartPayValueCard'
+    end
+    object tb_BoatStartPayValuePix: TLongWordField
+      FieldName = 'StartPayValuePix'
+    end
+    object tb_BoatStartPayValueOther: TLongWordField
+      FieldName = 'StartPayValueOther'
+    end
+    object tb_BoatStartPayValueDiscount: TLongWordField
+      FieldName = 'StartPayValueDiscount'
+    end
+    object tb_BoatStartObs: TStringField
+      FieldName = 'StartObs'
+      Size = 2000
     end
   end
   object tb_Rental: TFDMemTable
@@ -143,8 +169,10 @@ object dm_Main: Tdm_Main
       Required = True
       Size = 38
     end
-    object tb_RentalBoat_id: TLongWordField
-      FieldName = 'Boat_id'
+    object tb_RentalNumber: TStringField
+      FieldName = 'Number'
+      ProviderFlags = []
+      Size = 3
     end
     object tb_RentalRentedAt: TDateTimeField
       FieldName = 'RentedAt'
@@ -157,6 +185,10 @@ object dm_Main: Tdm_Main
     end
     object tb_RentalAdvancedPaymentMinutes: TLongWordField
       FieldName = 'AdvancedPaymentMinutes'
+    end
+    object tb_RentalAdvancedPaymentType: TStringField
+      FieldName = 'AdvancedPaymentType'
+      Size = 50
     end
     object tb_RentalCalculedPaymentValue: TLongWordField
       FieldName = 'CalculedPaymentValue'
@@ -172,11 +204,6 @@ object dm_Main: Tdm_Main
     end
     object tb_RentalPaymentMinutes: TLongWordField
       FieldName = 'PaymentMinutes'
-    end
-    object tb_RentalNumber: TStringField
-      FieldName = 'Number'
-      ProviderFlags = []
-      Size = 3
     end
     object tb_RentalTotal: TAggregateField
       FieldName = 'Total'

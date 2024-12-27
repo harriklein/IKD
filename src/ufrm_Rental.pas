@@ -8,7 +8,8 @@ uses
   Data.DB, FMX.DialogService, FireDAC.Comp.DataSet,
   FMX.Layouts, FMX.Edit, FMX.Effects, FMX.Controls.Presentation, FMX.TabControl, System.IniFiles,
   ufrm_Boat, System.Actions, FMX.ActnList, FMX.DateTimeCtrls, FMX.EditBox, FMX.NumberBox, System.DateUtils,
-  FMX.ListBox, FMX.ScrollBox, FMX.Memo, System.Generics.Collections, FireDAC.Comp.Client;
+  FMX.ListBox, FMX.ScrollBox, FMX.Memo, System.Generics.Collections, FireDAC.Comp.Client,
+  FMX.Memo.Types;
 
 type
   Tfrm_Rental = class(TFrame)
@@ -19,55 +20,47 @@ type
     btn_Config: TSpeedButton;
     path_Add: TPath;
     tabItem_Start: TTabItem;
-    toolBar_Detail: TToolBar;
+    toolBar_Start: TToolBar;
     shadow_Detail: TShadowEffect;
     btn_Cancel: TSpeedButton;
     layout_Boats: TGridLayout;
     VertScrollBox1: TVertScrollBox;
     timer_UpdateSize: TTimer;
     tabItem_Finish: TTabItem;
-    vScroll_RentStart: TVertScrollBox;
-    layout_RentStart: TFlowLayout;
-    layout_RentStart1: TLayout;
-    trackBar_RentStartMinutes: TTrackBar;
-    edit_RentStartMinutes: TNumberBox;
-    lbl_RentStartMinutesMin: TLabel;
-    edit_RentStartValue: TNumberBox;
-    lbl_RentStartValueCurrency: TLabel;
-    lbl_RentStartValueCents: TLabel;
-    btn_RentStart: TButton;
+    vScroll_Start: TVertScrollBox;
+    layout_Start: TFlowLayout;
+    layout_Start2: TLayout;
+    btn_Start: TButton;
     ToolBar1: TToolBar;
     ShadowEffect1: TShadowEffect;
     btn_CancelFinish: TSpeedButton;
     vScroll_RentFinish: TVertScrollBox;
     layout_RentFinish: TFlowLayout;
     layout_RentFinish1: TLayout;
-    edit_RentFinishStartHour: TTimeEdit;
-    edit_RentFinishStartDate: TDateEdit;
-    edit_RentFinishStartMinutes: TNumberBox;
+    edt_RentFinishStartHour: TTimeEdit;
+    edt_RentFinishStartDate: TDateEdit;
+    edt_RentFinishStartMinutes: TNumberBox;
     Label1: TLabel;
-    edit_RentFinishStartValue: TNumberBox;
+    edt_RentFinishStartValue: TNumberBox;
     Label2: TLabel;
     Label3: TLabel;
     lbl_Start: TLabel;
     layout_RentFinish2: TLayout;
-    edit_RentFinishCalcMinutes: TNumberBox;
+    edt_RentFinishCalcMinutes: TNumberBox;
     Label4: TLabel;
     Label5: TLabel;
-    edit_RentFinishCalcValue: TNumberBox;
+    edt_RentFinishCalcValue: TNumberBox;
     Label6: TLabel;
     lbl_Calculation: TLabel;
     layout_RentFinish3: TLayout;
     btn_RentFinish: TButton;
-    edit_RentFinishMinutes: TNumberBox;
+    edt_RentFinishMinutes: TNumberBox;
     Label7: TLabel;
     Label8: TLabel;
-    edit_RentFinishValue: TNumberBox;
+    edt_RentFinishValue: TNumberBox;
     Label9: TLabel;
     lbl_Finish: TLabel;
     switch_RentFinishChange: TSwitch;
-    rect_TitleRentFinishImage: TRectangle;
-    Rectangle1: TRectangle;
     ActionList: TActionList;
     actTabChange_Start: TChangeTabAction;
     actTabChange_Finish: TChangeTabAction;
@@ -76,8 +69,6 @@ type
     lbl_SubTitleFinish: TLabel;
     Timer: TTimer;
     btn_Refresh: TSpeedButton;
-    cbBox_Payment: TComboBox;
-    Edit1: TEdit;
     Label10: TLabel;
     Rectangle2: TRectangle;
     Rectangle3: TRectangle;
@@ -89,14 +80,7 @@ type
     vScrollBox_Config: TVertScrollBox;
     FlowLayout1: TFlowLayout;
     Layout1: TLayout;
-    edt_ConfigMinutes: TNumberBox;
-    lbl_ConfigMinutes1: TLabel;
-    edt_ConfigValue: TNumberBox;
-    lbl_ConfigValue2: TLabel;
-    lbl_ConfigValue1: TLabel;
     btn_ConfigSave: TButton;
-    lbl_ConfigMinutes: TLabel;
-    lbl_ConfigValue: TLabel;
     edt_ConfigSizePortrait: TNumberBox;
     lbl_ConfigSizePortrait: TLabel;
     lbl_ConfigSizePortrait1: TLabel;
@@ -104,28 +88,91 @@ type
     lbl_ConfigSizeLandscape: TLabel;
     lbl_ConfigSizeLandscape1: TLabel;
     actTabChange_Config: TChangeTabAction;
+    path_Boat1: TPath;
+    Path1: TPath;
+    lbl_PaymentType: TLabel;
+    lbl_PaymentTypeValue: TLabel;
+    actTabChange_MultiPay: TChangeTabAction;
+    edt_StartObs: TEdit;
+    switch_StartPayMulti: TSwitch;
+    lbl_StartPayMulti: TLabel;
+    radio_StartPayCard: TRadioButton;
+    lbl_StartPay: TLabel;
+    rect_StartSeparator1: TRectangle;
+    rect_StartPayCard: TRoundRect;
+    edt_StartPayCard: TEdit;
+    lbl_StartPayCardR: TLabel;
+    lbl_StartPayCardC: TLabel;
+    lbl_StartPayCardT: TLabel;
+    rect_StartPayCash: TRoundRect;
+    radio_StartPayCash: TRadioButton;
+    edt_StartPayCash: TEdit;
+    lbl_StartPayCashT: TLabel;
+    lbl_StartPayCashC: TLabel;
+    lbl_StartPayCashR: TLabel;
+    rect_StartPayPix: TRoundRect;
+    radio_StartPayPix: TRadioButton;
+    edt_StartPayPix: TEdit;
+    lbl_StartPayPixT: TLabel;
+    lbl_StartPayPixC: TLabel;
+    lbl_StartPayPixR: TLabel;
+    rect_StartPayOther: TRoundRect;
+    radio_StartPayOther: TRadioButton;
+    edt_StartPayOther: TEdit;
+    lbl_StartPayOtherT: TLabel;
+    lbl_StartPayOtherC: TLabel;
+    lbl_StartPayOtherR: TLabel;
+    rect_StartPayDiscount: TRoundRect;
+    radio_StartPayDiscount: TRadioButton;
+    edt_StartPayDiscount: TEdit;
+    lbl_StartPayDiscountT: TLabel;
+    lbl_StartPayDiscountC: TLabel;
+    lbl_StartPayDiscountR: TLabel;
+    edt_StartValue: TEdit;
+    lbl_StartValueT: TLabel;
+    lbl_StartValueC: TLabel;
+    lbl_StartValueR: TLabel;
+    edt_StartMinutes: TEdit;
+    lbl_StartMinutesT: TLabel;
+    lbl_StartMinutesC: TLabel;
+    rect_StartSeparator2: TRectangle;
     procedure layout_BoatsResized(Sender: TObject);
     procedure btn_ConfigClick(Sender: TObject);
     procedure timer_UpdateSizeTimer(Sender: TObject);
-    procedure btn_RentStartClick(Sender: TObject);
+    procedure btn_StartClick(Sender: TObject);
     procedure btn_RentFinishClick(Sender: TObject);
     procedure TimerTimer(Sender: TObject);
     procedure btn_CancelClick(Sender: TObject);
     procedure btn_CancelFinishClick(Sender: TObject);
     procedure btn_RefreshClick(Sender: TObject);
-    procedure trackBar_RentStartMinutesChange(Sender: TObject);
     procedure switch_RentFinishChangeSwitch(Sender: TObject);
     procedure btn_ConfigSaveClick(Sender: TObject);
+    procedure tabItem_FinishClick(Sender: TObject);
+    procedure switch_StartPayMultiSwitch(Sender: TObject);
+    procedure rect_StartPayPixClick(Sender: TObject);
+    procedure edt_StartMinutesChange(Sender: TObject);
+    procedure radio_StartPayChange(Sender: TObject);
+    procedure edt_StartPayDiscountChange(Sender: TObject);
+    procedure rect_StartPayOtherClick(Sender: TObject);
+    procedure rect_StartPayOtherTap(Sender: TObject; const Point: TPointF);
+    procedure rect_StartPayPixTap(Sender: TObject; const Point: TPointF);
+    procedure rect_StartPayDiscountClick(Sender: TObject);
+    procedure rect_StartPayDiscountTap(Sender: TObject; const Point: TPointF);
+    procedure rect_StartPayCashClick(Sender: TObject);
+    procedure rect_StartPayCashTap(Sender: TObject; const Point: TPointF);
+    procedure rect_StartPayCardClick(Sender: TObject);
+    procedure rect_StartPayCardTap(Sender: TObject; const Point: TPointF);
   private
     { Private declarations }
     FBoat                         : Tfrm_Boat;
 
     FBoatSizePortrait, FBoatSizeLandscape   : Integer;
-    FBoatDefaultValue, FBoatDefaultMinutes  : Integer;
 
     FBoatsApplyUpdatesErrorMessage: String;
     FBoatsGetErrorMessage         : String;
+
   public
+
     { Public declarations }
     // BASIC HANDLER: Prepare; ApplyUpdates; Refresh
     procedure Prepare;
@@ -137,15 +184,24 @@ type
     procedure RefreshGrid;
     procedure FixLayoutSize;
     procedure DoFixLayoutSize;
-    procedure print_receipt;
+    procedure PrintReceipt;
     procedure BoatOnClick(Sender: TObject);
     procedure BoatOnTap(Sender: TObject; const Point: TPointF);
+    procedure RentStart();
+    procedure ShowStartPaymentMethodMulti(AShow: Boolean);
+    function GetStartPaymentMethod(): String;
+    procedure UpdateStartValue();
+    function  CalculateStartValue(AMinutes: Integer; Discount: Integer = 0): Integer;
+
+    procedure FormVirtualKeyboardHidden(Sender: TObject;
+      KeyboardVisible: Boolean; const Bounds: TRect);
+    procedure FormVirtualKeyboardShown(Sender: TObject;
+      KeyboardVisible: Boolean; const Bounds: TRect);
+
   end;
 
 const
   frm_Rental_dlg_SetupSize_Title     = 'Ajustes';
-  frm_Rental_dlg_SetupSize_DefValue  = 'Padrão - Valor (R$)';
-  frm_Rental_dlg_SetupSize_DefMin    = 'Padrão - Minutos (min)';
   frm_Rental_dlg_SetupSize_Portrait  = 'Tamanho Posição Retrato (px)';
   frm_Rental_dlg_SetupSize_Landscape = 'Tamanho Posição Panorama (px)';
 
@@ -168,18 +224,18 @@ uses unt_DeviceUtils, unt_ResourceStrings,unt_Printer, ufrm_Waiting,
 
 procedure Tfrm_Rental.Prepare;
 var
-  _IniConfig : TiniFile;
+  LIniConfig : TiniFile;
 begin
-  tabCtrl_List.ActiveTab := tabItem_List;
 
-  _IniConfig := TIniFile.Create(GetPath('IKDAppConfig.ini'));
+  tabCtrl_List.ActiveTab := tabItem_List;
+//  GetPaymentTypeList(cbBox_Payment.Items);
+
+  LIniConfig := TIniFile.Create(GetPath('IKDAppConfig.ini'));
   try
-    FBoatSizePortrait   := _IniConfig.ReadInteger('CLIENT', 'BoatSizePortrait'  , 100);
-    FBoatSizeLandscape  := _IniConfig.ReadInteger('CLIENT', 'BoatSizeLandscape' , 100);
-    FBoatDefaultValue   := _IniConfig.ReadInteger('CLIENT', 'BoatDefaultValue'  ,  30);
-    FBoatDefaultMinutes := _IniConfig.ReadInteger('CLIENT', 'BoatDefaultMinutes',  30);
+    FBoatSizePortrait   := LIniConfig.ReadInteger('CLIENT', 'BoatSizePortrait'  , 100);
+    FBoatSizeLandscape  := LIniConfig.ReadInteger('CLIENT', 'BoatSizeLandscape' , 100);
   finally
-    _IniConfig.Free;
+    LIniConfig.Free;
   end;
 
   dm_Main.tb_Boat.LoadFromFile();
@@ -191,7 +247,7 @@ end;
 procedure Tfrm_Rental.BoatsRentalApplyUpdates;
 var
 //  ADeltaList: TFDJSONDeltas;
-  _idx       : Integer;
+  LIndex       : Integer;
 //  Table : TFDMemTable;
 begin
   if dm_Main.tb_Boat.State   in dsEditModes then dm_Main.tb_Boat.Post;
@@ -366,6 +422,16 @@ begin
   timer_UpdateSize.Enabled  := True;
 end;
 
+procedure Tfrm_Rental.edt_StartMinutesChange(Sender: TObject);
+begin
+  UpdateStartValue();
+end;
+
+procedure Tfrm_Rental.edt_StartPayDiscountChange(Sender: TObject);
+begin
+  UpdateStartValue();
+end;
+
 procedure Tfrm_Rental.timer_UpdateSizeTimer(Sender: TObject);
 begin
   timer_UpdateSize.Enabled := False;
@@ -387,14 +453,22 @@ begin
   while not dm_Main.tb_Boat.Eof do
     begin
       with Tfrm_Boat.Create ( layout_Boats, TFmxObject(Self)
-                            , dm_Main.tb_Boat.FieldByName('Number'                 ).AsString
-                            , dm_Main.tb_Boat.FieldByName('Active'                 ).AsBoolean
-                            , TAlphaColor(dm_Main.tb_Boat.FieldByName('Color'      ).AsLongWord)
-                            , dm_Main.tb_Boat.FieldByName('DefaultValue'           ).AsInteger
-                            , dm_Main.tb_Boat.FieldByName('Rented'                 ).AsBoolean
-                            , dm_Main.tb_Boat.FieldByName('RentedAt'               ).AsDateTime
-                            , dm_Main.tb_Boat.FieldByName('AdvancedPaymentValue'   ).AsInteger
-                            , dm_Main.tb_Boat.FieldByName('AdvancedPaymentMinutes' ).AsInteger
+                            ,             dm_Main.tb_Boat.FieldByName('Number'               ).AsString
+                            ,             dm_Main.tb_Boat.FieldByName('Active'               ).AsBoolean
+                            , TAlphaColor(dm_Main.tb_Boat.FieldByName('Color'                ).AsLongWord)
+                            ,             dm_Main.tb_Boat.FieldByName('DefaultMinutes'       ).AsInteger
+                            ,             dm_Main.tb_Boat.FieldByName('DefaultValue'         ).AsInteger
+                            ,             dm_Main.tb_Boat.FieldByName('Rented'               ).AsBoolean
+                            ,             dm_Main.tb_Boat.FieldByName('RentedAt'             ).AsDateTime
+                            ,             dm_Main.tb_Boat.FieldByName('StartPayMethod'       ).AsString
+                            ,             dm_Main.tb_Boat.FieldByName('StartPayMinutes'      ).AsInteger
+                            ,             dm_Main.tb_Boat.FieldByName('StartPayValue'        ).AsInteger
+                            ,             dm_Main.tb_Boat.FieldByName('StartPayValueCard'    ).AsInteger
+                            ,             dm_Main.tb_Boat.FieldByName('StartPayValueCash'    ).AsInteger
+                            ,             dm_Main.tb_Boat.FieldByName('StartPayValuePix'     ).AsInteger
+                            ,             dm_Main.tb_Boat.FieldByName('StartPayValueOther'   ).AsInteger
+                            ,             dm_Main.tb_Boat.FieldByName('StartPayValueDiscount').AsInteger
+                            ,             dm_Main.tb_Boat.FieldByName('StartObs'             ).AsString
       ) do
         begin
           {$IFDEF MSWINDOWS}
@@ -410,6 +484,170 @@ begin
 
   FixLayoutSize;
   layout_Boats.EndUpdate;
+end;
+
+procedure Tfrm_Rental.RentStart;
+var
+  LValueCalc, LValue: Integer;
+  LMessage: String;
+begin
+  // Check auto datetime config
+  if not getSettings_AutoTime then
+    begin
+      TDialogService.ShowMessage(msg_AutoTime_Off);
+      Exit;
+    end;
+
+  // Undefined Payment Method
+  if GetStartPaymentMethod() = '' then
+    begin
+      TDialogService.MessageDialog('Selecione uma forma de pagamento.', TMsgDlgType.mtError, [TMsgDlgBtn.mbOK], TMsgDlgBtn.mbOK, 0, nil);
+      Exit;
+    end;
+
+  // Check if the discount is greater than the calculated value and fix it if so.
+  if StrToIntDef(edt_StartPayDiscount.Text, 0) > CalculateStartValue(StrToIntDef(edt_StartMinutes.Text    , 0)) then
+    begin
+      edt_StartPayDiscount.Text := IntToStr(CalculateStartValue(StrToIntDef(edt_StartMinutes.Text    , 0)));
+    end;
+
+  // Check if it is a multi-payment, but there is a value only on the card payment method.
+  if not radio_StartPayCard.IsChecked and (StrToIntDef(edt_StartPayDiscount.Text, 0) = 0) and (StrToIntDef(edt_StartPayCard.Text, 0) = CalculateStartValue(StrToIntDef(edt_StartMinutes.Text    , 0))) then
+    begin
+      TDialogService.ShowMessage('Use a opção de Cartão para aplicar um pagamento único em cartão.');
+      Exit;
+    end;
+
+  // Check if it is a multi-payment, but there is a value only on the cash payment method.
+  if not radio_StartPayCash.IsChecked and (StrToIntDef(edt_StartPayDiscount.Text, 0) = 0) and  (StrToIntDef(edt_StartPayCash.Text, 0) = CalculateStartValue(StrToIntDef(edt_StartMinutes.Text    , 0))) then
+    begin
+      TDialogService.ShowMessage('Use a opção de Dinheiro para aplicar um pagamento único em dinheiro.');
+      Exit;
+    end;
+
+  // Check if it is a multi-payment, but there is a value only on the pix payment method.
+  if not radio_StartPayPix.IsChecked and (StrToIntDef(edt_StartPayDiscount.Text, 0) = 0) and  (StrToIntDef(edt_StartPayPix.Text, 0) = CalculateStartValue(StrToIntDef(edt_StartMinutes.Text    , 0))) then
+    begin
+      TDialogService.ShowMessage('Use a opção de Pix para aplicar um pagamento único com pix.');
+      Exit;
+    end;
+
+  // Check if it is a multi-payment, but there is a value only on the other payment method.
+  if not radio_StartPayOther.IsChecked and (StrToIntDef(edt_StartPayDiscount.Text, 0) = 0) and  (StrToIntDef(edt_StartPayOther.Text, 0) = CalculateStartValue(StrToIntDef(edt_StartMinutes.Text    , 0))) then
+    begin
+      TDialogService.ShowMessage('Use a opção de Outros para aplicar um pagamento único.');
+      Exit;
+    end;
+
+  // Check if it is a multi-payment, but there is a value only on the discount.
+  if not radio_StartPayDiscount.IsChecked and (StrToIntDef(edt_StartPayDiscount.Text, 0) = CalculateStartValue(StrToIntDef(edt_StartMinutes.Text    , 0))) then
+    begin
+      TDialogService.ShowMessage('Use a opção de Cortesia para aplicar um desconto de 100%.');
+      Exit;
+    end;
+
+  // Calculate and compare the value with the sum of the payment methods.
+  LValue     :=   StrToIntDef(edt_StartValue.Text      , 0);
+  LValueCalc := + StrToIntDef(edt_StartPayCard.Text    , 0)
+                + StrToIntDef(edt_StartPayCash.Text    , 0)
+                + StrToIntDef(edt_StartPayPix.Text     , 0)
+                + StrToIntDef(edt_StartPayOther.Text   , 0);
+
+  // It must match. Otherwise, there is a misinformation.
+  if LValue <> LValueCalc then
+    begin
+      LMessage := 'Soma dos valores no pagamento: '#$D#$A'R$ ' + IntToStr(LValueCalc) + ',00.'#$D#$A#$D#$A;
+      LMessage := LMessage + 'O total esperado deve ser de '#$D#$A'R$ ' + IntToStr(LValue) + ',00.'#$D#$A#$D#$A;
+      if LValue > LValueCalc then
+        LMessage := LMessage + 'Faltam R$ ' + IntToStr(LValue - LValueCalc) + ',00.'
+      else
+        LMessage := LMessage + 'Sobram R$ ' + IntToStr(LValueCalc - LValue) + ',00.';
+
+      TDialogService.ShowMessage(LMessage);
+      Exit;
+    end;
+
+//  // Debug  ----------------------------------------------------------
+//  TDialogService.ShowMessage(
+//                               GetStartPaymentMethod()   + #$A#$D +
+//                               edt_StartPayCard.Text     + #$A#$D +
+//                               edt_StartPayCash.Text     + #$A#$D +
+//                               edt_StartPayPix.Text      + #$A#$D +
+//                               edt_StartPayOther.Text    + #$A#$D +
+//                               edt_StartPayDiscount.Text + #$A#$D
+//                             );
+//  Exit;
+//  // -----------------------------------------------------------------
+
+  // We are good. So, find the current boat on the table and update it.
+  if dm_Main.tb_Boat.Locate('Number', FBoat.FNumber) then
+    begin
+
+        dm_Main.tb_Boat.Edit;
+        dm_Main.tb_Boat.FieldByName('Rented'               ).AsBoolean  := True;
+        dm_Main.tb_Boat.FieldByName('RentedAt'             ).AsDateTime := Now;
+        dm_Main.tb_Boat.FieldByName('StartPayMethod'       ).AsString   := GetStartPaymentMethod();
+        dm_Main.tb_Boat.FieldByName('StartPayMinutes'      ).AsInteger  := StrToIntDef(edt_StartMinutes.Text    , 0);
+        dm_Main.tb_Boat.FieldByName('StartPayValue'        ).AsInteger  := StrToIntDef(edt_StartValue.Text      , 0);
+        dm_Main.tb_Boat.FieldByName('StartPayValueCard'    ).AsInteger  := StrToIntDef(edt_StartPayCard.Text    , 0);
+        dm_Main.tb_Boat.FieldByName('StartPayValueCash'    ).AsInteger  := StrToIntDef(edt_StartPayCash.Text    , 0);
+        dm_Main.tb_Boat.FieldByName('StartPayValuePix'     ).AsInteger  := StrToIntDef(edt_StartPayPix.Text     , 0);
+        dm_Main.tb_Boat.FieldByName('StartPayValueOther'   ).AsInteger  := StrToIntDef(edt_StartPayOther.Text   , 0);
+        dm_Main.tb_Boat.FieldByName('StartPayValueDiscount').AsInteger  := StrToIntDef(edt_StartPayDiscount.Text, 0);
+        dm_Main.tb_Boat.FieldByName('StartObs'             ).AsString   := edt_StartObs.Text;
+        dm_Main.tb_Boat.Post;
+
+        FBoat.FRented                := dm_Main.tb_Boat.FieldByName('Rented'               ).AsBoolean;
+        FBoat.FRentedAt              := dm_Main.tb_Boat.FieldByName('RentedAt'             ).AsDateTime;
+        FBoat.FStartPayMethod        := dm_Main.tb_Boat.FieldByName('StartPayMethod'       ).AsString;
+        FBoat.FStartPayMinutes       := dm_Main.tb_Boat.FieldByName('StartPayMinutes'      ).AsInteger;
+        FBoat.FStartPayValue         := dm_Main.tb_Boat.FieldByName('StartPayValue'        ).AsInteger;
+        FBoat.FStartPayValueCard     := dm_Main.tb_Boat.FieldByName('StartPayValueCard'    ).AsInteger;
+        FBoat.FStartPayValueCash     := dm_Main.tb_Boat.FieldByName('StartPayValueCash'    ).AsInteger;
+        FBoat.FStartPayValuePix      := dm_Main.tb_Boat.FieldByName('StartPayValuePix'     ).AsInteger;
+        FBoat.FStartPayValueOther    := dm_Main.tb_Boat.FieldByName('StartPayValueOther'   ).AsInteger;
+        FBoat.FStartPayValueDiscount := dm_Main.tb_Boat.FieldByName('StartPayValueDiscount').AsInteger;
+        FBoat.FStartObs              := dm_Main.tb_Boat.FieldByName('StartObs'             ).AsString;
+
+        BoatsRentalApplyUpdates;
+        FBoat.Update( Now );
+
+        actTabChange_List.Execute;
+        Timer.Enabled := True;
+
+        PrintReceipt;
+    end;
+end;
+
+procedure Tfrm_Rental.ShowStartPaymentMethodMulti(AShow: Boolean);
+begin
+  BeginUpdate;
+
+  edt_StartPayCard.Visible     := AShow;
+  edt_StartPayCash.Visible     := AShow;
+  edt_StartPayPix.Visible      := AShow;
+  edt_StartPayOther.Visible    := AShow;
+  edt_StartPayDiscount.Visible := AShow;
+
+  radio_StartPayCard.Visible     := not AShow;
+  radio_StartPayCash.Visible     := not AShow;
+  radio_StartPayPix.Visible      := not AShow;
+  radio_StartPayOther.Visible    := not AShow;
+  radio_StartPayDiscount.Visible := not AShow;
+
+  edt_StartPayCard.Text     := '';
+  edt_StartPayCash.Text     := '';
+  edt_StartPayPix.Text      := '';
+  edt_StartPayOther.Text    := '';
+  edt_StartPayDiscount.Text := '';
+
+  radio_StartPayCard.IsChecked     := False;
+  radio_StartPayCash.IsChecked     := False;
+  radio_StartPayPix.IsChecked      := False;
+  radio_StartPayOther.IsChecked    := False;
+  radio_StartPayDiscount.IsChecked := False;
+
+  EndUpdate;
 end;
 
 procedure Tfrm_Rental.FixLayoutSize;
@@ -450,6 +688,22 @@ begin
   layout_Boats.OnResized := layout_BoatsResized;
 end;
 
+
+
+function Tfrm_Rental.GetStartPaymentMethod(): String;
+begin
+  if switch_StartPayMulti.IsChecked then
+    Result := PAYMENT_METHOD_MULTI
+  else
+    begin
+              if radio_StartPayCard.IsChecked     then Result := PAYMENT_METHOD_CARD
+         else if radio_StartPayCash.IsChecked     then Result := PAYMENT_METHOD_CASH
+         else if radio_StartPayPix.IsChecked      then Result := PAYMENT_METHOD_PIX
+         else if radio_StartPayOther.IsChecked    then Result := PAYMENT_METHOD_OTHER
+         else if radio_StartPayDiscount.IsChecked then Result := PAYMENT_METHOD_DISCOUNT
+    end;
+end;
+
 //------------------------------------------------------------------------------
 // BUTTONS
 //      TabControl Changed -> Handle Buttons Visibility
@@ -461,8 +715,6 @@ end;
 
 procedure Tfrm_Rental.btn_ConfigClick(Sender: TObject);
 begin
-  edt_ConfigValue.Value         := FBoatDefaultValue;
-  edt_ConfigMinutes.Value       := FBoatDefaultMinutes;
   edt_ConfigSizePortrait.Value  := FBoatSizePortrait;
   edt_ConfigSizeLandscape.Value := FBoatSizeLandscape;
 
@@ -471,20 +723,16 @@ end;
 
 procedure Tfrm_Rental.btn_ConfigSaveClick(Sender: TObject);
 var
-  _IniConfig : TiniFile;
+  LIniConfig : TiniFile;
 begin
-  _IniConfig := TIniFile.Create(GetPath('IKDAppConfig.ini'));
+  LIniConfig := TIniFile.Create(GetPath('IKDAppConfig.ini'));
   try
-    FBoatDefaultValue   := Trunc(edt_ConfigValue.Value);
-    FBoatDefaultMinutes := Trunc(edt_ConfigMinutes.Value);
     FBoatSizePortrait   := Trunc(edt_ConfigSizePortrait .Value);
     FBoatSizeLandscape  := Trunc(edt_ConfigSizeLandscape .Value);
-    _IniConfig.WriteInteger ('CLIENT', 'BoatDefaultValue'  , FBoatDefaultValue   );
-    _IniConfig.WriteInteger ('CLIENT', 'BoatDefaultMinutes', FBoatDefaultMinutes );
-    _IniConfig.WriteInteger ('CLIENT', 'BoatSizePortrait'  , FBoatSizePortrait   );
-    _IniConfig.WriteInteger ('CLIENT', 'BoatSizeLandscape' , FBoatSizeLandscape  );
+    LIniConfig.WriteInteger ('CLIENT', 'BoatSizePortrait'  , FBoatSizePortrait   );
+    LIniConfig.WriteInteger ('CLIENT', 'BoatSizeLandscape' , FBoatSizeLandscape  );
   finally
-    _IniConfig.Free;
+    LIniConfig.Free;
   end;
 
   DoFixLayoutSize;
@@ -516,45 +764,59 @@ end;
 
 procedure Tfrm_Rental.BoatOnClick(Sender: TObject);
 var
-  _Boat : Tfrm_Boat;
-  _DateFinish  : TDateTime;
-  _CalcMinutes, _CalcValue : Integer;
-begin
-  _Boat := TFrm_Boat(TRectangle(Sender).Parent);
-  if not _Boat.FActive then Exit;
+  LBoat : Tfrm_Boat;
+  LDateFinish  : TDateTime;
+  LCalcMinutes, LCalcValue : Integer;
 
-  if not _Boat.FRented then
+begin
+  LBoat := TFrm_Boat(TRectangle(Sender).Parent);
+
+  if not LBoat.FActive then Exit;
+
+  if not LBoat.FRented then
     begin
-      Timer.Enabled                   := False;
-      FBoat                           := _Boat;
-      edit_RentStartMinutes.Value     := FBoatDefaultMinutes;
-      if _Boat.FDefaultValue = 0 then
-        edit_RentStartValue.Value       := FBoatDefaultValue
-      else
-        edit_RentStartValue.Value       := _Boat.FDefaultValue;
-      trackBar_RentStartMinutes.Value := 1;
-      lbl_SubTitleStart.Text          := _Boat.FNumber;
-      cbBox_Payment.ItemIndex         := 0;
+      Timer.Enabled                    := False;
+      FBoat                            := LBoat;
+      lbl_SubTitleStart.Text           := LBoat.FNumber;
+      edt_StartMinutes.Text            := IntToStr(LBoat.FDefaultMinutes);
+      edt_StartValue.Text              := IntToStr(LBoat.FDefaultValue);
+      switch_StartPayMulti.IsChecked   := False;
+      edt_StartPayCard.Text            := '';
+      edt_StartPayCash.Text            := '';
+      edt_StartPayPix.Text             := '';
+      edt_StartPayOther.Text           := '';
+      edt_StartPayDiscount.Text        := '';
+      edt_StartObs.Text                := '';
+      radio_StartPayCard.IsChecked     := False;
+      radio_StartPayCash.IsChecked     := False;
+      radio_StartPayPix.IsChecked      := False;
+      radio_StartPayOther.IsChecked    := False;
+      radio_StartPayDiscount.IsChecked := False;
+
+      ShowStartPaymentMethodMulti(False);
+
+      edt_StartMinutes.SetFocus;
       actTabChange_Start.Execute;
     end
   else
     begin
       Timer.Enabled := False;
-      FBoat         := _Boat;
-      _DateFinish   := Now;
-      _CalcMinutes  := SecondsBetween( _DateFinish, _Boat.FRentedAt);
-      _CalcValue    := _CalcMinutes;
-
-      edit_RentFinishStartMinutes.Value := _Boat.FAdvancedPaymentMinutes;
-      edit_RentFinishStartValue.Value   := _Boat.FAdvancedPaymentValue;
-      edit_RentFinishStartDate.Date     := _Boat.FRentedAt;
-      edit_RentFinishStartHour.Time     := _Boat.FRentedAt;
-      edit_RentFinishCalcMinutes.Value  := _CalcMinutes;
-      edit_RentFinishCalcValue.Value    := _CalcValue;
-      edit_RentFinishMinutes.Value      := _Boat.FAdvancedPaymentMinutes;
-      edit_RentFinishValue.Value        := _Boat.FAdvancedPaymentValue;
-      switch_RentFinishChange.IsChecked := False;
-      lbl_SubTitleFinish.Text           := _Boat.FNumber;
+      FBoat         := LBoat;
+      LDateFinish   := Now;
+      LCalcMinutes  := SecondsBetween( LDateFinish, LBoat.FRentedAt);
+      LCalcValue    := Round((LBoat.FDefaultValue / LBoat.FDefaultMinutes) * LCalcMinutes);
+// TODO---
+//      edt_RentFinishStartMinutes.Value := LBoat.FAdvancedPaymentMinutes;
+//      edt_RentFinishStartValue.Value   := LBoat.FAdvancedPaymentValue;
+//      edt_RentFinishStartDate.Date     := LBoat.FRentedAt;
+//      edt_RentFinishStartHour.Time     := LBoat.FRentedAt;
+//      lbl_PaymentTypeValue.Text        := GetPaymentType(LBoat.FAdvancedPaymentType);
+//      edt_RentFinishCalcMinutes.Value  := LCalcMinutes;
+//      edt_RentFinishCalcValue.Value    := LCalcValue;
+//      edt_RentFinishMinutes.Value      := LBoat.FAdvancedPaymentMinutes;
+//      edt_RentFinishValue.Value        := LBoat.FAdvancedPaymentValue;
+//      switch_RentFinishChange.IsChecked := False;
+//      lbl_SubTitleFinish.Text           := LBoat.FNumber;
       actTabChange_Finish.Execute;
     end;
 
@@ -567,55 +829,53 @@ end;
 //    Finish
 //------------------------------------------------------------------------------
 
-procedure Tfrm_Rental.btn_RentStartClick(Sender: TObject);
+procedure Tfrm_Rental.btn_StartClick(Sender: TObject);
 begin
-  if cbBox_Payment.ItemIndex < 1 then
-    begin
-      TDialogService.ShowMessage('Selecione uma forma de pagamento.');
-      Exit;
-    end;
 
-  if not getSettings_AutoTime then
-    begin
-      TDialogService.ShowMessage(msg_AutoTime_Off);
-      Exit;
-    end;
 
-  if dm_Main.tb_Boat.Locate('Number', FBoat.FNumber) then
-    begin
 
-        dm_Main.tb_Boat.Edit;
-        dm_Main.tb_Boat.FieldByName('Rented'                ).AsBoolean  := True;
-        dm_Main.tb_Boat.FieldByName('RentedAt'              ).AsDateTime := Now;
-        dm_Main.tb_Boat.FieldByName('AdvancedPaymentValue'  ).AsInteger  := Trunc(edit_RentStartValue.Value);
-        dm_Main.tb_Boat.FieldByName('AdvancedPaymentMinutes').AsInteger  := Trunc(edit_RentStartMinutes.Value);
-        dm_Main.tb_Boat.Post;
 
-        FBoat.FRented                 := dm_Main.tb_Boat.FieldByName('Rented'                ).AsBoolean;
-        FBoat.FRentedAt               := dm_Main.tb_Boat.FieldByName('RentedAt'              ).AsDateTime;
-        FBoat.FAdvancedPaymentValue   := dm_Main.tb_Boat.FieldByName('AdvancedPaymentValue'  ).AsInteger;
-        FBoat.FAdvancedPaymentMinutes := dm_Main.tb_Boat.FieldByName('AdvancedPaymentMinutes').AsInteger;
 
-        BoatsRentalApplyUpdates;
-        FBoat.Update( Now );
+  RentStart();
 
-        actTabChange_List.Execute;
-        Timer.Enabled := True;
-
-        print_receipt;
-    end;
 end;
 
-procedure Tfrm_Rental.trackBar_RentStartMinutesChange(Sender: TObject);
-var
-  _Value : Integer;
+function  Tfrm_Rental.CalculateStartValue(AMinutes: Integer; Discount: Integer = 0): Integer;
 begin
-  if FBoat.FDefaultValue = 0 then
-    _Value       := FBoatDefaultValue
-  else
-    _Value       := FBoat.FDefaultValue;
-  edit_RentStartMinutes.Value := trackBar_RentStartMinutes.Value * FBoatDefaultMinutes;
-  edit_RentStartValue.Value   := trackBar_RentStartMinutes.Value * _Value;
+  Result := Round((FBoat.FDefaultValue / FBoat.FDefaultMinutes) * AMinutes) - Discount;
+  if Result < 0 then
+    Result := 0;
+end;
+
+procedure Tfrm_Rental.UpdateStartValue;
+var
+  LValue : Integer;
+begin
+  if not switch_StartPayMulti.IsChecked then
+    begin
+      edt_StartPayCard.Text     := '';
+      edt_StartPayCash.Text     := '';
+      edt_StartPayPix.Text      := '';
+      edt_StartPayOther.Text    := '';
+
+      edt_StartPayDiscount.OnChange := nil;
+      edt_StartPayDiscount.Text := '';
+      edt_StartPayDiscount.OnChange := edt_StartPayDiscountChange;
+
+
+      if radio_StartPayDiscount.IsChecked then
+        begin
+          edt_StartPayDiscount.OnChange := nil;
+          edt_StartPayDiscount.Text := IntToStr(CalculateStartValue(StrToIntDef(edt_StartMinutes.Text, 0)));
+          edt_StartPayDiscount.OnChange := edt_StartPayDiscountChange;
+        end;
+      if radio_StartPayCard.IsChecked     then edt_StartPayCard.Text     := IntToStr(CalculateStartValue(StrToIntDef(edt_StartMinutes.Text, 0)));
+      if radio_StartPayCash.IsChecked     then edt_StartPayCash.Text     := IntToStr(CalculateStartValue(StrToIntDef(edt_StartMinutes.Text, 0)));
+      if radio_StartPayOther.IsChecked    then edt_StartPayOther.Text    := IntToStr(CalculateStartValue(StrToIntDef(edt_StartMinutes.Text, 0)));
+      if radio_StartPayPix.IsChecked      then edt_StartPayPix.Text      := IntToStr(CalculateStartValue(StrToIntDef(edt_StartMinutes.Text, 0)));
+    end;
+
+  edt_StartValue.Text :=  IntToStr(CalculateStartValue(StrToIntDef(edt_StartMinutes.Text, 0), StrToIntDef(edt_StartPayDiscount.Text, 0)));
 end;
 
 procedure Tfrm_Rental.btn_RentFinishClick(Sender: TObject);
@@ -630,10 +890,16 @@ begin
     begin
         // Update Boat
         dm_Main.tb_Boat.Edit;
-        dm_Main.tb_Boat.FieldByName('Rented'                ).AsBoolean  := False;
-        dm_Main.tb_Boat.FieldByName('RentedAt'              ).Clear;
-        dm_Main.tb_Boat.FieldByName('AdvancedPaymentValue'  ).Clear;
-        dm_Main.tb_Boat.FieldByName('AdvancedPaymentMinutes').Clear;
+        dm_Main.tb_Boat.FieldByName('Rented'               ).AsBoolean  := False;
+        dm_Main.tb_Boat.FieldByName('RentedAt'             ).Clear;
+        dm_Main.tb_Boat.FieldByName('StartPayMethod'       ).Clear;
+        dm_Main.tb_Boat.FieldByName('StartPayMinutes'     ).Clear;
+        dm_Main.tb_Boat.FieldByName('StartPayValue'        ).Clear;
+        dm_Main.tb_Boat.FieldByName('StartPayValueCard'    ).Clear;
+        dm_Main.tb_Boat.FieldByName('StartPayValueCash'    ).Clear;
+        dm_Main.tb_Boat.FieldByName('StartPayValuePix'     ).Clear;
+        dm_Main.tb_Boat.FieldByName('StartPayValueOther'   ).Clear;
+        dm_Main.tb_Boat.FieldByName('StartPayValueDiscount').Clear;
         dm_Main.tb_Boat.Post;
 
         // Add Rental Record
@@ -644,20 +910,22 @@ begin
         dm_Main.tb_Rental.FieldByName('Number'                ).AsString   := FBoat.FNumber;
         dm_Main.tb_Rental.FieldByName('RentedAt'              ).AsDateTime := FBoat.FRentedAt;
         dm_Main.tb_Rental.FieldByName('RentFinishedAt'        ).AsDateTime := Now;
-        dm_Main.tb_Rental.FieldByName('AdvancedPaymentValue'  ).AsInteger  := Trunc(edit_RentFinishStartValue.Value);
-        dm_Main.tb_Rental.FieldByName('AdvancedPaymentMinutes').AsInteger  := Trunc(edit_RentFinishStartMinutes.Value);
-        dm_Main.tb_Rental.FieldByName('CalculedPaymentValue'  ).AsInteger  := Trunc(edit_RentFinishCalcValue.Value);
-        dm_Main.tb_Rental.FieldByName('CalculedPaymentMinutes').AsInteger  := Trunc(edit_RentFinishCalcMinutes.Value);
-        dm_Main.tb_Rental.FieldByName('PaymentChanged'        ).AsBoolean  := switch_RentFinishChange.IsChecked;
-        dm_Main.tb_Rental.FieldByName('PaymentValue'          ).AsInteger  := Trunc(edit_RentFinishValue.Value);
-        dm_Main.tb_Rental.FieldByName('PaymentMinutes'        ).AsInteger  := Trunc(edit_RentFinishMinutes.Value);
+        // TODO ----
+//        dm_Main.tb_Rental.FieldByName('AdvancedPaymentValue'  ).AsInteger  := Trunc(edt_RentFinishStartValue.Value);
+//        dm_Main.tb_Rental.FieldByName('AdvancedPaymentMinutes').AsInteger  := Trunc(edt_RentFinishStartMinutes.Value);
+//        dm_Main.tb_Rental.FieldByName('AdvancedPaymentType'   ).AsString   := SetPaymentType(lbl_PaymentTypeValue.Text);
+//        dm_Main.tb_Rental.FieldByName('CalculedPaymentValue'  ).AsInteger  := Trunc(edt_RentFinishCalcValue.Value);
+//        dm_Main.tb_Rental.FieldByName('CalculedPaymentMinutes').AsInteger  := Trunc(edt_RentFinishCalcMinutes.Value);
+//        dm_Main.tb_Rental.FieldByName('PaymentChanged'        ).AsBoolean  := switch_RentFinishChange.IsChecked;
+//        dm_Main.tb_Rental.FieldByName('PaymentValue'          ).AsInteger  := Trunc(edt_RentFinishValue.Value);
+//        dm_Main.tb_Rental.FieldByName('PaymentMinutes'        ).AsInteger  := Trunc(edt_RentFinishMinutes.Value);
         dm_Main.tb_Rental.Post;
 
         // Update local variable
         FBoat.FRented                 := dm_Main.tb_Boat.FieldByName('Rented'                ).AsBoolean;
         //FBoat.FRentedAt               := Now; // Keep last Rent
-        FBoat.FAdvancedPaymentValue   := 0;
-        FBoat.FAdvancedPaymentMinutes := 0;
+//        FBoat.FAdvancedPaymentValue   := 0;
+//        FBoat.FAdvancedPaymentMinutes := 0;
 
         // Save to Server
         BoatsRentalApplyUpdates;
@@ -672,39 +940,50 @@ end;
 // GRID SETUP SIZE
 //------------------------------------------------------------------------------
 
+procedure Tfrm_Rental.switch_StartPayMultiSwitch(Sender: TObject);
+begin
+  ShowStartPaymentMethodMulti(switch_StartPayMulti.IsChecked);
+end;
+
 procedure Tfrm_Rental.switch_RentFinishChangeSwitch(Sender: TObject);
 begin
-  edit_RentFinishMinutes.Enabled := switch_RentFinishChange.isChecked;
-  edit_RentFinishValue.Enabled   := switch_RentFinishChange.isChecked;
+  edt_RentFinishMinutes.Enabled := switch_RentFinishChange.isChecked;
+  edt_RentFinishValue.Enabled   := switch_RentFinishChange.isChecked;
 
   if switch_RentFinishChange.isChecked then
     begin
-      edit_RentFinishMinutes.Text := edit_RentFinishCalcMinutes.Text;
-      edit_RentFinishValue.Text   := edit_RentFinishCalcValue.Text;
+      edt_RentFinishMinutes.Text := edt_RentFinishCalcMinutes.Text;
+      edt_RentFinishValue.Text   := edt_RentFinishCalcValue.Text;
     end
   else
     begin
-      edit_RentFinishMinutes.Text := edit_RentFinishStartMinutes.Text;
-      edit_RentFinishValue.Text   := edit_RentFinishStartValue.Text;
+      edt_RentFinishMinutes.Text := edt_RentFinishStartMinutes.Text;
+      edt_RentFinishValue.Text   := edt_RentFinishStartValue.Text;
     end;
+end;
+
+procedure Tfrm_Rental.tabItem_FinishClick(Sender: TObject);
+begin
+
 end;
 
 //------------------------------------------------------------------------------
 // PRINT
 //------------------------------------------------------------------------------
 
-procedure Tfrm_Rental.print_receipt;
+procedure Tfrm_Rental.PrintReceipt;
 var
-  _LineSeq, _LineObs, _LineDate, _LineValue, _LineMin : String;
+  LSeq, LObs, LDate, LValue, LMin : String;
 begin
 
-  Exit;
+  if not PRINTER_ENABLE then
+    Exit;
 
-  _LineSeq   := '00' + '     ' + FBoat.FNumber;
-  _LineDate  := 'Data  : '     + FormatDateTime( 'dd/MM/yyyy HH:mm', FBoat.FRentedAt );
-  _LineValue := 'Valor : R$ '  +       IntToStr( FBoat.FAdvancedPaymentValue         ) + ',00';
-  _LineMin   := 'Tempo : '     +       IntToStr( FBoat.FAdvancedPaymentMinutes       ) + ' min';
-  _LineObs   := 'R$ 10,00 a cada 10 min excedente';
+  LSeq   := '00' + '     ' + FBoat.FNumber;
+  LDate  := 'Data  : '     + FormatDateTime( 'dd/MM/yyyy HH:mm', FBoat.FRentedAt );
+  LValue := 'Valor : R$ '  +       IntToStr( FBoat.FStartPayValue         ) + ',00';
+  LMin   := 'Tempo : '     +       IntToStr( FBoat.FStartPayMinutes       ) + ' min';
+  LObs   := 'R$ 10,00 a cada 10 min excedente';
 
 
 
@@ -720,7 +999,7 @@ begin
 
   BTSendData( EP_SELECT_PRINTER_MODE_ + CHR( EP_MODE_DOUBLE_WIDTH OR EP_MODE_DOUBLE_HEIGHT OR EP_MODE_EMPHASIZED ));
 //BTSendData( '01     G01' + EP_PRINT_RETURN_STANDARD_MODE + EP_PRINT  );
-  BTSendData( _LineSeq + EP_PRINT_RETURN_STANDARD_MODE + EP_PRINT  );
+  BTSendData( LSeq + EP_PRINT_RETURN_STANDARD_MODE + EP_PRINT  );
 
   BTSendData( EP_SELECT_PRINTER_MODE_ + CHR( EP_MODE_STANDARD   ));
   BTSendData( EP_SELECT_JUSTIFICATION_LEFT  );
@@ -729,34 +1008,142 @@ begin
 //BTSendData( 'Data  : 01/01/2019 13:00' + EP_PRINT );
 //BTSendData( 'Valor : R$ 30,00'         + EP_PRINT );
 //BTSendData( 'Tempo : 30 min'           + EP_PRINT );
-  BTSendData( _LineDate  + EP_PRINT );
-  BTSendData( _LineValue + EP_PRINT );
-  BTSendData( _LineMin   + EP_PRINT );
+  BTSendData( LDate  + EP_PRINT );
+  BTSendData( LValue + EP_PRINT );
+  BTSendData( LMin   + EP_PRINT );
   BTSendData( EP_LF );
 
   BTSendData( EP_SELECT_JUSTIFICATION_CENTER  );
 //BTSendData( 'R$ 10,00 a cada 10 min excedente' + EP_PRINT );
-  BTSendData( _LineObs + EP_PRINT );
+  BTSendData( LObs + EP_PRINT );
 
   BTSendData(  EP_LF + EP_LF + EP_LF + EP_LF + EP_LF + EP_PRINT );
 end;
 
+procedure Tfrm_Rental.radio_StartPayChange(Sender: TObject);
+begin
+  UpdateStartValue();
+end;
+
+
+
+
+
 //------------------------------------------------------------------------------
 // TIMER
-//----------------------------------------------------------------------------
+//------------------------------------------------------------------------------
 
 procedure Tfrm_Rental.TimerTimer(Sender: TObject);
 var
-  _Idx  : integer;
-  _Date : TDatetime;
+  LIdx  : integer;
+  LDate : TDatetime;
 begin
   layout_Boats.BeginUpdate;
-  _Date := Now;
-  for _Idx := 0 to layout_Boats.Controls.Count - 1 do
+  LDate := Now;
+  for LIdx := 0 to layout_Boats.Controls.Count - 1 do
     begin
-      TFrm_Boat(layout_Boats.Controls.Items[_Idx]).Update(_Date);
+      TFrm_Boat(layout_Boats.Controls.Items[LIdx]).Update(LDate);
     end;
   layout_Boats.EndUpdate;
 end;
+
+//------------------------------------------------------------------------------
+// DESIGN
+//------------------------------------------------------------------------------
+
+procedure Tfrm_Rental.FormVirtualKeyboardHidden(Sender: TObject;
+  KeyboardVisible: Boolean; const Bounds: TRect);
+begin
+  //
+end;
+
+procedure Tfrm_Rental.FormVirtualKeyboardShown(Sender: TObject;
+  KeyboardVisible: Boolean; const Bounds: TRect);
+begin
+  if edt_StartPayCard.IsFocused     then vScroll_Start.ViewportPosition := TPoint.Create(0, 100);
+  if edt_StartPayCash.IsFocused     then vScroll_Start.ViewportPosition := TPoint.Create(0, 100);
+  if edt_StartPayPix.IsFocused      then vScroll_Start.ViewportPosition := TPoint.Create(0, 100);
+  if edt_StartPayOther.IsFocused    then vScroll_Start.ViewportPosition := TPoint.Create(0, 100);
+  if edt_StartPayDiscount.IsFocused then vScroll_Start.ViewportPosition := TPoint.Create(0, 100);
+
+  if edt_StartObs.IsFocused         then vScroll_Start.ViewportPosition := TPoint.Create(0, 250);
+end;
+
+procedure Tfrm_Rental.rect_StartPayCardClick(Sender: TObject);
+begin
+  {$IFDEF MSWINDOWS}
+  if switch_StartPayMulti.IsChecked then edt_StartPayCard.SetFocus;
+  {$ENDIF}
+end;
+
+procedure Tfrm_Rental.rect_StartPayCashClick(Sender: TObject);
+begin
+  {$IFDEF MSWINDOWS}
+  if switch_StartPayMulti.IsChecked then edt_StartPayCash.SetFocus;
+  {$ENDIF}
+end;
+
+procedure Tfrm_Rental.rect_StartPayPixClick(Sender: TObject);
+begin
+  {$IFDEF MSWINDOWS}
+  if switch_StartPayMulti.IsChecked then edt_StartPayPix.SetFocus;
+  {$ENDIF}
+end;
+
+procedure Tfrm_Rental.rect_StartPayOtherClick(Sender: TObject);
+begin
+  {$IFDEF MSWINDOWS}
+  if switch_StartPayMulti.IsChecked then edt_StartPayOther.SetFocus;
+  {$ENDIF}
+end;
+
+procedure Tfrm_Rental.rect_StartPayDiscountClick(Sender: TObject);
+begin
+  {$IFDEF MSWINDOWS}
+  if switch_StartPayMulti.IsChecked then edt_StartPayDiscount.SetFocus;
+  {$ENDIF}
+end;
+
+
+procedure Tfrm_Rental.rect_StartPayCardTap(Sender: TObject;
+  const Point: TPointF);
+begin
+  {$IFDEF ANDROID}
+  if switch_StartPayMulti.IsChecked  then edt_StartPayCard.SetFocus;
+  {$ENDIF}
+end;
+
+procedure Tfrm_Rental.rect_StartPayCashTap(Sender: TObject;
+  const Point: TPointF);
+begin
+  {$IFDEF ANDROID}
+  if switch_StartPayMulti.IsChecked  then edt_StartPayCash.SetFocus;
+  {$ENDIF}
+end;
+
+procedure Tfrm_Rental.rect_StartPayPixTap(Sender: TObject;
+  const Point: TPointF);
+begin
+  {$IFDEF ANDROID}
+  if switch_StartPayMulti.IsChecked  then edt_StartPayPix.SetFocus;
+  {$ENDIF}
+end;
+
+procedure Tfrm_Rental.rect_StartPayOtherTap(Sender: TObject;
+  const Point: TPointF);
+begin
+  {$IFDEF ANDROID}
+  if switch_StartPayMulti.IsChecked then edt_StartPayOther.SetFocus;
+  {$ENDIF}
+end;
+
+procedure Tfrm_Rental.rect_StartPayDiscountTap(Sender: TObject;
+  const Point: TPointF);
+begin
+  {$IFDEF ANDROID}
+  if switch_StartPayMulti.IsChecked then edt_StartPayDiscount.SetFocus;
+  {$ENDIF}
+end;
+
 
 end.

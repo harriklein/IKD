@@ -1,34 +1,34 @@
 object frm_Rental: Tfrm_Rental
   Align = Client
-  Hint = 'Rental'
+  Hint = 'Aluguel'
   Size.Width = 360.000000000000000000
-  Size.Height = 525.000000000000000000
+  Size.Height = 570.000000000000000000
   Size.PlatformDefault = False
   object tabCtrl_List: TTabControl
     Align = Client
     Size.Width = 360.000000000000000000
-    Size.Height = 525.000000000000000000
+    Size.Height = 570.000000000000000000
     Size.PlatformDefault = False
     TabHeight = 49.000000000000000000
-    TabIndex = 0
+    TabIndex = 1
     TabOrder = 0
     TabPosition = None
     Sizes = (
       360s
-      525s
+      570s
       360s
-      525s
+      570s
       360s
-      525s
+      570s
       360s
-      525s)
+      570s)
     object tabItem_List: TTabItem
       Touch.InteractiveGestures = []
       CustomIcon = <
         item
         end>
       TextSettings.Trimming = None
-      IsSelected = True
+      IsSelected = False
       Size.Width = 8.000000000000000000
       Size.Height = 8.000000000000000000
       Size.PlatformDefault = False
@@ -131,12 +131,12 @@ object frm_Rental: Tfrm_Rental
       object VertScrollBox1: TVertScrollBox
         Align = Client
         Size.Width = 360.000000000000000000
-        Size.Height = 485.000000000000000000
+        Size.Height = 530.000000000000000000
         Size.PlatformDefault = False
         TabOrder = 1
         ShowSizeGrip = True
         Viewport.Width = 360.000000000000000000
-        Viewport.Height = 485.000000000000000000
+        Viewport.Height = 530.000000000000000000
         object layout_Boats: TGridLayout
           Align = Top
           ItemHeight = 100.000000000000000000
@@ -163,7 +163,7 @@ object frm_Rental: Tfrm_Rental
         end>
       TextSettings.Trimming = None
       HitTest = False
-      IsSelected = False
+      IsSelected = True
       Size.Width = 8.000000000000000000
       Size.Height = 8.000000000000000000
       Size.PlatformDefault = False
@@ -172,17 +172,673 @@ object frm_Rental: Tfrm_Rental
       Text = 'tabItem_Start'
       ExplicitSize.cx = 8.000000000000000000
       ExplicitSize.cy = 8.000000000000000000
-      object toolBar_Detail: TToolBar
+      object vScroll_Start: TVertScrollBox
+        Align = Client
+        Size.Width = 360.000000000000000000
+        Size.Height = 530.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 1
+        Viewport.Width = 360.000000000000000000
+        Viewport.Height = 530.000000000000000000
+        object layout_Start: TFlowLayout
+          Align = Top
+          Margins.Top = 15.000000000000000000
+          Position.Y = 15.000000000000000000
+          Size.Width = 360.000000000000000000
+          Size.Height = 458.000000000000000000
+          Size.PlatformDefault = False
+          TabOrder = 0
+          Justify = Center
+          JustifyLastLine = Center
+          FlowDirection = LeftToRight
+          object layout_Start2: TLayout
+            Align = Center
+            Size.Width = 344.000000000000000000
+            Size.Height = 441.000000000000000000
+            Size.PlatformDefault = False
+            TabOrder = 0
+            object btn_Start: TButton
+              StyledSettings = [FontColor]
+              Position.X = 40.000000000000000000
+              Position.Y = 390.000000000000000000
+              Size.Width = 264.000000000000000000
+              Size.Height = 43.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 8
+              Text = 'INICIAR'
+              TextSettings.Font.Size = 22.000000000000000000
+              TextSettings.Font.StyleExt = {00070000000000000004000000}
+              TextSettings.Trimming = None
+              OnClick = btn_StartClick
+            end
+            object edt_StartObs: TEdit
+              Touch.InteractiveGestures = [LongTap, DoubleTap]
+              TabOrder = 7
+              MaxLength = 2000
+              TextSettings.Font.Size = 18.000000000000000000
+              TextSettings.VertAlign = Leading
+              Position.X = 40.000000000000000000
+              Position.Y = 343.000000000000000000
+              Size.Width = 264.000000000000000000
+              Size.Height = 33.000000000000000000
+              Size.PlatformDefault = False
+              TextPrompt = 'Observa'#231#227'o'
+              StyledSettings = [Family, Style, FontColor]
+            end
+            object switch_StartPayMulti: TSwitch
+              IsChecked = False
+              Position.X = 281.000000000000000000
+              Position.Y = 92.000000000000000000
+              Size.Width = 55.000000000000000000
+              Size.Height = 27.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 2
+              OnSwitch = switch_StartPayMultiSwitch
+              object lbl_StartPayMulti: TLabel
+                StyledSettings = [FontColor]
+                Position.X = -64.000000000000000000
+                Position.Y = -4.000000000000000000
+                Size.Width = 70.000000000000000000
+                Size.Height = 31.000000000000000000
+                Size.PlatformDefault = False
+                TextSettings.Font.Size = 22.000000000000000000
+                TextSettings.Font.StyleExt = {00070000000000000004000000}
+                Text = 'Multi'
+                TabOrder = 1
+              end
+            end
+            object lbl_StartPay: TLabel
+              StyledSettings = [FontColor]
+              Position.X = 8.000000000000000000
+              Position.Y = 88.000000000000000000
+              Size.Width = 178.000000000000000000
+              Size.Height = 31.000000000000000000
+              Size.PlatformDefault = False
+              TextSettings.Font.Size = 22.000000000000000000
+              TextSettings.Font.StyleExt = {00070000000000000004000000}
+              Text = 'Pagamento:'
+              TabStop = False
+            end
+            object rect_StartSeparator1: TRectangle
+              Anchors = [akLeft, akTop, akRight]
+              Fill.Kind = None
+              Position.Y = 70.000000000000000000
+              Sides = [Bottom]
+              Size.Width = 345.000000000000000000
+              Size.Height = 10.000000000000000000
+              Size.PlatformDefault = False
+              Stroke.Color = xFF343A40
+              Stroke.Thickness = 2.000000000000000000
+            end
+            object rect_StartPayCard: TRoundRect
+              OnTap = rect_StartPayCardTap
+              Fill.Color = xFFDEE2E6
+              Position.X = 8.000000000000000000
+              Position.Y = 127.000000000000000000
+              Size.Width = 328.000000000000000000
+              Size.Height = 36.000000000000000000
+              Size.PlatformDefault = False
+              Stroke.Color = xFF868E96
+              OnClick = rect_StartPayCardClick
+              object radio_StartPayCard: TRadioButton
+                StyledSettings = [Family]
+                GroupName = 'Payment'
+                Position.X = 8.000000000000000000
+                Position.Y = 2.000000000000000000
+                Size.Width = 312.000000000000000000
+                Size.Height = 32.000000000000000000
+                Size.PlatformDefault = False
+                TabOrder = 0
+                Text = 'Cart'#227'o'
+                TextSettings.Font.Size = 22.000000000000000000
+                TextSettings.Font.StyleExt = {00070000000000000004000000}
+                TextSettings.FontColor = xFF212529
+                OnChange = radio_StartPayChange
+              end
+              object edt_StartPayCard: TEdit
+                Touch.InteractiveGestures = [LongTap, DoubleTap]
+                TabOrder = 25
+                AutoSelect = True
+                KeyboardType = NumberPad
+                MaxLength = 5
+                FilterChar = '0123456789'
+                TextSettings.Font.Size = 22.000000000000000000
+                TextSettings.Font.StyleExt = {00070000000000000004000000}
+                TextSettings.HorzAlign = Trailing
+                Position.X = 221.000000000000000000
+                Position.Y = 2.000000000000000000
+                Size.Width = 63.000000000000000000
+                Size.Height = 32.000000000000000000
+                Size.PlatformDefault = False
+                TextPrompt = '0'
+                StyledSettings = [Family, FontColor]
+                object lbl_StartPayCardT: TLabel
+                  StyledSettings = []
+                  Position.X = -192.000000000000000000
+                  Size.Width = 147.000000000000000000
+                  Size.Height = 31.000000000000000000
+                  Size.PlatformDefault = False
+                  TextSettings.Font.Size = 22.000000000000000000
+                  TextSettings.Font.StyleExt = {00070000000000000004000000}
+                  TextSettings.FontColor = xFF212529
+                  Text = 'Cart'#227'o:'
+                  TabOrder = 1
+                end
+                object lbl_StartPayCardC: TLabel
+                  StyledSettings = []
+                  Position.X = 64.000000000000000000
+                  Size.Width = 42.000000000000000000
+                  Size.Height = 32.000000000000000000
+                  Size.PlatformDefault = False
+                  TextSettings.Font.Size = 22.000000000000000000
+                  TextSettings.Font.StyleExt = {00070000000000000004000000}
+                  TextSettings.FontColor = xFF495057
+                  Text = ',00'
+                  TabOrder = 7
+                end
+                object lbl_StartPayCardR: TLabel
+                  StyledSettings = []
+                  Position.X = -37.000000000000000000
+                  Position.Y = 2.000000000000000000
+                  Size.Width = 36.000000000000000000
+                  Size.Height = 32.000000000000000000
+                  Size.PlatformDefault = False
+                  TextSettings.Font.Size = 22.000000000000000000
+                  TextSettings.Font.StyleExt = {00070000000000000004000000}
+                  TextSettings.FontColor = xFF495057
+                  Text = 'R$'
+                  TabOrder = 5
+                end
+              end
+            end
+            object rect_StartPayCash: TRoundRect
+              OnTap = rect_StartPayCashTap
+              Fill.Color = xFFDEE2E6
+              Position.X = 8.000000000000000000
+              Position.Y = 166.000000000000000000
+              Size.Width = 328.000000000000000000
+              Size.Height = 36.000000000000000000
+              Size.PlatformDefault = False
+              Stroke.Color = xFF868E96
+              OnClick = rect_StartPayCashClick
+              object radio_StartPayCash: TRadioButton
+                StyledSettings = [Family]
+                GroupName = 'Payment'
+                Position.X = 8.000000000000000000
+                Position.Y = 2.000000000000000000
+                Size.Width = 312.000000000000000000
+                Size.Height = 32.000000000000000000
+                Size.PlatformDefault = False
+                TabOrder = 0
+                Text = 'Dinheiro'
+                TextSettings.Font.Size = 22.000000000000000000
+                TextSettings.Font.StyleExt = {00070000000000000004000000}
+                TextSettings.FontColor = xFF212529
+                OnChange = radio_StartPayChange
+              end
+              object edt_StartPayCash: TEdit
+                Touch.InteractiveGestures = [LongTap, DoubleTap]
+                TabOrder = 25
+                AutoSelect = True
+                KeyboardType = NumberPad
+                MaxLength = 5
+                FilterChar = '0123456789'
+                TextSettings.Font.Size = 22.000000000000000000
+                TextSettings.Font.StyleExt = {00070000000000000004000000}
+                TextSettings.HorzAlign = Trailing
+                Position.X = 221.000000000000000000
+                Position.Y = 2.000000000000000000
+                Size.Width = 63.000000000000000000
+                Size.Height = 32.000000000000000000
+                Size.PlatformDefault = False
+                TextPrompt = '0'
+                StyledSettings = [Family, FontColor]
+                object lbl_StartPayCashT: TLabel
+                  StyledSettings = []
+                  Position.X = -192.000000000000000000
+                  Size.Width = 147.000000000000000000
+                  Size.Height = 31.000000000000000000
+                  Size.PlatformDefault = False
+                  TextSettings.Font.Size = 22.000000000000000000
+                  TextSettings.Font.StyleExt = {00070000000000000004000000}
+                  TextSettings.FontColor = xFF212529
+                  Text = 'Dinheiro:'
+                  TabOrder = 1
+                end
+                object lbl_StartPayCashC: TLabel
+                  StyledSettings = []
+                  Position.X = 64.000000000000000000
+                  Size.Width = 42.000000000000000000
+                  Size.Height = 32.000000000000000000
+                  Size.PlatformDefault = False
+                  TextSettings.Font.Size = 22.000000000000000000
+                  TextSettings.Font.StyleExt = {00070000000000000004000000}
+                  TextSettings.FontColor = xFF495057
+                  Text = ',00'
+                  TabOrder = 7
+                end
+                object lbl_StartPayCashR: TLabel
+                  StyledSettings = []
+                  Position.X = -37.000000000000000000
+                  Position.Y = 2.000000000000000000
+                  Size.Width = 36.000000000000000000
+                  Size.Height = 32.000000000000000000
+                  Size.PlatformDefault = False
+                  TextSettings.Font.Size = 22.000000000000000000
+                  TextSettings.Font.StyleExt = {00070000000000000004000000}
+                  TextSettings.FontColor = xFF495057
+                  Text = 'R$'
+                  TabOrder = 5
+                end
+              end
+            end
+            object rect_StartPayPix: TRoundRect
+              OnTap = rect_StartPayPixTap
+              Fill.Color = xFFDEE2E6
+              Position.X = 8.000000000000000000
+              Position.Y = 205.000000000000000000
+              Size.Width = 328.000000000000000000
+              Size.Height = 36.000000000000000000
+              Size.PlatformDefault = False
+              Stroke.Color = xFF868E96
+              OnClick = rect_StartPayPixClick
+              object radio_StartPayPix: TRadioButton
+                StyledSettings = [Family]
+                GroupName = 'Payment'
+                Position.X = 8.000000000000000000
+                Position.Y = 2.000000000000000000
+                Size.Width = 312.000000000000000000
+                Size.Height = 32.000000000000000000
+                Size.PlatformDefault = False
+                TabOrder = 0
+                Text = 'Pix'
+                TextSettings.Font.Size = 22.000000000000000000
+                TextSettings.Font.StyleExt = {00070000000000000004000000}
+                TextSettings.FontColor = xFF212529
+                OnChange = radio_StartPayChange
+              end
+              object edt_StartPayPix: TEdit
+                Touch.InteractiveGestures = [LongTap, DoubleTap]
+                TabOrder = 25
+                AutoSelect = True
+                KeyboardType = NumberPad
+                MaxLength = 5
+                FilterChar = '0123456789'
+                TextSettings.Font.Size = 22.000000000000000000
+                TextSettings.Font.StyleExt = {00070000000000000004000000}
+                TextSettings.HorzAlign = Trailing
+                Position.X = 221.000000000000000000
+                Position.Y = 2.000000000000000000
+                Size.Width = 63.000000000000000000
+                Size.Height = 32.000000000000000000
+                Size.PlatformDefault = False
+                TextPrompt = '0'
+                StyledSettings = [Family, FontColor]
+                object lbl_StartPayPixT: TLabel
+                  StyledSettings = []
+                  Position.X = -192.000000000000000000
+                  Size.Width = 147.000000000000000000
+                  Size.Height = 31.000000000000000000
+                  Size.PlatformDefault = False
+                  TextSettings.Font.Size = 22.000000000000000000
+                  TextSettings.Font.StyleExt = {00070000000000000004000000}
+                  TextSettings.FontColor = xFF212529
+                  Text = 'Pix:'
+                  TabOrder = 1
+                end
+                object lbl_StartPayPixC: TLabel
+                  StyledSettings = []
+                  Position.X = 64.000000000000000000
+                  Size.Width = 42.000000000000000000
+                  Size.Height = 32.000000000000000000
+                  Size.PlatformDefault = False
+                  TextSettings.Font.Size = 22.000000000000000000
+                  TextSettings.Font.StyleExt = {00070000000000000004000000}
+                  TextSettings.FontColor = xFF495057
+                  Text = ',00'
+                  TabOrder = 7
+                end
+                object lbl_StartPayPixR: TLabel
+                  StyledSettings = []
+                  Position.X = -37.000000000000000000
+                  Position.Y = 2.000000000000000000
+                  Size.Width = 36.000000000000000000
+                  Size.Height = 32.000000000000000000
+                  Size.PlatformDefault = False
+                  TextSettings.Font.Size = 22.000000000000000000
+                  TextSettings.Font.StyleExt = {00070000000000000004000000}
+                  TextSettings.FontColor = xFF495057
+                  Text = 'R$'
+                  TabOrder = 5
+                end
+              end
+            end
+            object rect_StartPayOther: TRoundRect
+              OnTap = rect_StartPayOtherTap
+              Fill.Color = xFFDEE2E6
+              Position.X = 8.000000000000000000
+              Position.Y = 244.000000000000000000
+              Size.Width = 328.000000000000000000
+              Size.Height = 36.000000000000000000
+              Size.PlatformDefault = False
+              Stroke.Color = xFF868E96
+              OnClick = rect_StartPayOtherClick
+              object radio_StartPayOther: TRadioButton
+                StyledSettings = [Family]
+                GroupName = 'Payment'
+                Position.X = 8.000000000000000000
+                Position.Y = 2.000000000000000000
+                Size.Width = 312.000000000000000000
+                Size.Height = 32.000000000000000000
+                Size.PlatformDefault = False
+                TabOrder = 0
+                Text = 'Outro'
+                TextSettings.Font.Size = 22.000000000000000000
+                TextSettings.Font.StyleExt = {00070000000000000004000000}
+                TextSettings.FontColor = xFF212529
+                OnChange = radio_StartPayChange
+              end
+              object edt_StartPayOther: TEdit
+                Touch.InteractiveGestures = [LongTap, DoubleTap]
+                TabOrder = 25
+                AutoSelect = True
+                KeyboardType = NumberPad
+                MaxLength = 5
+                FilterChar = '0123456789'
+                TextSettings.Font.Size = 22.000000000000000000
+                TextSettings.Font.StyleExt = {00070000000000000004000000}
+                TextSettings.HorzAlign = Trailing
+                Position.X = 221.000000000000000000
+                Position.Y = 2.000000000000000000
+                Size.Width = 63.000000000000000000
+                Size.Height = 32.000000000000000000
+                Size.PlatformDefault = False
+                TextPrompt = '0'
+                StyledSettings = [Family, FontColor]
+                object lbl_StartPayOtherT: TLabel
+                  StyledSettings = []
+                  Position.X = -192.000000000000000000
+                  Size.Width = 147.000000000000000000
+                  Size.Height = 31.000000000000000000
+                  Size.PlatformDefault = False
+                  TextSettings.Font.Size = 22.000000000000000000
+                  TextSettings.Font.StyleExt = {00070000000000000004000000}
+                  TextSettings.FontColor = xFF212529
+                  Text = 'Outro:'
+                  TabOrder = 1
+                end
+                object lbl_StartPayOtherC: TLabel
+                  StyledSettings = []
+                  Position.X = 64.000000000000000000
+                  Size.Width = 42.000000000000000000
+                  Size.Height = 32.000000000000000000
+                  Size.PlatformDefault = False
+                  TextSettings.Font.Size = 22.000000000000000000
+                  TextSettings.Font.StyleExt = {00070000000000000004000000}
+                  TextSettings.FontColor = xFF495057
+                  Text = ',00'
+                  TabOrder = 7
+                end
+                object lbl_StartPayOtherR: TLabel
+                  StyledSettings = []
+                  Position.X = -37.000000000000000000
+                  Position.Y = 2.000000000000000000
+                  Size.Width = 36.000000000000000000
+                  Size.Height = 32.000000000000000000
+                  Size.PlatformDefault = False
+                  TextSettings.Font.Size = 22.000000000000000000
+                  TextSettings.Font.StyleExt = {00070000000000000004000000}
+                  TextSettings.FontColor = xFF495057
+                  Text = 'R$'
+                  TabOrder = 5
+                end
+              end
+            end
+            object rect_StartPayDiscount: TRoundRect
+              OnTap = rect_StartPayDiscountTap
+              Fill.Color = xFFFFC9C9
+              Position.X = 8.000000000000000000
+              Position.Y = 283.000000000000000000
+              Size.Width = 328.000000000000000000
+              Size.Height = 36.000000000000000000
+              Size.PlatformDefault = False
+              Stroke.Color = xFFFF6B6B
+              OnClick = rect_StartPayDiscountClick
+              object radio_StartPayDiscount: TRadioButton
+                StyledSettings = [Family]
+                GroupName = 'Payment'
+                Position.X = 8.000000000000000000
+                Position.Y = 2.000000000000000000
+                Size.Width = 312.000000000000000000
+                Size.Height = 32.000000000000000000
+                Size.PlatformDefault = False
+                TabOrder = 0
+                Text = 'Cortesia'
+                TextSettings.Font.Size = 22.000000000000000000
+                TextSettings.Font.StyleExt = {00070000000000000004000000}
+                TextSettings.FontColor = xFF212529
+                OnChange = radio_StartPayChange
+              end
+              object edt_StartPayDiscount: TEdit
+                Touch.InteractiveGestures = [LongTap, DoubleTap]
+                TabOrder = 25
+                AutoSelect = True
+                KeyboardType = NumberPad
+                MaxLength = 5
+                FilterChar = '0123456789'
+                TextSettings.Font.Size = 22.000000000000000000
+                TextSettings.Font.StyleExt = {00070000000000000004000000}
+                TextSettings.HorzAlign = Trailing
+                Position.X = 221.000000000000000000
+                Position.Y = 2.000000000000000000
+                Size.Width = 63.000000000000000000
+                Size.Height = 32.000000000000000000
+                Size.PlatformDefault = False
+                TextPrompt = '0'
+                StyledSettings = [Family, FontColor]
+                OnChange = edt_StartPayDiscountChange
+                object lbl_StartPayDiscountT: TLabel
+                  StyledSettings = []
+                  Position.X = -192.000000000000000000
+                  Size.Width = 136.000000000000000000
+                  Size.Height = 31.000000000000000000
+                  Size.PlatformDefault = False
+                  TextSettings.Font.Size = 22.000000000000000000
+                  TextSettings.Font.StyleExt = {00070000000000000004000000}
+                  TextSettings.FontColor = xFF212529
+                  Text = 'Desconto:'
+                  TabOrder = 1
+                end
+                object lbl_StartPayDiscountC: TLabel
+                  StyledSettings = []
+                  Position.X = 64.000000000000000000
+                  Size.Width = 42.000000000000000000
+                  Size.Height = 32.000000000000000000
+                  Size.PlatformDefault = False
+                  TextSettings.Font.Size = 22.000000000000000000
+                  TextSettings.Font.StyleExt = {00070000000000000004000000}
+                  TextSettings.FontColor = xFF495057
+                  Text = ',00'
+                  TabOrder = 7
+                end
+                object lbl_StartPayDiscountR: TLabel
+                  StyledSettings = []
+                  Position.X = -53.000000000000000000
+                  Size.Width = 47.000000000000000000
+                  Size.Height = 32.000000000000000000
+                  Size.PlatformDefault = False
+                  TextSettings.Font.Size = 22.000000000000000000
+                  TextSettings.Font.StyleExt = {00070000000000000004000000}
+                  TextSettings.FontColor = xFF495057
+                  Text = '- R$'
+                  TabOrder = 5
+                end
+              end
+            end
+            object edt_StartValue: TEdit
+              Touch.InteractiveGestures = [LongTap, DoubleTap]
+              TabOrder = 1
+              AutoSelect = True
+              KeyboardType = NumberPad
+              ReadOnly = True
+              MaxLength = 5
+              FilterChar = '0123456789'
+              TextSettings.Font.Size = 22.000000000000000000
+              TextSettings.Font.StyleExt = {00070000000000000004000000}
+              TextSettings.HorzAlign = Trailing
+              Position.X = 229.000000000000000000
+              Position.Y = 34.000000000000000000
+              Size.Width = 63.000000000000000000
+              Size.Height = 32.000000000000000000
+              Size.PlatformDefault = False
+              TextPrompt = '0'
+              StyledSettings = [Family, FontColor]
+              object lbl_StartValueT: TLabel
+                StyledSettings = []
+                Position.X = -1.000000000000000000
+                Position.Y = -29.000000000000000000
+                Size.Width = 74.000000000000000000
+                Size.Height = 31.000000000000000000
+                Size.PlatformDefault = False
+                TextSettings.Font.Size = 22.000000000000000000
+                TextSettings.Font.StyleExt = {00070000000000000004000000}
+                TextSettings.FontColor = xFF212529
+                Text = 'Valor:'
+                TabOrder = 1
+              end
+              object lbl_StartValueC: TLabel
+                StyledSettings = []
+                Position.X = 64.000000000000000000
+                Size.Width = 42.000000000000000000
+                Size.Height = 32.000000000000000000
+                Size.PlatformDefault = False
+                TextSettings.Font.Size = 22.000000000000000000
+                TextSettings.Font.StyleExt = {00070000000000000004000000}
+                TextSettings.FontColor = xFF495057
+                Text = ',00'
+                TabOrder = 7
+              end
+              object lbl_StartValueR: TLabel
+                StyledSettings = []
+                Position.X = -37.000000000000000000
+                Position.Y = 2.000000000000000000
+                Size.Width = 36.000000000000000000
+                Size.Height = 32.000000000000000000
+                Size.PlatformDefault = False
+                TextSettings.Font.Size = 22.000000000000000000
+                TextSettings.Font.StyleExt = {00070000000000000004000000}
+                TextSettings.FontColor = xFF495057
+                Text = 'R$'
+                TabOrder = 5
+              end
+            end
+            object edt_StartMinutes: TEdit
+              Touch.InteractiveGestures = [LongTap, DoubleTap]
+              TabOrder = 0
+              AutoSelect = True
+              KeyboardType = NumberPad
+              MaxLength = 5
+              FilterChar = '0123456789'
+              TextSettings.Font.Size = 22.000000000000000000
+              TextSettings.Font.StyleExt = {00070000000000000004000000}
+              TextSettings.HorzAlign = Trailing
+              Position.X = 25.000000000000000000
+              Position.Y = 34.000000000000000000
+              Size.Width = 81.000000000000000000
+              Size.Height = 32.000000000000000000
+              Size.PlatformDefault = False
+              TextPrompt = '0'
+              StyledSettings = [Family, FontColor]
+              OnChange = edt_StartMinutesChange
+              object lbl_StartMinutesT: TLabel
+                StyledSettings = []
+                Position.X = -1.000000000000000000
+                Position.Y = -29.000000000000000000
+                Size.Width = 90.000000000000000000
+                Size.Height = 31.000000000000000000
+                Size.PlatformDefault = False
+                TextSettings.Font.Size = 22.000000000000000000
+                TextSettings.Font.StyleExt = {00070000000000000004000000}
+                TextSettings.FontColor = xFF212529
+                Text = 'Tempo:'
+                TabOrder = 1
+              end
+              object lbl_StartMinutesC: TLabel
+                StyledSettings = []
+                Position.X = 84.000000000000000000
+                Size.Width = 57.000000000000000000
+                Size.Height = 32.000000000000000000
+                Size.PlatformDefault = False
+                TextSettings.Font.Size = 22.000000000000000000
+                TextSettings.Font.StyleExt = {00070000000000000004000000}
+                TextSettings.FontColor = xFF495057
+                Text = 'min.'
+                TabOrder = 8
+              end
+            end
+            object rect_StartSeparator2: TRectangle
+              Anchors = [akLeft, akTop, akRight]
+              Fill.Kind = None
+              Position.Y = 320.000000000000000000
+              Sides = [Bottom]
+              Size.Width = 345.000000000000000000
+              Size.Height = 10.000000000000000000
+              Size.PlatformDefault = False
+              Stroke.Color = xFF343A40
+              Stroke.Thickness = 2.000000000000000000
+            end
+          end
+        end
+      end
+      object toolBar_Start: TToolBar
         Size.Width = 360.000000000000000000
         Size.Height = 40.000000000000000000
         Size.PlatformDefault = False
         TabOrder = 0
-        object shadow_Detail: TShadowEffect
-          Distance = 3.000000000000000000
-          Direction = 90.000000000000000000
-          Softness = 0.300000011920929000
-          Opacity = 0.600000023841857900
-          ShadowColor = claBlack
+        object lbl_SubTitleStart: TLabel
+          Align = Contents
+          StyledSettings = [Family, FontColor]
+          Size.Width = 360.000000000000000000
+          Size.Height = 40.000000000000000000
+          Size.PlatformDefault = False
+          TextSettings.Font.Size = 22.000000000000000000
+          TextSettings.Font.StyleExt = {00070000000000000004000000}
+          TextSettings.HorzAlign = Center
+          Text = '00'
+          TabOrder = 0
+        end
+        object path_Boat1: TPath
+          Align = Right
+          Data.Path = {
+            2C000000000000000E2D7E42B052214302000000BCF41C438D772F4302000000
+            2F3D20437E2AEB42020000002F3D20437E2AEB4202000000B8DE2343B3489842
+            0200000022DBF24264E67F42020000005839D942CACC234202000000508DBF42
+            01818F41020000007B14FB42C0A16741020000003974F7429C45EA4102000000
+            22DBF342A54630420200000095A302432CDD3A42020000008F220343C6763F42
+            020000007D9F03433509444202000000EF4710435CBA76420200000093181243
+            30336D420200000024E61343AF9D6342020000007FEA0C43C6763F4202000000
+            7FEA0C43C6763F42020000007FEA0C43C6763F42020000008756124389EC3242
+            0200000096631443FFAA1642020000009E4F1A430A58AC41020000001819FA42
+            5C0E8AC1020000002C47BC42C8780B4102000000F67D7F4242B6124202000000
+            55A3D042DCE48542020000004DB7E5425223A442020000001AC4FA42D563C242
+            0200000072FDF942CD37D942020000001CEFEC42335EDD42020000000C97DF42
+            8596E142020000000A2CD5424E4DD442020000002EB2CF427BBFBF4202000000
+            9A99CA427B94AC420200000066E6A84264BB5D42020000003B5F4242DF8F8242
+            02000000FCA9AF41A4B09342020000005C8FC84158B9A8420200000081956B40
+            4EE29C42020000009EEF77C0CF771643020000000E2D7E42B052214302000000
+            0E2D7E42B0522143030000000E2D7E42B0522143}
+          Fill.Color = xFF212529
+          Margins.Left = 5.000000000000000000
+          Margins.Top = 5.000000000000000000
+          Margins.Right = 5.000000000000000000
+          Margins.Bottom = 5.000000000000000000
+          Position.X = 319.000000000000000000
+          Position.Y = 5.000000000000000000
+          Size.Width = 36.000000000000000000
+          Size.Height = 30.000000000000000000
+          Size.PlatformDefault = False
+          Stroke.Kind = None
+          WrapMode = Fit
         end
         object btn_Cancel: TSpeedButton
           Align = Left
@@ -203,206 +859,12 @@ object frm_Rental: Tfrm_Rental
           TouchTargetExpansion.Bottom = 12.000000000000000000
           OnClick = btn_CancelClick
         end
-        object Rectangle1: TRectangle
-          Align = Right
-          Fill.Bitmap.Bitmap.PNG = {
-            89504E470D0A1A0A0000000D4948445200000020000000200806000000737A7A
-            F40000000473424954080808087C0864880000023B494441545885BDD7396815
-            411C06F05FA262D4A8E400B10808A2E085454462118F282416362954040FAC2D
-            14112C6C6CC44AB11411B1D042502495DA080A6A2128166A21588812EF7824C6
-            2389C5BEC5799BDD9798CCCB077FDEFEDF7C33DF37B3B373101773701CF7D087
-            67388725917572B10DAF3092133F71A09AE26DF855209EC61F6CAA867883E29E
-            67A3170B631BD89F2374028BD12D19FEB0EC7A6C039733027733E58F33E58392
-            C90A6A63BBC1B74CDE97C9674A5E5B3403CF33F9663407F9FB4C796F29A26119
-            86950FF335FF3AD7AE7C1EEC89299EA2C7E889782628DF827E3CA88638B4E043
-            8E89C301A7039FB1B15A26BA8C7E15C33814701AB026AC346D9C8DAF4627B697
-            8496E3BBF209F60233B03EF8AFA654AF19B7308037E3D454877D78287F551BC2
-            452CCA74E84601BF47F0FD8F859D785DD050DE467330A83B0F4F0AB8B7313D2B
-            B612A724BBD5513C1AA770F65DEF08DA6C910C751EF774D640C70404F3E207D6
-            06ED6EADC0DD151A688F64201DE210370B78FD589592DA221A18416B60A0B302
-            EF524A6A8D6CE06A6060367E17F0BE4ABE344D92D34A2C03C35851325067F4E2
-            14C6BA5A7CC47DF150832BD88DB3A5BC0873D38723155C5633BAD32DB367325D
-            9E04DE85C90553DBFB41CC0A0D344A4E2A5365E07CDE9074AB3C6B63C50096E6
-            19205926C7BA644C36F61689A7E8C2A72A080FE1D858E229E64B2E9A5F2289BF
-            959C0DFF1B4D3829D9402622FC54725E68C8364CE5552A8B7AC9E5720316948C
-            3506BFF59243CCCB20EE187D532AC35FF88BE4518A47BC490000000049454E44
-            AE426082}
-          Fill.Bitmap.WrapMode = TileStretch
-          Fill.Kind = Bitmap
-          HitTest = False
-          Margins.Left = 5.000000000000000000
-          Margins.Top = 7.000000000000000000
-          Margins.Right = 10.000000000000000000
-          Margins.Bottom = 7.000000000000000000
-          Position.X = 318.000000000000000000
-          Position.Y = 7.000000000000000000
-          Size.Width = 32.000000000000000000
-          Size.Height = 26.000000000000000000
-          Size.PlatformDefault = False
-          Stroke.Kind = None
-        end
-        object lbl_SubTitleStart: TLabel
-          Align = Client
-          StyledSettings = [Family, FontColor]
-          Size.Width = 253.000000000000000000
-          Size.Height = 40.000000000000000000
-          Size.PlatformDefault = False
-          TextSettings.Font.Size = 22.000000000000000000
-          TextSettings.Font.StyleExt = {00070000000000000004000000}
-          TextSettings.HorzAlign = Center
-          Text = '00'
-          TabOrder = 0
-        end
-      end
-      object vScroll_RentStart: TVertScrollBox
-        Align = Client
-        Size.Width = 360.000000000000000000
-        Size.Height = 485.000000000000000000
-        Size.PlatformDefault = False
-        TabOrder = 1
-        Viewport.Width = 360.000000000000000000
-        Viewport.Height = 485.000000000000000000
-        object layout_RentStart: TFlowLayout
-          Align = Top
-          Margins.Top = 50.000000000000000000
-          Position.Y = 50.000000000000000000
-          Size.Width = 360.000000000000000000
-          Size.Height = 435.000000000000000000
-          Size.PlatformDefault = False
-          TabOrder = 0
-          Justify = Center
-          JustifyLastLine = Center
-          FlowDirection = LeftToRight
-          object layout_RentStart1: TLayout
-            Align = Center
-            Size.Width = 280.000000000000000000
-            Size.Height = 369.000000000000000000
-            Size.PlatformDefault = False
-            TabOrder = 0
-            object trackBar_RentStartMinutes: TTrackBar
-              CanParentFocus = True
-              Frequency = 1.000000000000000000
-              Max = 4.000000000000000000
-              Min = 1.000000000000000000
-              Orientation = Horizontal
-              Position.X = 8.000000000000000000
-              Position.Y = 8.000000000000000000
-              Size.Width = 264.000000000000000000
-              Size.Height = 19.000000000000000000
-              Size.PlatformDefault = False
-              TabOrder = 2
-              Value = 1.000000000000000000
-              OnChange = trackBar_RentStartMinutesChange
-            end
-            object edit_RentStartMinutes: TNumberBox
-              Touch.InteractiveGestures = [LongTap, DoubleTap]
-              TabOrder = 3
-              Cursor = crIBeam
-              Max = 100000.000000000000000000
-              TextSettings.Font.Size = 22.000000000000000000
-              TextSettings.Font.StyleExt = {00070000000000000004000000}
-              TextSettings.HorzAlign = Center
-              TextSettings.VertAlign = Trailing
-              Position.X = 64.000000000000000000
-              Position.Y = 48.000000000000000000
-              HorzIncrement = 10.000000000000000000
-              Size.Width = 145.000000000000000000
-              Size.Height = 32.000000000000000000
-              Size.PlatformDefault = False
-              StyledSettings = [FontColor]
-              KillFocusByReturn = True
-            end
-            object lbl_RentStartMinutesMin: TLabel
-              StyledSettings = [FontColor]
-              Position.X = 224.000000000000000000
-              Position.Y = 48.000000000000000000
-              Size.Width = 57.000000000000000000
-              Size.Height = 33.000000000000000000
-              Size.PlatformDefault = False
-              TextSettings.Font.Size = 22.000000000000000000
-              TextSettings.Font.StyleExt = {00070000000000000004000000}
-              Text = 'min.'
-            end
-            object edit_RentStartValue: TNumberBox
-              Touch.InteractiveGestures = [LongTap, DoubleTap]
-              TabOrder = 0
-              Cursor = crIBeam
-              Max = 100000.000000000000000000
-              TextSettings.Font.Size = 22.000000000000000000
-              TextSettings.Font.StyleExt = {00070000000000000004000000}
-              TextSettings.HorzAlign = Center
-              TextSettings.VertAlign = Trailing
-              Position.X = 64.000000000000000000
-              Position.Y = 103.000000000000000000
-              Size.Width = 145.000000000000000000
-              Size.Height = 32.000000000000000000
-              Size.PlatformDefault = False
-              StyledSettings = [FontColor]
-              KillFocusByReturn = True
-            end
-            object lbl_RentStartValueCurrency: TLabel
-              StyledSettings = [FontColor]
-              Position.X = 8.000000000000000000
-              Position.Y = 104.000000000000000000
-              Size.Width = 57.000000000000000000
-              Size.Height = 31.000000000000000000
-              Size.PlatformDefault = False
-              TextSettings.Font.Size = 22.000000000000000000
-              TextSettings.Font.StyleExt = {00070000000000000004000000}
-              Text = 'R$'
-            end
-            object lbl_RentStartValueCents: TLabel
-              StyledSettings = [FontColor]
-              Position.X = 215.000000000000000000
-              Position.Y = 104.000000000000000000
-              Size.Width = 57.000000000000000000
-              Size.Height = 31.000000000000000000
-              Size.PlatformDefault = False
-              TextSettings.Font.Size = 22.000000000000000000
-              TextSettings.Font.StyleExt = {00070000000000000004000000}
-              Text = ',00'
-            end
-            object btn_RentStart: TButton
-              StyledSettings = [FontColor]
-              Position.X = 15.000000000000000000
-              Position.Y = 270.000000000000000000
-              Size.Width = 257.000000000000000000
-              Size.Height = 57.000000000000000000
-              Size.PlatformDefault = False
-              TabOrder = 1
-              Text = 'Open'
-              TextSettings.Font.Size = 22.000000000000000000
-              TextSettings.Font.StyleExt = {00070000000000000004000000}
-              TextSettings.Trimming = None
-              OnClick = btn_RentStartClick
-            end
-            object cbBox_Payment: TComboBox
-              Items.Strings = (
-                'Forma de Pagamento'
-                'Dinheiro'
-                'Cartao')
-              ItemIndex = 0
-              Position.X = 16.000000000000000000
-              Position.Y = 152.000000000000000000
-              Size.Width = 257.000000000000000000
-              Size.Height = 41.000000000000000000
-              Size.PlatformDefault = False
-              TabOrder = 4
-            end
-            object Edit1: TEdit
-              Touch.InteractiveGestures = [LongTap, DoubleTap]
-              TabOrder = 5
-              TextSettings.Font.Size = 18.000000000000000000
-              TextSettings.Font.StyleExt = {00070000000000000004000000}
-              Position.X = 16.000000000000000000
-              Position.Y = 208.000000000000000000
-              Size.Width = 257.000000000000000000
-              Size.Height = 49.000000000000000000
-              Size.PlatformDefault = False
-              TextPrompt = 'Observa'#231#227'o'
-              StyledSettings = [Family, FontColor]
-            end
-          end
+        object shadow_Detail: TShadowEffect
+          Distance = 3.000000000000000000
+          Direction = 90.000000000000000000
+          Softness = 0.300000011920929000
+          Opacity = 0.600000023841857900
+          ShadowColor = claBlack
         end
       end
     end
@@ -418,6 +880,7 @@ object frm_Rental: Tfrm_Rental
       StyleLookup = ''
       TabOrder = 0
       Text = 'tabItem_Finish'
+      OnClick = tabItem_FinishClick
       ExplicitSize.cx = 8.000000000000000000
       ExplicitSize.cy = 8.000000000000000000
       object ToolBar1: TToolBar
@@ -431,6 +894,51 @@ object frm_Rental: Tfrm_Rental
           Softness = 0.300000011920929000
           Opacity = 0.600000023841857900
           ShadowColor = claBlack
+        end
+        object lbl_SubTitleFinish: TLabel
+          Align = Contents
+          StyledSettings = [Family, FontColor]
+          Size.Width = 360.000000000000000000
+          Size.Height = 40.000000000000000000
+          Size.PlatformDefault = False
+          TextSettings.Font.Size = 22.000000000000000000
+          TextSettings.Font.StyleExt = {00070000000000000004000000}
+          TextSettings.HorzAlign = Center
+          Text = '00'
+          TabOrder = 0
+        end
+        object Path1: TPath
+          Align = Right
+          Data.Path = {
+            2C000000000000000E2D7E42B052214302000000BCF41C438D772F4302000000
+            2F3D20437E2AEB42020000002F3D20437E2AEB4202000000B8DE2343B3489842
+            0200000022DBF24264E67F42020000005839D942CACC234202000000508DBF42
+            01818F41020000007B14FB42C0A16741020000003974F7429C45EA4102000000
+            22DBF342A54630420200000095A302432CDD3A42020000008F220343C6763F42
+            020000007D9F03433509444202000000EF4710435CBA76420200000093181243
+            30336D420200000024E61343AF9D6342020000007FEA0C43C6763F4202000000
+            7FEA0C43C6763F42020000007FEA0C43C6763F42020000008756124389EC3242
+            0200000096631443FFAA1642020000009E4F1A430A58AC41020000001819FA42
+            5C0E8AC1020000002C47BC42C8780B4102000000F67D7F4242B6124202000000
+            55A3D042DCE48542020000004DB7E5425223A442020000001AC4FA42D563C242
+            0200000072FDF942CD37D942020000001CEFEC42335EDD42020000000C97DF42
+            8596E142020000000A2CD5424E4DD442020000002EB2CF427BBFBF4202000000
+            9A99CA427B94AC420200000066E6A84264BB5D42020000003B5F4242DF8F8242
+            02000000FCA9AF41A4B09342020000005C8FC84158B9A8420200000081956B40
+            4EE29C42020000009EEF77C0CF771643020000000E2D7E42B052214302000000
+            0E2D7E42B0522143030000000E2D7E42B0522143}
+          Fill.Color = xFF212529
+          Margins.Left = 5.000000000000000000
+          Margins.Top = 5.000000000000000000
+          Margins.Right = 5.000000000000000000
+          Margins.Bottom = 5.000000000000000000
+          Position.X = 319.000000000000000000
+          Position.Y = 5.000000000000000000
+          Size.Width = 36.000000000000000000
+          Size.Height = 30.000000000000000000
+          Size.PlatformDefault = False
+          Stroke.Kind = None
+          WrapMode = Fit
         end
         object btn_CancelFinish: TSpeedButton
           Align = Left
@@ -451,71 +959,21 @@ object frm_Rental: Tfrm_Rental
           TouchTargetExpansion.Bottom = 12.000000000000000000
           OnClick = btn_CancelFinishClick
         end
-        object rect_TitleRentFinishImage: TRectangle
-          Align = Right
-          Fill.Bitmap.Bitmap.PNG = {
-            89504E470D0A1A0A0000000D4948445200000020000000200806000000737A7A
-            F40000000473424954080808087C0864880000023B494441545885BDD7396815
-            411C06F05FA262D4A8E400B10808A2E085454462118F282416362954040FAC2D
-            14112C6C6CC44AB11411B1D042502495DA080A6A2128166A21588812EF7824C6
-            2389C5BEC5799BDD9798CCCB077FDEFEDF7C33DF37B3B373101773701CF7D087
-            67388725917572B10DAF3092133F71A09AE26DF855209EC61F6CAA867883E29E
-            67A3170B631BD89F2374028BD12D19FEB0EC7A6C039733027733E58F33E58392
-            C90A6A63BBC1B74CDE97C9674A5E5B3403CF33F9663407F9FB4C796F29A26119
-            86950FF335FF3AD7AE7C1EEC89299EA2C7E889782628DF827E3CA88638B4E043
-            8E89C301A7039FB1B15A26BA8C7E15C33814701AB026AC346D9C8DAF4627B697
-            8496E3BBF209F60233B03EF8AFA654AF19B7308037E3D454877D78287F551BC2
-            452CCA74E84601BF47F0FD8F859D785DD050DE467330A83B0F4F0AB8B7313D2B
-            B612A724BBD5513C1AA770F65DEF08DA6C910C751EF774D640C70404F3E207D6
-            06ED6EADC0DD151A688F64201DE210370B78FD589592DA221A18416B60A0B302
-            EF524A6A8D6CE06A6060367E17F0BE4ABE344D92D34A2C03C35851325067F4E2
-            14C6BA5A7CC47DF150832BD88DB3A5BC0873D38723155C5633BAD32DB367325D
-            9E04DE85C90553DBFB41CC0A0D344A4E2A5365E07CDE9074AB3C6B63C50096E6
-            19205926C7BA644C36F61689A7E8C2A72A080FE1D858E229E64B2E9A5F2289BF
-            959C0DFF1B4D3829D9402622FC54725E68C8364CE5552A8B7AC9E5720316948C
-            3506BFF59243CCCB20EE187D532AC35FF88BE4518A47BC490000000049454E44
-            AE426082}
-          Fill.Bitmap.WrapMode = TileStretch
-          Fill.Kind = Bitmap
-          HitTest = False
-          Margins.Left = 5.000000000000000000
-          Margins.Top = 7.000000000000000000
-          Margins.Right = 10.000000000000000000
-          Margins.Bottom = 7.000000000000000000
-          Position.X = 318.000000000000000000
-          Position.Y = 7.000000000000000000
-          Size.Width = 32.000000000000000000
-          Size.Height = 26.000000000000000000
-          Size.PlatformDefault = False
-          Stroke.Kind = None
-        end
-        object lbl_SubTitleFinish: TLabel
-          Align = Client
-          StyledSettings = [Family, FontColor]
-          Size.Width = 253.000000000000000000
-          Size.Height = 40.000000000000000000
-          Size.PlatformDefault = False
-          TextSettings.Font.Size = 22.000000000000000000
-          TextSettings.Font.StyleExt = {00070000000000000004000000}
-          TextSettings.HorzAlign = Center
-          Text = '00'
-          TabOrder = 0
-        end
       end
       object vScroll_RentFinish: TVertScrollBox
         Align = Client
         Size.Width = 360.000000000000000000
-        Size.Height = 485.000000000000000000
+        Size.Height = 530.000000000000000000
         Size.PlatformDefault = False
         TabOrder = 1
-        Viewport.Width = 360.000000000000000000
-        Viewport.Height = 485.000000000000000000
+        Viewport.Width = 394.000000000000000000
+        Viewport.Height = 530.000000000000000000
         object layout_RentFinish: TFlowLayout
           Align = Top
           Margins.Top = 20.000000000000000000
           Position.Y = 20.000000000000000000
-          Size.Width = 360.000000000000000000
-          Size.Height = 465.000000000000000000
+          Size.Width = 394.000000000000000000
+          Size.Height = 460.000000000000000000
           Size.PlatformDefault = False
           TabOrder = 0
           Justify = Center
@@ -524,10 +982,10 @@ object frm_Rental: Tfrm_Rental
           object layout_RentFinish1: TLayout
             Align = Center
             Size.Width = 350.000000000000000000
-            Size.Height = 129.000000000000000000
+            Size.Height = 169.000000000000000000
             Size.PlatformDefault = False
             TabOrder = 1
-            object edit_RentFinishStartHour: TTimeEdit
+            object edt_RentFinishStartHour: TTimeEdit
               Time = 0.013194444444444440
               Enabled = False
               Position.X = 200.000000000000000000
@@ -540,7 +998,7 @@ object frm_Rental: Tfrm_Rental
               TextSettings.Font.StyleExt = {00070000000000000004000000}
               TabOrder = 2
             end
-            object edit_RentFinishStartDate: TDateEdit
+            object edt_RentFinishStartDate: TDateEdit
               Date = 42895.000000000000000000
               Enabled = False
               Position.X = 8.000000000000000000
@@ -553,7 +1011,7 @@ object frm_Rental: Tfrm_Rental
               TextSettings.Font.Size = 22.000000000000000000
               TextSettings.Font.StyleExt = {00070000000000000004000000}
             end
-            object edit_RentFinishStartMinutes: TNumberBox
+            object edt_RentFinishStartMinutes: TNumberBox
               Touch.InteractiveGestures = [LongTap, DoubleTap]
               TabOrder = 3
               Cursor = crIBeam
@@ -583,7 +1041,7 @@ object frm_Rental: Tfrm_Rental
               TextSettings.Font.StyleExt = {00070000000000000004000000}
               Text = 'min.'
             end
-            object edit_RentFinishStartValue: TNumberBox
+            object edt_RentFinishStartValue: TNumberBox
               Touch.InteractiveGestures = [LongTap, DoubleTap]
               TabOrder = 0
               Cursor = crIBeam
@@ -632,27 +1090,52 @@ object frm_Rental: Tfrm_Rental
               TextSettings.Font.Size = 22.000000000000000000
               TextSettings.Font.StyleExt = {00070000000000000004000000}
               TextSettings.HorzAlign = Center
-              Text = 'START'
+              Text = 'INICIAL'
             end
             object Rectangle2: TRectangle
               Align = Bottom
               Fill.Kind = None
-              Position.Y = 119.000000000000000000
+              Position.Y = 159.000000000000000000
               Sides = [Bottom]
               Size.Width = 350.000000000000000000
               Size.Height = 10.000000000000000000
               Size.PlatformDefault = False
             end
+            object lbl_PaymentType: TLabel
+              StyledSettings = [FontColor]
+              Position.X = 8.000000000000000000
+              Position.Y = 120.000000000000000000
+              Size.Width = 129.000000000000000000
+              Size.Height = 31.000000000000000000
+              Size.PlatformDefault = False
+              TextSettings.Font.Size = 22.000000000000000000
+              TextSettings.Font.StyleExt = {00070000000000000004000000}
+              Text = 'Pagamento:'
+              TabOrder = 5
+            end
+            object lbl_PaymentTypeValue: TLabel
+              Anchors = [akLeft, akTop, akRight]
+              StyledSettings = [FontColor]
+              Position.X = 145.000000000000000000
+              Position.Y = 120.000000000000000000
+              Size.Width = 197.000000000000000000
+              Size.Height = 31.000000000000000000
+              Size.PlatformDefault = False
+              TextSettings.Font.Size = 22.000000000000000000
+              TextSettings.Font.StyleExt = {00070000000000000004000000}
+              Text = 'Dinheiro'
+              TabOrder = 4
+            end
           end
           object layout_RentFinish2: TLayout
             Align = VertCenter
-            Position.X = 5.000000000000000000
-            Position.Y = 129.000000000000000000
+            Position.X = 22.000000000000000000
+            Position.Y = 169.000000000000000000
             Size.Width = 350.000000000000000000
             Size.Height = 88.000000000000000000
             Size.PlatformDefault = False
             TabOrder = 3
-            object edit_RentFinishCalcMinutes: TNumberBox
+            object edt_RentFinishCalcMinutes: TNumberBox
               Touch.InteractiveGestures = [LongTap, DoubleTap]
               TabOrder = 1
               Cursor = crIBeam
@@ -693,7 +1176,7 @@ object frm_Rental: Tfrm_Rental
               TextSettings.Font.StyleExt = {00070000000000000004000000}
               Text = ',00'
             end
-            object edit_RentFinishCalcValue: TNumberBox
+            object edt_RentFinishCalcValue: TNumberBox
               Touch.InteractiveGestures = [LongTap, DoubleTap]
               TabOrder = 0
               Cursor = crIBeam
@@ -731,7 +1214,7 @@ object frm_Rental: Tfrm_Rental
               TextSettings.Font.Size = 22.000000000000000000
               TextSettings.Font.StyleExt = {00070000000000000004000000}
               TextSettings.HorzAlign = Center
-              Text = 'CALCULATION'
+              Text = 'C'#193'LCULO'
             end
             object Rectangle3: TRectangle
               Align = Bottom
@@ -757,13 +1240,13 @@ object frm_Rental: Tfrm_Rental
               Size.Height = 57.000000000000000000
               Size.PlatformDefault = False
               TabOrder = 1
-              Text = 'FINISH'
+              Text = 'FINALIZAR'
               TextSettings.Font.Size = 22.000000000000000000
               TextSettings.Font.StyleExt = {00070000000000000004000000}
               TextSettings.Trimming = None
               OnClick = btn_RentFinishClick
             end
-            object edit_RentFinishMinutes: TNumberBox
+            object edt_RentFinishMinutes: TNumberBox
               Touch.InteractiveGestures = [LongTap, DoubleTap]
               TabOrder = 2
               Cursor = crIBeam
@@ -804,7 +1287,7 @@ object frm_Rental: Tfrm_Rental
               TextSettings.Font.StyleExt = {00070000000000000004000000}
               Text = ',00'
             end
-            object edit_RentFinishValue: TNumberBox
+            object edt_RentFinishValue: TNumberBox
               Touch.InteractiveGestures = [LongTap, DoubleTap]
               TabOrder = 0
               Cursor = crIBeam
@@ -842,7 +1325,7 @@ object frm_Rental: Tfrm_Rental
               TextSettings.Font.Size = 22.000000000000000000
               TextSettings.Font.StyleExt = {00070000000000000004000000}
               TextSettings.HorzAlign = Center
-              Text = 'FINISH'
+              Text = 'FINAL'
             end
             object switch_RentFinishChange: TSwitch
               IsChecked = False
@@ -863,7 +1346,7 @@ object frm_Rental: Tfrm_Rental
               Size.PlatformDefault = False
               TextSettings.Font.Size = 22.000000000000000000
               TextSettings.Font.StyleExt = {00070000000000000004000000}
-              Text = 'Change'
+              Text = 'Modificar'
               TabOrder = 6
             end
           end
@@ -898,6 +1381,18 @@ object frm_Rental: Tfrm_Rental
           Opacity = 0.600000023841857900
           ShadowColor = claBlack
         end
+        object lbl_SubTitleConfig: TLabel
+          Align = Contents
+          StyledSettings = [Family, FontColor]
+          Size.Width = 360.000000000000000000
+          Size.Height = 40.000000000000000000
+          Size.PlatformDefault = False
+          TextSettings.Font.Size = 22.000000000000000000
+          TextSettings.Font.StyleExt = {00070000000000000004000000}
+          TextSettings.HorzAlign = Center
+          Text = 'Configura'#231#227'o'
+          TabOrder = 0
+        end
         object btn_ConfigBack: TSpeedButton
           Align = Left
           Padding.Top = 5.000000000000000000
@@ -917,32 +1412,20 @@ object frm_Rental: Tfrm_Rental
           TouchTargetExpansion.Bottom = 12.000000000000000000
           OnClick = btn_CancelClick
         end
-        object lbl_SubTitleConfig: TLabel
-          Align = Client
-          StyledSettings = [Family, FontColor]
-          Size.Width = 300.000000000000000000
-          Size.Height = 40.000000000000000000
-          Size.PlatformDefault = False
-          TextSettings.Font.Size = 22.000000000000000000
-          TextSettings.Font.StyleExt = {00070000000000000004000000}
-          TextSettings.HorzAlign = Center
-          Text = 'Config'
-          TabOrder = 0
-        end
       end
       object vScrollBox_Config: TVertScrollBox
         Align = Client
         Size.Width = 360.000000000000000000
-        Size.Height = 485.000000000000000000
+        Size.Height = 530.000000000000000000
         Size.PlatformDefault = False
         TabOrder = 1
-        Viewport.Width = 360.000000000000000000
-        Viewport.Height = 485.000000000000000000
+        Viewport.Width = 394.000000000000000000
+        Viewport.Height = 540.000000000000000000
         object FlowLayout1: TFlowLayout
           Align = Top
           Margins.Top = 50.000000000000000000
           Position.Y = 50.000000000000000000
-          Size.Width = 360.000000000000000000
+          Size.Width = 394.000000000000000000
           Size.Height = 435.000000000000000000
           Size.PlatformDefault = False
           TabOrder = 0
@@ -955,9 +1438,23 @@ object frm_Rental: Tfrm_Rental
             Size.Height = 388.000000000000000000
             Size.PlatformDefault = False
             TabOrder = 0
-            object edt_ConfigMinutes: TNumberBox
+            object btn_ConfigSave: TButton
+              StyledSettings = [FontColor]
+              Position.X = 15.000000000000000000
+              Position.Y = 323.000000000000000000
+              Size.Width = 257.000000000000000000
+              Size.Height = 57.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 2
+              Text = 'Salvar'
+              TextSettings.Font.Size = 22.000000000000000000
+              TextSettings.Font.StyleExt = {00070000000000000004000000}
+              TextSettings.Trimming = None
+              OnClick = btn_ConfigSaveClick
+            end
+            object edt_ConfigSizePortrait: TNumberBox
               Touch.InteractiveGestures = [LongTap, DoubleTap]
-              TabOrder = 1
+              TabOrder = 0
               Cursor = crIBeam
               Max = 100000.000000000000000000
               TextSettings.Font.Size = 22.000000000000000000
@@ -972,124 +1469,16 @@ object frm_Rental: Tfrm_Rental
               Size.PlatformDefault = False
               StyledSettings = [FontColor]
               KillFocusByReturn = True
-              object lbl_ConfigMinutes: TLabel
-                StyledSettings = [FontColor]
-                Position.X = -49.000000000000000000
-                Position.Y = -31.000000000000000000
-                Size.Width = 209.000000000000000000
-                Size.Height = 31.000000000000000000
-                Size.PlatformDefault = False
-                TextSettings.Font.Size = 22.000000000000000000
-                TextSettings.Font.StyleExt = {00070000000000000004000000}
-                Text = 'Default Minutes:'
-                TabOrder = 0
-              end
-              object lbl_ConfigMinutes1: TLabel
-                StyledSettings = [FontColor]
-                Position.X = 153.000000000000000000
-                Size.Width = 57.000000000000000000
-                Size.Height = 33.000000000000000000
-                Size.PlatformDefault = False
-                TextSettings.Font.Size = 22.000000000000000000
-                TextSettings.Font.StyleExt = {00070000000000000004000000}
-                Text = 'min.'
-                TabOrder = 1
-              end
-            end
-            object edt_ConfigValue: TNumberBox
-              Touch.InteractiveGestures = [LongTap, DoubleTap]
-              TabOrder = 0
-              Cursor = crIBeam
-              Max = 100000.000000000000000000
-              TextSettings.Font.Size = 22.000000000000000000
-              TextSettings.Font.StyleExt = {00070000000000000004000000}
-              TextSettings.HorzAlign = Center
-              TextSettings.VertAlign = Trailing
-              Position.X = 64.000000000000000000
-              Position.Y = 111.000000000000000000
-              Size.Width = 145.000000000000000000
-              Size.Height = 32.000000000000000000
-              Size.PlatformDefault = False
-              StyledSettings = [FontColor]
-              KillFocusByReturn = True
-              object lbl_ConfigValue2: TLabel
-                StyledSettings = [FontColor]
-                Position.X = -42.000000000000000000
-                Position.Y = 1.000000000000000000
-                Size.Width = 40.000000000000000000
-                Size.Height = 23.000000000000000000
-                Size.PlatformDefault = False
-                TextSettings.Font.Size = 22.000000000000000000
-                TextSettings.Font.StyleExt = {00070000000000000004000000}
-                Text = 'R$'
-                TabOrder = 1
-              end
-              object lbl_ConfigValue1: TLabel
-                StyledSettings = [FontColor]
-                Position.X = 153.000000000000000000
-                Position.Y = 1.000000000000000000
-                Size.Width = 40.000000000000000000
-                Size.Height = 24.000000000000000000
-                Size.PlatformDefault = False
-                TextSettings.Font.Size = 22.000000000000000000
-                TextSettings.Font.StyleExt = {00070000000000000004000000}
-                Text = ',00'
-                TabOrder = 2
-              end
-              object lbl_ConfigValue: TLabel
-                StyledSettings = [FontColor]
-                Position.X = -47.000000000000000000
-                Position.Y = -31.000000000000000000
-                Size.Width = 169.000000000000000000
-                Size.Height = 31.000000000000000000
-                Size.PlatformDefault = False
-                TextSettings.Font.Size = 22.000000000000000000
-                TextSettings.Font.StyleExt = {00070000000000000004000000}
-                Text = 'Default Value:'
-                TabOrder = 0
-              end
-            end
-            object btn_ConfigSave: TButton
-              StyledSettings = [FontColor]
-              Position.X = 15.000000000000000000
-              Position.Y = 323.000000000000000000
-              Size.Width = 257.000000000000000000
-              Size.Height = 57.000000000000000000
-              Size.PlatformDefault = False
-              TabOrder = 4
-              Text = 'Save'
-              TextSettings.Font.Size = 22.000000000000000000
-              TextSettings.Font.StyleExt = {00070000000000000004000000}
-              TextSettings.Trimming = None
-              OnClick = btn_ConfigSaveClick
-            end
-            object edt_ConfigSizePortrait: TNumberBox
-              Touch.InteractiveGestures = [LongTap, DoubleTap]
-              TabOrder = 2
-              Cursor = crIBeam
-              Max = 100000.000000000000000000
-              TextSettings.Font.Size = 22.000000000000000000
-              TextSettings.Font.StyleExt = {00070000000000000004000000}
-              TextSettings.HorzAlign = Center
-              TextSettings.VertAlign = Trailing
-              Position.X = 64.000000000000000000
-              Position.Y = 192.000000000000000000
-              HorzIncrement = 10.000000000000000000
-              Size.Width = 145.000000000000000000
-              Size.Height = 32.000000000000000000
-              Size.PlatformDefault = False
-              StyledSettings = [FontColor]
-              KillFocusByReturn = True
               object lbl_ConfigSizePortrait: TLabel
                 StyledSettings = [FontColor]
                 Position.X = -49.000000000000000000
                 Position.Y = -31.000000000000000000
-                Size.Width = 209.000000000000000000
+                Size.Width = 250.000000000000000000
                 Size.Height = 31.000000000000000000
                 Size.PlatformDefault = False
                 TextSettings.Font.Size = 22.000000000000000000
                 TextSettings.Font.StyleExt = {00070000000000000004000000}
-                Text = 'Size Portrait:'
+                Text = 'Tamanho (Retrato):'
                 TabOrder = 0
               end
               object lbl_ConfigSizePortrait1: TLabel
@@ -1106,7 +1495,7 @@ object frm_Rental: Tfrm_Rental
             end
             object edt_ConfigSizeLandscape: TNumberBox
               Touch.InteractiveGestures = [LongTap, DoubleTap]
-              TabOrder = 3
+              TabOrder = 1
               Cursor = crIBeam
               Max = 100000.000000000000000000
               TextSettings.Font.Size = 22.000000000000000000
@@ -1114,7 +1503,7 @@ object frm_Rental: Tfrm_Rental
               TextSettings.HorzAlign = Center
               TextSettings.VertAlign = Trailing
               Position.X = 64.000000000000000000
-              Position.Y = 275.000000000000000000
+              Position.Y = 107.000000000000000000
               HorzIncrement = 10.000000000000000000
               Size.Width = 145.000000000000000000
               Size.Height = 32.000000000000000000
@@ -1125,12 +1514,12 @@ object frm_Rental: Tfrm_Rental
                 StyledSettings = [FontColor]
                 Position.X = -49.000000000000000000
                 Position.Y = -31.000000000000000000
-                Size.Width = 209.000000000000000000
+                Size.Width = 258.000000000000000000
                 Size.Height = 31.000000000000000000
                 Size.PlatformDefault = False
                 TextSettings.Font.Size = 22.000000000000000000
                 TextSettings.Font.StyleExt = {00070000000000000004000000}
-                Text = 'Size Landscape:'
+                Text = 'Tamanho (Paisagem):'
                 TabOrder = 0
               end
               object lbl_ConfigSizeLandscape1: TLabel
@@ -1164,8 +1553,8 @@ object frm_Rental: Tfrm_Rental
     Top = 338
   end
   object ActionList: TActionList
-    Left = 288
-    Top = 418
+    Left = 296
+    Top = 466
     object actTabChange_Start: TChangeTabAction
       Category = 'Tab'
       Tab = tabItem_Start
@@ -1181,6 +1570,9 @@ object frm_Rental: Tfrm_Rental
     object actTabChange_Config: TChangeTabAction
       Category = 'Tab'
       Tab = tabItem_Config
+    end
+    object actTabChange_MultiPay: TChangeTabAction
+      Category = 'Tab'
     end
   end
 end

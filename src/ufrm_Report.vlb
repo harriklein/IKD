@@ -16,12 +16,6 @@ Coordinates=10,500,80,36
 [tabItem_List]
 Coordinates=801,432,85,36
 
-[lbl_Number]
-Coordinates=96,364,80,58
-
-[edt_Number]
-Coordinates=496,364,85,58
-
 [toolBar_Detail]
 Coordinates=695,432,96,36
 
@@ -38,7 +32,7 @@ Coordinates=174,10,154,234
 Coordinates=455,10,116,212
 
 []
-Coordinates=424,364,62,58
+Coordinates=496,364,85,58
 Visible=True
 
 [lst_Rental]

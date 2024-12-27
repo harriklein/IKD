@@ -30,10 +30,9 @@ type
     tb_BoatActive: TBooleanField;
     tb_BoatRented: TBooleanField;
     tb_BoatRentedAt: TDateTimeField;
-    tb_BoatAdvancedPaymentValue: TLongWordField;
-    tb_BoatAdvancedPaymentMinutes: TLongWordField;
+    tb_BoatStartPayValue: TLongWordField;
+    tb_BoatStartPayMinutes: TLongWordField;
     tb_Rental: TFDMemTable;
-    tb_RentalBoat_id: TLongWordField;
     tb_RentalRentedAt: TDateTimeField;
     tb_RentalRentFinishedAt: TDateTimeField;
     tb_RentalAdvancedPaymentValue: TLongWordField;
@@ -49,6 +48,15 @@ type
     tb_BoatColor: TLongWordField;
     tb_BoatDefaultValue: TLongWordField;
     tb_Rentalid: TGuidField;
+    tb_BoatStartPayMethod: TStringField;
+    tb_RentalAdvancedPaymentType: TStringField;
+    tb_BoatDefaultMinutes: TIntegerField;
+    tb_BoatStartPayValueCash: TLongWordField;
+    tb_BoatStartPayValueCard: TLongWordField;
+    tb_BoatStartPayValuePix: TLongWordField;
+    tb_BoatStartPayValueOther: TLongWordField;
+    tb_BoatStartPayValueDiscount: TLongWordField;
+    tb_BoatStartObs: TStringField;
     procedure DataModuleCreate(Sender: TObject);
   private
     { Private declarations }

@@ -16,6 +16,8 @@ type
     btn_Save: TButton;
     cbBox_Printers: TComboBox;
     btn_Test: TButton;
+    switch_PrinterEnable: TSwitch;
+    Label1: TLabel;
     procedure btn_SaveClick(Sender: TObject);
     procedure btn_TestClick(Sender: TObject);
   private
@@ -38,35 +40,38 @@ procedure Tfrm_Config.prepare;
 begin
   BTDeviceList( cbBox_Printers.Items );
 
-  cbBox_Printers.ItemIndex := cbBox_Printers.Items.IndexOf( PRINTER_NAME );
+  cbBox_Printers.ItemIndex       := cbBox_Printers.Items.IndexOf( PRINTER_NAME );
+  switch_PrinterEnable.IsChecked := PRINTER_ENABLE;
 end;
 
 procedure Tfrm_Config.btn_SaveClick(Sender: TObject);
 var
-  iniCFG : TiniFile;
+  LIniConfig : TiniFile;
 begin
- if (cbBox_Printers.Selected <> nil) and (cbBox_Printers.Selected.Text <> '') then
-  begin
-    PRINTER_NAME := cbBox_Printers.Selected.Text;
-    iniCFG := TIniFile.Create(GetPath('IKDAppConfig.ini'));
-    try
-      iniCFG.WriteString('CLIENT', 'Printer'  , PRINTER_NAME);
-    finally
-      iniCFG.Free;
-    end;
-    if BTConnectPrinter(cbBox_Printers.Selected.Text) then
-      begin
-        ShowMessage('Dispositivo conectado corretamente: ' + PRINTER_NAME);
-      end
-    else
-      begin
-        ShowMessage('Não é possivel conectar com o dispositivo selecionado.');
+  if (cbBox_Printers.Selected <> nil) and (cbBox_Printers.Selected.Text <> '') then
+    begin
+      PRINTER_NAME := cbBox_Printers.Selected.Text;
+      PRINTER_ENABLE := switch_PrinterEnable.IsChecked;
+      LIniConfig := TIniFile.Create(GetPath('IKDAppConfig.ini'));
+      try
+        LIniConfig.WriteString('CLIENT', 'Printer'        , PRINTER_NAME  );
+        LIniConfig.WriteBool  ('CLIENT', 'PrinterEnable'  , PRINTER_ENABLE);
+      finally
+        LIniConfig.Free;
       end;
-  end
-  else
-  begin
-    ShowMessage('Selecione um dispositivo.');
-  end;
+      if BTConnectPrinter(cbBox_Printers.Selected.Text) then
+        begin
+          ShowMessage('Dispositivo conectado corretamente: ' + PRINTER_NAME);
+        end
+      else
+        begin
+          ShowMessage('Não é possivel conectar com o dispositivo selecionado.');
+        end;
+    end
+    else
+    begin
+      ShowMessage('Selecione um dispositivo.');
+    end;
 end;
 
 //******************************************************************************
@@ -78,13 +83,13 @@ end;
 
 procedure Tfrm_Config.PrintReceipt;
 var
-  _LineSeq, _LineObs, _LineDate, _LineValue, _LineMin : String;
+  LSeq, LObs, LDate, LValue, LMin : String;
 begin
-  _LineSeq   := '00' + '     ' + '1';
-  _LineDate  := 'Data  : '     + FormatDateTime( 'dd/MM/yyyy HH:mm', Now );
-  _LineValue := 'Valor : R$ '  +       IntToStr( 99         ) + ',00';
-  _LineMin   := 'Tempo : '     +       IntToStr( 35         ) + ' min';
-  _LineObs   := 'R$ 10,00 a cada 10 min excedente';
+  LSeq   := '00' + '     ' + '1';
+  LDate  := 'Data  : '     + FormatDateTime( 'dd/MM/yyyy HH:mm', Now );
+  LValue := 'Valor : R$ '  +       IntToStr( 99         ) + ',00';
+  LMin   := 'Tempo : '     +       IntToStr( 35         ) + ' min';
+  LObs   := 'R$ 10,00 a cada 10 min excedente';
 
   BTSendData( EP_INITIALIZE_PRINTER           );
   BTSendData( EP_SELECT_JUSTIFICATION_CENTER  );
@@ -98,7 +103,7 @@ begin
 
   BTSendData( EP_SELECT_PRINTER_MODE_ + CHR( EP_MODE_DOUBLE_WIDTH OR EP_MODE_DOUBLE_HEIGHT OR EP_MODE_EMPHASIZED ));
 //BTSendData( '01     G01' + EP_PRINT_RETURN_STANDARD_MODE + EP_PRINT  );
-  BTSendData( _LineSeq + EP_PRINT_RETURN_STANDARD_MODE + EP_PRINT  );
+  BTSendData( LSeq + EP_PRINT_RETURN_STANDARD_MODE + EP_PRINT  );
 
   BTSendData( EP_SELECT_PRINTER_MODE_ + CHR( EP_MODE_STANDARD   ));
   BTSendData( EP_SELECT_JUSTIFICATION_LEFT  );
@@ -107,14 +112,14 @@ begin
 //BTSendData( 'Data  : 01/01/2019 13:00' + EP_PRINT );
 //BTSendData( 'Valor : R$ 30,00'         + EP_PRINT );
 //BTSendData( 'Tempo : 30 min'           + EP_PRINT );
-  BTSendData( _LineDate  + EP_PRINT );
-  BTSendData( _LineValue + EP_PRINT );
-  BTSendData( _LineMin   + EP_PRINT );
+  BTSendData( LDate  + EP_PRINT );
+  BTSendData( LValue + EP_PRINT );
+  BTSendData( LMin   + EP_PRINT );
   BTSendData( EP_LF );
 
   BTSendData( EP_SELECT_JUSTIFICATION_CENTER  );
 //BTSendData( 'R$ 10,00 a cada 10 min excedente' + EP_PRINT );
-  BTSendData( _LineObs + EP_PRINT );
+  BTSendData( LObs + EP_PRINT );
 
   BTSendData(  EP_LF + EP_LF + EP_LF + EP_LF + EP_LF + EP_LF );
 end;

@@ -3,7 +3,7 @@ unit ufrm_Boat;
 interface
 
 uses
-  System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants, 
+  System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
   FMX.Types, FMX.Graphics, FMX.Controls, FMX.Forms, FMX.Dialogs, FMX.StdCtrls, System.DateUtils,
   FMX.Controls.Presentation, FMX.Objects, FMX.Effects, FMX.Layouts, FMX.Colors,
   FMX.Styles.Objects;
@@ -31,20 +31,48 @@ type
     { Public declarations }
     Frm : TFmxObject;
 
-    FNumber      : String;
-    FActive      : Boolean;
-    FColor       : TAlphaColor;
-    FDefaultValue: Integer;
-    FRented      : Boolean;
-    FRentedAt    : TDateTime;
-    FMinutes     : Int64;
-    FWarning     : Boolean;
-    FAdvancedPaymentValue   : Integer;
-    FAdvancedPaymentMinutes : Integer;
+    FNumber        : String;
+    FActive        : Boolean;
+    FColor         : TAlphaColor;
+    FDefaultValue  : Integer;
+    FDefaultMinutes: Integer;
+    FRented        : Boolean;
+    FRentedAt      : TDateTime;
+    FMinutes       : Int64;
+    FWarning       : Boolean;
 
-    constructor Create(AOwner: TFmxObject; AFrame: TFmxObject; ANumber: String; AActive: Boolean; AColor: TAlphaColor; ADefaultValue: Integer; ARented:Boolean; ARentedAt: TDateTime; AAdvancedPaymentValue, AAdvancedPaymentMinutes: Integer); overload;
+    FStartPayMethod       : String;
+    FStartPayMinutes      : Integer;
+    FStartPayValue        : Integer;
+    FStartPayValueCard    : Integer;
+    FStartPayValueCash    : Integer;
+    FStartPayValuePix     : Integer;
+    FStartPayValueOther   : Integer;
+    FStartPayValueDiscount: Integer;
+    FStartObs             : String;
+
+    constructor Create( AOwner          : TFmxObject;
+                        AFrame          : TFmxObject;
+                        ANumber         : String;
+                        AActive         : Boolean;
+                        AColor          : TAlphaColor;
+                        ADefaultMinutes : Integer;
+                        ADefaultValue   : Integer;
+                        ARented               : Boolean;
+                        ARentedAt             : TDateTime;
+                        AStartPayMethod       : String;
+                        AStartPayMinutes      : Integer;
+                        AStartPayValue        : Integer;
+                        AStartPayValueCard    : Integer;
+                        AStartPayValueCash    : Integer;
+                        AStartPayValuePix     : Integer;
+                        AStartPayValueOther   : Integer;
+                        AStartPayValueDiscount: Integer;
+                        AStartObs             : String
+                      ); overload;
     procedure   Update(ADate: TDateTime);
   end;
+
 
 const
   BoatColorNormal   : TAlphaColor = TAlphaColors.White;
@@ -53,33 +81,105 @@ const
   BoatColorInactive : TAlphaColor = TAlphaColors.Lightgray;      // TAlphaColor = TAlphaColors.Lightcoral;
   BoatColorCritical : TAlphaColor = TAlphaColors.Lightcoral;
 
+  PAYMENT_METHOD_MULTI    = 'MULTI';
+  PAYMENT_METHOD_CARD     = 'CARD';
+  PAYMENT_METHOD_CASH     = 'CASH';
+  PAYMENT_METHOD_PIX      = 'PIX';
+  PAYMENT_METHOD_OTHER    = 'OTHER';
+  PAYMENT_METHOD_DISCOUNT = 'DISCOUNT';
+
+
+function PaymentMethod_PT_to_EN(AText: String): String;
+function PaymentMethod_EN_to_PT(AText: String): String;
+function PaymentMethod_EN_to_PT3(AText: String): String;
+function BoatMinutesBetween(AStart, AEnd: TDateTime): Int64;
+
+
 implementation
 
 {$R *.fmx}
 
 uses udm_Main, ufrm_Main, System.UIConsts;
 
+function PaymentMethod_PT_to_EN(AText: String): String;
+begin
+       if AText = 'CARTÃO'         then Result := PAYMENT_METHOD_CARD
+  else if AText = 'DINHEIRO'       then Result := PAYMENT_METHOD_CASH
+  else if AText = 'PIX'            then Result := PAYMENT_METHOD_PIX
+  else if AText = 'OUTRO'          then Result := PAYMENT_METHOD_OTHER
+  else if AText = 'CORTESIA'       then Result := PAYMENT_METHOD_DISCOUNT
+  else if AText = 'DIVIDIDO'       then Result := PAYMENT_METHOD_MULTI;
+end;
 
+function PaymentMethod_EN_to_PT(AText: String): String;
+begin
+       if AText = PAYMENT_METHOD_CARD      then Result := 'CARTÃO'
+  else if AText = PAYMENT_METHOD_CASH      then Result := 'DINHEIRO'
+  else if AText = PAYMENT_METHOD_PIX       then Result := 'PIX'
+  else if AText = PAYMENT_METHOD_OTHER     then Result := 'OUTRO'
+  else if AText = PAYMENT_METHOD_DISCOUNT  then Result := 'CORTESIA'
+  else if AText = PAYMENT_METHOD_MULTI     then Result := 'DIVIDIDO';
+end;
 
-constructor Tfrm_Boat.Create( AOwner: TFmxObject; AFrame: TFmxObject; ANumber: String; AActive: Boolean; AColor: TAlphaColor; ADefaultValue: Integer; ARented:Boolean; ARentedAt: TDateTime; AAdvancedPaymentValue, AAdvancedPaymentMinutes: Integer );
+function PaymentMethod_EN_to_PT3(AText: String): String;
+begin
+       if AText = PAYMENT_METHOD_CARD      then Result := 'CAR'
+  else if AText = PAYMENT_METHOD_CASH      then Result := 'DIN'
+  else if AText = PAYMENT_METHOD_PIX       then Result := 'PIX'
+  else if AText = PAYMENT_METHOD_OTHER     then Result := 'OUT'
+  else if AText = PAYMENT_METHOD_DISCOUNT  then Result := 'COR'
+  else if AText = PAYMENT_METHOD_MULTI     then Result := 'DIV';
+end;
+
+function BoatMinutesBetween(AStart, AEnd: TDateTime): Int64;
+begin
+//  Result := MinutesBetween(AEnd, AStart);
+  Result := SecondsBetween(AEnd, AStart);       // Change to minutes
+end;
+
+constructor Tfrm_Boat.Create(
+                              AOwner          : TFmxObject;
+                              AFrame          : TFmxObject;
+                              ANumber         : String;
+                              AActive         : Boolean;
+                              AColor          : TAlphaColor;
+                              ADefaultMinutes : Integer;
+                              ADefaultValue   : Integer;
+                              ARented               : Boolean;
+                              ARentedAt             : TDateTime;
+                              AStartPayMethod       : String;
+                              AStartPayMinutes      : Integer;
+                              AStartPayValue        : Integer;
+                              AStartPayValueCard    : Integer;
+                              AStartPayValueCash    : Integer;
+                              AStartPayValuePix     : Integer;
+                              AStartPayValueOther   : Integer;
+                              AStartPayValueDiscount: Integer;
+                              AStartObs             : String
+                            );
 begin
   inherited Create(Owner);
-  Parent := AOwner;
-  Frm       := AFrame;
   Name      := ANumber;
+  Parent    := AOwner;
+  Frm       := AFrame;
 
-  if AColor = TAlphaColors.Null then
-    FColor := TAlphaColors.White
-  else
-    FColor := AColor;
-  FNumber       := ANumber;
-  FActive       := AActive;
-  FDefaultValue := ADefaultValue;
-  FRented       := ARented;
-  FRentedAt     := ARentedAt;
-  FMinutes      := 0;
-  FAdvancedPaymentValue   := AAdvancedPaymentValue;
-  FAdvancedPaymentMinutes := AAdvancedPaymentMinutes;
+  FNumber         := ANumber;
+  FActive         := AActive;
+  FColor          := AColor; if AColor = TAlphaColors.Null then FColor := TAlphaColors.White;
+  FDefaultValue   := ADefaultValue;
+  FDefaultMinutes := ADefaultMinutes;
+
+  FRented                := ARented;
+  FRentedAt              := ARentedAt;
+  FStartPayMethod        := AStartPayMethod;
+  FStartPayMinutes       := AStartPayMinutes;
+  FStartPayValue         := AStartPayValue;
+  FStartPayValueCard     := AStartPayValueCard;
+  FStartPayValueCash     := AStartPayValueCash;
+  FStartPayValuePix      := AStartPayValuePix;
+  FStartPayValueOther    := AStartPayValueOther;
+  FStartPayValueDiscount := AStartPayValueDiscount;
+  FStartObs              := AStartObs;
 
   Update(Now);
 
@@ -117,18 +217,18 @@ end;
 
 procedure Tfrm_Boat.Update(ADate: TDateTime);
 var
-  _Minutes  : Int64;
-  _Tolerance: Integer;
+  LMinutes  : Int64;
+  LTolerance: Integer;
 begin
   FWarning  := False;
-  _Tolerance := 10; // minutes of tolerance
-  _Minutes   := SecondsBetween( ADate, FRentedAt );  // Change to minutes
+  LTolerance := 10; // minutes of tolerance
+  LMinutes   := BoatMinutesBetween(FRentedAt, ADate);
 
   if FRented then
     begin
-      if _Minutes > FAdvancedPaymentMinutes then
+      if LMinutes > FStartPayMinutes then
         begin
-          if _Minutes > (FAdvancedPaymentMinutes + _Tolerance) then
+          if LMinutes > (FStartPayMinutes + LTolerance) then
             begin
               FWarning := True;
               if rect_Background.Fill.Color <> BoatColorCritical then
@@ -161,9 +261,9 @@ begin
         end;
     end;
 
-  if _Minutes <> FMinutes then
+  if LMinutes <> FMinutes then
     begin
-      FMinutes := _Minutes;
+      FMinutes := LMinutes;
       lbl_Minutes.Text := IntToStr(FMinutes)+ '''';
     end;
 

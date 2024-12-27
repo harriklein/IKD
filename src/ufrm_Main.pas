@@ -13,15 +13,8 @@ type
   TSyncStatus = (ssOffline, ssSyncOK, ssSyncFailed, ssSyncInProcess);
 
   Tfrm_Main = class(TForm)
-    ballon: TRectangle;
-    ShadowEffect1: TShadowEffect;
-    ballon_Message: TLabel;
-    ballon_ani: TFloatAnimation;
-    ballon_Close: TSpeedButton;
     images_MultiView: TImageList;
-    Lang: TLang;
     layout_Content: TLayout;
-    toolBar: TToolBar;
     rect_ToolBar: TRectangle;
     path_Cloud: TPath;
     path_Offline: TPath;
@@ -31,37 +24,37 @@ type
     path_SyncFailed: TPath;
     btn_MasterMenu: TSpeedButton;
     lbl_Title: TLabel;
-    shadow_Title: TShadowEffect;
-    ColorKeyAnimation1: TColorKeyAnimation;
-    MultiView: TMultiView;
-    lstBox_Menu: TListBox;
-    menu_BoatTitle: TListBoxGroupHeader;
-    menu_BoatRental: TListBoxItem;
-    menu_BoatMap: TListBoxItem;
-    menu_AdminTitle: TListBoxGroupHeader;
-    menu_AdminUsers: TListBoxItem;
-    menu_AdminBoats: TListBoxItem;
-    menu_AdminConfig: TListBoxItem;
-    menu_Report: TListBoxItem;
-    rect_MenuFooter: TRectangle;
-    btn_Logout: TSpeedButton;
-    Circle1: TCircle;
-    rect_MenuHeader: TRectangle;
-    path_Logo: TPath;
+    shadow_ToolBar: TShadowEffect;
     Bluetooth: TBluetooth;
     layout_Main: TLayout;
-    procedure Button1Click(Sender: TObject);
+    rect_MenuPanel: TRectangle;
+    rect_MenuHeader: TRectangle;
+    path_Logo: TPath;
+    btn_MenuRental: TSpeedButton;
+    rect_MenuFooter: TRectangle;
+    lbl_MenuAdministration: TLabel;
+    btn_MenuUsers: TSpeedButton;
+    btn_MenuConfig: TSpeedButton;
+    btn_MenuBoats: TSpeedButton;
+    btn_MenuReport: TSpeedButton;
+    lbl_version: TLabel;
+    btn_Logout: TSpeedButton;
+    path_MenuBoats: TPath;
+    path_MenuRental: TPath;
+    path_MenuUsers: TPath;
+    path_MenuConfig: TPath;
+    path_MenuReport: TPath;
+    path_Logout: TPath;
+    rect_Menu: TRectangle;
     procedure FormVirtualKeyboardHidden(Sender: TObject;
       KeyboardVisible: Boolean; const Bounds: TRect);
     procedure FormVirtualKeyboardShown(Sender: TObject;
       KeyboardVisible: Boolean; const Bounds: TRect);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
-    procedure lstBox_MenuItemClick(const Sender: TCustomListBox;
-      const Item: TListBoxItem);
     procedure btn_MasterMenuClick(Sender: TObject);
-    procedure MultiViewHidden(Sender: TObject);
-    procedure btn_LogoutClick(Sender: TObject);
+    procedure btn_MenuClick(Sender: TObject);
+    procedure rect_MenuClick(Sender: TObject);
   private
     { Private declarations }
     FSync : TSyncStatus;
@@ -96,6 +89,11 @@ procedure Tfrm_Main.FormVirtualKeyboardShown(Sender: TObject;
   KeyboardVisible: Boolean; const Bounds: TRect);
 begin
   frm_Main.Padding.Bottom := Bounds.Height;
+
+  if frm_Active is Tfrm_Rental then
+    begin
+     Tfrm_Rental(frm_Active).FormVirtualKeyboardShown(Sender, KeyboardVisible, Bounds);
+    end;
 end;
 
 procedure Tfrm_Main.FormVirtualKeyboardHidden(Sender: TObject;
@@ -173,60 +171,55 @@ begin
   end;
 end;
 
+
 //******************************************************************************
 // MENU
 //******************************************************************************
 
 procedure Tfrm_Main.btn_MasterMenuClick(Sender: TObject);
 begin
-  MultiView.Mode := TMultiViewMode.NavigationPane;
+  rect_Menu.Visible := not rect_Menu.Visible;
 end;
 
-procedure Tfrm_Main.MultiViewHidden(Sender: TObject);
-begin
-  lstBox_Menu.ItemIndex := -1;
-end;
-
-procedure Tfrm_Main.btn_LogoutClick(Sender: TObject);
-begin
-  MultiView.HideMaster;
-  RemoveEmbeddedFrame;
-
-  Login_Show;
-end;
-
-procedure Tfrm_Main.lstBox_MenuItemClick(const Sender: TCustomListBox;
-  const Item: TListBoxItem);
+procedure Tfrm_Main.btn_MenuClick(Sender: TObject);
 begin
   // --- Embedded from
   // Use property TAG of the Items to define the form
-  case Item.Tag of
+  case TSpeedButton(Sender).Tag of
       1 : begin Tfrm_Rental(CreateEmbeddedFrame( Tfrm_Rental )).Prepare; end;
 //
 //     10 : begin Tfrm_Users (EmbeddFrame( Tfrm_Users  )).Prepare; end;
      11 : begin Tfrm_Boats (CreateEmbeddedFrame( Tfrm_Boats  )).Prepare; end;
      12 : begin Tfrm_Config(CreateEmbeddedFrame( Tfrm_Config )).Prepare; end;
-//
-     15 : begin Tfrm_Report(CreateEmbeddedFrame( Tfrm_Report )).Prepare; end;
+     13 : begin Tfrm_Report(CreateEmbeddedFrame( Tfrm_Report )).Prepare; end;
+
+     999: begin
+               RemoveEmbeddedFrame;
+               Login_Show;
+          end;
   else
     Tfrm_Default(CreateEmbeddedFrame( Tfrm_Default )).Prepare;
   end;
 
-  MultiView.HideMaster;
+  rect_Menu.Visible := False;
+end;
+
+procedure Tfrm_Main.rect_MenuClick(Sender: TObject);
+begin
+  rect_Menu.Visible := False;
 end;
 
 //******************************************************************************
 
 procedure Tfrm_Main.FormCreate(Sender: TObject);
 var
-  _IniConfig: TIniFile;
+  LIniConfig: TIniFile;
 begin
 
   // Set the initial state, at the design enviroment it is better to keep it showing.
-  MultiView.Visible := False;
-  MultiView.Mode    := TMultiViewMode.Drawer;
-  MultiView.HideMaster;
+  rect_Menu.Visible := False;
   lbl_Title.Text    := Caption;
+  lbl_version.Text  := lbl_version.Text + ' '  + getAppVersion();
 
   // Set the initial state, it is just to make sure.
   InitSync;
@@ -235,11 +228,12 @@ begin
   // User := TUser.Create;
 
   PRINTER_BLUETOOTH := Bluetooth;
-  _IniConfig := TIniFile.Create(GetPath('KleinAppConfig.ini'));
+  LIniConfig := TIniFile.Create(GetPath('IKDAppConfig.ini'));
   try
-    PRINTER_NAME   := _IniConfig.ReadString('CLIENT', 'Printer'  , '');
+    PRINTER_NAME   := LIniConfig.ReadString('CLIENT', 'Printer'      , ''  );
+    PRINTER_ENABLE := LIniConfig.ReadBool  ('CLIENT', 'PrinterEnable', True);
   finally
-    _IniConfig.Free;
+    LIniConfig.Free;
   end;
 
   if BTConnectPrinter(PRINTER_NAME) then
@@ -258,18 +252,6 @@ begin
 end;
 
 //******************************************************************************
-
-
-
-procedure Tfrm_Main.Button1Click(Sender: TObject);
-begin
-  Login_Show();
-end;
-
-
-
-
-
 
 
 

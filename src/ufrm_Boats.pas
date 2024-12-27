@@ -35,14 +35,16 @@ type
     lbl_Active: TLabel;
     lbl_Color: TLabel;
     edt_Color: TColorComboBox;
-    edt_DefaultValue: TNumberBox;
-    lbl_DefaultValue: TLabel;
-    lbl_DefaultValueDec: TLabel;
-    lbl_DefaultValueRS: TLabel;
-    VertScrollBox1: TVertScrollBox;
     vScrollBox_Config: TVertScrollBox;
-    FlowLayout1: TFlowLayout;
-    Layout1: TLayout;
+    layoutFlow_Config: TFlowLayout;
+    layout_Config: TLayout;
+    edt_DefaultMinutes: TEdit;
+    lbl_DefaultMinutesT: TLabel;
+    lbl_DefaultMinutesC: TLabel;
+    edt_DefaultValue: TEdit;
+    lbl_DefaultValueT: TLabel;
+    lbl_DefaultValueC: TLabel;
+    lbl_DefaultValueR: TLabel;
     procedure btn_AddClick(Sender: TObject);
     procedure btn_SaveClick(Sender: TObject);
     procedure btn_CancelClick(Sender: TObject);
@@ -177,10 +179,13 @@ begin
     end;
 
   dm_Main.tb_Boat.Edit;
-  edt_Number.Text         :=             dm_Main.tb_Boat.FieldByName('Number'      ).AsString;
-  switch_Active.IsChecked :=             dm_Main.tb_Boat.FieldByName('Active'      ).AsBoolean;
-  edt_Color.Color         := TAlphaColor(dm_Main.tb_Boat.FieldByName('Color'       ).AsLongWord);
-  edt_DefaultValue.Text   :=             dm_Main.tb_Boat.FieldByName('DefaultValue').AsString;
+  edt_Number.Text          :=             dm_Main.tb_Boat.FieldByName('Number'        ).AsString;
+  switch_Active.IsChecked  :=             dm_Main.tb_Boat.FieldByName('Active'        ).AsBoolean;
+  edt_Color.Color          := TAlphaColor(dm_Main.tb_Boat.FieldByName('Color'         ).AsLongWord);
+  edt_DefaultValue.Text    :=             dm_Main.tb_Boat.FieldByName('DefaultValue'  ).AsString;
+  edt_DefaultMinutes.Text  :=             dm_Main.tb_Boat.FieldByName('DefaultMinutes').AsString;
+
+  switch_Active.SetFocus;
 
   tabCtrl_List.Next;
 end;
@@ -202,11 +207,15 @@ begin
       dm_Main.tb_Boat.Active := true;
     end;
 
+  edt_Number.Text         := '';
+  switch_Active.IsChecked := True;
+  edt_Color.Color         := TAlphaColors.White;
+  edt_DefaultMinutes.Text := '';
+  edt_DefaultValue.Text   := '';
+
   dm_Main.tb_Boat.Append;
-  edt_Number.Text         :=        dm_Main.tb_Boat.FieldByName('Number'      ).AsString;
-  switch_Active.IsChecked :=        dm_Main.tb_Boat.FieldByName('Active'      ).AsBoolean;
-  edt_Color.Color         := TColor(dm_Main.tb_Boat.FieldByName('Color'       ).AsLongWord);
-  edt_DefaultValue.Value  :=        dm_Main.tb_Boat.FieldByName('DefaultValue').AsInteger;
+
+  switch_Active.SetFocus;
 
   tabCtrl_List.Next;
 end;
@@ -229,19 +238,40 @@ begin
       Exit;
     end;
 
-  if edt_DefaultValue.IsFocused then
-    edt_Number.SetFocus;
+//  // Fix value bug
+//  if edt_DefaultValue.IsFocused then
+//    edt_Number.SetFocus;
+//
+//  // Fix value bug
+//  if edt_DefaultMinutes.IsFocused then
+//    edt_Number.SetFocus;
 
-  dm_Main.tb_Boat.FieldByName('Number'      ).AsString   := edt_Number.Text;
-  dm_Main.tb_Boat.FieldByName('Active'      ).AsBoolean  := switch_Active.IsChecked;
-  dm_Main.tb_Boat.FieldByName('Color'       ).AsLongWord := edt_Color.Color ;
-  dm_Main.tb_Boat.FieldByName('DefaultValue').AsInteger  := Trunc(edt_DefaultValue.Value);
-
-  if dm_Main.tb_Boat.FieldByName('Number').AsString.IsEmpty then
+  if edt_Number.Text.IsEmpty then
     begin
+      edt_Number.SetFocus;
       TDialogService.ShowMessage(frm_Boat_msg_NumberRequired);
       Exit;
     end;
+
+  if StrToIntDef(edt_DefaultMinutes.Text, 0) <= 0 then
+    begin
+      edt_DefaultMinutes.SetFocus;
+      TDialogService.ShowMessage('Tempo Padrão deve ser maior que zero!');
+      Exit;
+    end;
+
+  if StrToIntDef(edt_DefaultValue.Text  , 0) <= 0 then
+    begin
+      edt_DefaultValue.SetFocus;
+      TDialogService.ShowMessage('Valor Padrão deve ser maior que zero!');
+      Exit;
+    end;
+
+  dm_Main.tb_Boat.FieldByName('Number'        ).AsString   := edt_Number.Text;
+  dm_Main.tb_Boat.FieldByName('Active'        ).AsBoolean  := switch_Active.IsChecked;
+  dm_Main.tb_Boat.FieldByName('Color'         ).AsLongWord := edt_Color.Color ;
+  dm_Main.tb_Boat.FieldByName('DefaultMinutes').AsInteger  := StrToIntDef(edt_DefaultMinutes.Text, 0);
+  dm_Main.tb_Boat.FieldByName('DefaultValue'  ).AsInteger  := StrToIntDef(edt_DefaultValue.Text  , 0);
 
   dm_Main.tb_Boat.Post;
 

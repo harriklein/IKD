@@ -90,38 +90,39 @@ const
 var
   PRINTER_SOCKET    : TBluetoothSocket;
   PRINTER_BLUETOOTH : TBluetooth = nil;
-  PRINTER_CONNECTED : Boolean = false;
+  PRINTER_CONNECTED : Boolean = False;
   PRINTER_NAME      : String = '';
+  PRINTER_ENABLE    : Boolean = True;
 
 
 implementation
 
 function BTGetDeviceByName(ADeviceName: String): TBluetoothDevice;
 var
-  _Device: TBluetoothDevice;
+  LDevice: TBluetoothDevice;
 begin
   Result := nil;
   if not Assigned(PRINTER_BLUETOOTH) then Exit;
 
-  for _Device in PRINTER_BLUETOOTH.PairedDevices do
+  for LDevice in PRINTER_BLUETOOTH.PairedDevices do
   begin
-    if _Device.DeviceName = ADeviceName then
+    if LDevice.DeviceName = ADeviceName then
     begin
-      Result := _Device;
+      Result := LDevice;
     end;
   end;
 end;
 
 function BTConnectPrinter(ADeviceName: String): Boolean;
 var
-  _Device: TBluetoothDevice;
+  LDevice: TBluetoothDevice;
 begin
   Result := False;
   try
-    _Device := BTGetDeviceByName(ADeviceName);
-    if _Device <> nil then
+    LDevice := BTGetDeviceByName(ADeviceName);
+    if LDevice <> nil then
     begin
-      PRINTER_SOCKET := _Device.CreateClientSocket(StringToGUID(UUID_BTPrinter), False);
+      PRINTER_SOCKET := LDevice.CreateClientSocket(StringToGUID(UUID_BTPrinter), False);
       if PRINTER_SOCKET <> nil then
       begin
         PRINTER_SOCKET.Connect;
@@ -136,13 +137,13 @@ end;
 
 procedure BTDeviceList(AList: TStrings);
 var
-  _Device: TBluetoothDevice;
+  LDevice: TBluetoothDevice;
 begin
   AList.Clear;
   if not Assigned(PRINTER_BLUETOOTH) then Exit;
-  for _Device in PRINTER_BLUETOOTH.PairedDevices do
+  for LDevice in PRINTER_BLUETOOTH.PairedDevices do
   begin
-    AList.Add(_Device.DeviceName);
+    AList.Add(LDevice.DeviceName);
   end;
 end;
 

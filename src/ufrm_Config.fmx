@@ -1,5 +1,6 @@
 object frm_Config: Tfrm_Config
   Align = Client
+  Hint = 'Configura'#231#227'o'
   Size.Width = 360.000000000000000000
   Size.Height = 640.000000000000000000
   Size.PlatformDefault = False
@@ -36,7 +37,7 @@ object frm_Config: Tfrm_Config
           Size.PlatformDefault = False
           TextSettings.Font.Size = 22.000000000000000000
           TextSettings.Font.StyleExt = {00070000000000000004000000}
-          Text = 'Select a Printer:'
+          Text = 'Selecione a Impressora:'
         end
         object btn_Save: TButton
           StyledSettings = [FontColor]
@@ -46,7 +47,7 @@ object frm_Config: Tfrm_Config
           Size.Height = 57.000000000000000000
           Size.PlatformDefault = False
           TabOrder = 2
-          Text = 'Save'
+          Text = 'Salvar'
           TextSettings.Font.Size = 22.000000000000000000
           TextSettings.Font.StyleExt = {00070000000000000004000000}
           TextSettings.Trimming = None
@@ -67,11 +68,29 @@ object frm_Config: Tfrm_Config
           Size.Height = 57.000000000000000000
           Size.PlatformDefault = False
           TabOrder = 1
-          Text = 'Test'
+          Text = 'Testar'
           TextSettings.Font.Size = 22.000000000000000000
           TextSettings.Font.StyleExt = {00070000000000000004000000}
           TextSettings.Trimming = None
           OnClick = btn_TestClick
+        end
+        object switch_PrinterEnable: TSwitch
+          IsChecked = False
+          Position.X = 16.000000000000000000
+          Position.Y = 112.000000000000000000
+          TabOrder = 3
+          object Label1: TLabel
+            StyledSettings = [FontColor]
+            Position.X = 96.000000000000000000
+            Position.Y = -8.000000000000000000
+            Size.Width = 97.000000000000000000
+            Size.Height = 33.000000000000000000
+            Size.PlatformDefault = False
+            TextSettings.Font.Size = 22.000000000000000000
+            TextSettings.Font.StyleExt = {00070000000000000004000000}
+            Text = 'Ativar'
+            TabOrder = 0
+          end
         end
       end
     end
