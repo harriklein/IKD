@@ -1,0 +1,106 @@
+{
+  "boat": {
+    "A0000000-0000-7000-000-000000000001": {
+      "number"                : "P01",
+      "active"                : true,
+      "color"                 : "#FFFFFF",
+      "defaultMinutes"        : 30,
+      "defaultValue"          : 30.00,
+      "defaultExtraMinutes"   : 10,
+      "defaultExtraValue"     : 10.0,
+      "posId"                 : "B0000000-0000-7000-000-000000000001",
+      
+      "rented"                : true,
+      "cashRegisterId"        : "20251231_B0000000-0000-7000-000-000000000001",
+      // "rentalState"           : "AVAILABLE|MAINTENANCE|RENTED_ON_TIME|RENTED_OVERTIME_TOLERANCE|RENTED_OVERTIME",
+      "rentedSince"           : "2025-12-31T09:00:00",
+      "rentalPausedAt"        : "2025-12-31T09:00:00",
+      "rentalId"              : "C0000000-0000-7000-000-000000000001",
+      "rentalExpectedMinutes" : 30,
+      "rentalToleranceMinutes": 10
+      
+    }
+  },
+  
+  "pos": {
+    "B0000000-0000-7000-000-000000000001": {
+      "active"             : true,
+      "name"               : "P.Cantagalo"
+      // "cashRegisterOpened" : true,
+      // "cashRegisterDate"   : "20251231",
+      // "cashRegisterId"     : "20251231_B0000000-0000-7000-000-000000000001"
+    }
+  },
+  
+  "cashRegister": {
+    "20251231_B0000000-0000-7000-000-000000000001": {
+      "date" : "20251231",
+      "posId": "B0000000-0000-7000-000-000000000001",
+      "open": true,
+      "count": 1,
+      
+      "validated": true,
+      "validatedAt": "2025-12-31T18:00:00",
+  
+      "initialCash"  : 100.00,
+      "expensesTotal": 0.00,
+      "expensesFuel" : 0.00,
+      "expensesMeal" : 0.00,
+      "expensesDaily": 0.00,
+      "expensesOther": 0.00
+      
+      // "startPayMinutes"      : 30,
+      // "startPayValue"        : 30.00,
+      // "startPayValueCard"    : 1.00,
+      // "startPayValueCash"    : 2.00,
+      // "startPayValuePix"     : 3.00,
+      // "startPayValueOther"   : 4.00,
+      // "startPayValueDiscount": 20.00,      
+      
+      // "endPayMinutes"        : null,
+      // "endPayValue"          : null,
+      // "endPayValueCard"      : null,
+      // "endPayValueCash"      : null,
+      // "endPayValuePix"       : null,
+      // "endPayValueOther"     : null,
+      // "endPayValueDiscount"  : null      
+    }
+  },
+  
+  "rental": {
+    "C0000000-0000-7000-000-000000000001": {
+      "boatId"           : "A0000000-0000-7000-000-000000000001",
+      "boatNumber"       : "P01",
+      "posId"            : "B0000000-0000-7000-000-000000000001",
+      "posName"          : "P.Cantagalo",
+      "cashRegisterDate" : "20251231",
+      "cashRegisterId"   : "20251231_B0000000-0000-7000-000-000000000001",
+      "cashRegisterCount": 1,
+      "startAt"          : "2025-12-31T09:00:00",
+      "endAt"            : null,
+      
+      "startPayMinutes"      : 30,
+      "startPayValue"        : 30.00,
+      "startPayMethod"       : "MULTI",
+      "startPayValueCard"    : 1.00,
+      "startPayValueCash"    : 2.00,
+      "startPayValuePix"     : 3.00,
+      "startPayValueOther"   : 4.00,
+      "startPayValueDiscount": 20.00,
+      
+      "extraMinutes"         : 10,    // Deixo configuravel porque pode mudar no futuro.
+      "extraValue"           : 10.00,
+      
+      "endPayMinutes"        : null,
+      "endPayValue"          : null,
+      "endPayMethod"         : null,
+      "endPayValueCard"      : null,
+      "endPayValueCash"      : null,
+      "endPayValuePix"       : null,
+      "endPayValueOther"     : null,
+      "endPayValueDiscount"  : null,
+
+      "obs"                  : "No obs"     
+    }
+  }
+}

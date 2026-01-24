@@ -1,0 +1,151 @@
+object frm_Config: Tfrm_Config
+  Align = Client
+  Hint = 'Configura'#231#227'o'
+  Size.Width = 360.000000000000000000
+  Size.Height = 755.000000000000000000
+  Size.PlatformDefault = False
+  object vScroll_RentStart: TVertScrollBox
+    Align = Client
+    Size.Width = 360.000000000000000000
+    Size.Height = 755.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 1
+    AutoHide = False
+    Viewport.Width = 344.000000000000000000
+    Viewport.Height = 739.000000000000000000
+    object layout_RentStart: TFlowLayout
+      Align = Top
+      Margins.Top = 50.000000000000000000
+      Position.Y = 50.000000000000000000
+      Size.Width = 344.000000000000000000
+      Size.Height = 671.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 0
+      Justify = Center
+      JustifyLastLine = Center
+      FlowDirection = LeftToRight
+      object layout_RentStart1: TLayout
+        Align = Center
+        Size.Width = 280.000000000000000000
+        Size.Height = 641.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 0
+        object btn_EraseDBBoat: TButton
+          StyledSettings = [FontColor]
+          Position.X = 15.000000000000000000
+          Position.Y = 360.000000000000000000
+          Size.Width = 257.000000000000000000
+          Size.Height = 57.000000000000000000
+          Size.PlatformDefault = False
+          TabOrder = 6
+          Text = 'Zerar DB Pedalinhos'
+          TextSettings.Font.Size = 22.000000000000000000
+          TextSettings.Font.StyleExt = {00070000000000000004000000}
+          TextSettings.Trimming = None
+          OnClick = btn_EraseDBBoatClick
+        end
+        object switch_ClockInSeconds: TSwitch
+          IsChecked = False
+          Position.X = 15.000000000000000000
+          Position.Y = 224.000000000000000000
+          TabOrder = 8
+          object Label2: TLabel
+            StyledSettings = [FontColor]
+            Position.Y = -41.000000000000000000
+            Size.Width = 249.000000000000000000
+            Size.Height = 33.000000000000000000
+            Size.PlatformDefault = False
+            TextSettings.Font.Size = 22.000000000000000000
+            TextSettings.Font.StyleExt = {00070000000000000004000000}
+            Text = 'Tempo em Segundos:'
+            TabOrder = 0
+          end
+        end
+        object btn_ConfigSave: TButton
+          StyledSettings = [FontColor]
+          Position.X = 15.000000000000000000
+          Position.Y = 259.000000000000000000
+          Size.Width = 257.000000000000000000
+          Size.Height = 57.000000000000000000
+          Size.PlatformDefault = False
+          TabOrder = 0
+          Text = 'Salvar'
+          TextSettings.Font.Size = 22.000000000000000000
+          TextSettings.Font.StyleExt = {00070000000000000004000000}
+          TextSettings.Trimming = None
+          OnClick = btn_ConfigSaveClick
+        end
+        object btn_Export: TButton
+          StyledSettings = [FontColor]
+          Position.X = 15.000000000000000000
+          Position.Y = 20.000000000000000000
+          Size.Width = 257.000000000000000000
+          Size.Height = 57.000000000000000000
+          Size.PlatformDefault = False
+          TabOrder = 1
+          Text = 'Export'
+          TextSettings.Font.Size = 22.000000000000000000
+          TextSettings.Font.StyleExt = {00070000000000000004000000}
+          TextSettings.Trimming = None
+          OnClick = btn_ExportClick
+        end
+        object btn_ClearValidated: TButton
+          StyledSettings = [FontColor]
+          Position.X = 15.000000000000000000
+          Position.Y = 96.000000000000000000
+          Size.Width = 257.000000000000000000
+          Size.Height = 57.000000000000000000
+          Size.PlatformDefault = False
+          TabOrder = 2
+          Text = 'Limpar Validados'
+          TextSettings.Font.Size = 22.000000000000000000
+          TextSettings.Font.StyleExt = {00070000000000000004000000}
+          TextSettings.Trimming = None
+          OnClick = btn_ClearValidatedClick
+        end
+        object btn_EraseDBPoS: TButton
+          StyledSettings = [FontColor]
+          Position.X = 15.000000000000000000
+          Position.Y = 425.000000000000000000
+          Size.Width = 257.000000000000000000
+          Size.Height = 57.000000000000000000
+          Size.PlatformDefault = False
+          TabOrder = 5
+          Text = 'Zerar DB PoS'
+          TextSettings.Font.Size = 22.000000000000000000
+          TextSettings.Font.StyleExt = {00070000000000000004000000}
+          TextSettings.Trimming = None
+          OnClick = btn_EraseDBPoSClick
+        end
+        object btn_EraseDBCashRegister: TButton
+          StyledSettings = [FontColor]
+          Position.X = 15.000000000000000000
+          Position.Y = 490.000000000000000000
+          Size.Width = 257.000000000000000000
+          Size.Height = 57.000000000000000000
+          Size.PlatformDefault = False
+          TabOrder = 4
+          Text = 'Zerar DB Caixa'
+          TextSettings.Font.Size = 22.000000000000000000
+          TextSettings.Font.StyleExt = {00070000000000000004000000}
+          TextSettings.Trimming = None
+          OnClick = btn_EraseDBCashRegisterClick
+        end
+        object btn_EraseDBRental: TButton
+          StyledSettings = [FontColor]
+          Position.X = 15.000000000000000000
+          Position.Y = 555.000000000000000000
+          Size.Width = 257.000000000000000000
+          Size.Height = 57.000000000000000000
+          Size.PlatformDefault = False
+          TabOrder = 3
+          Text = 'Zerar BD Alugueis'
+          TextSettings.Font.Size = 22.000000000000000000
+          TextSettings.Font.StyleExt = {00070000000000000004000000}
+          TextSettings.Trimming = None
+          OnClick = btn_EraseDBRentalClick
+        end
+      end
+    end
+  end
+end
