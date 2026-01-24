@@ -104,6 +104,9 @@ begin
   Result := nil;
   if not Assigned(PRINTER_BLUETOOTH) then Exit;
 
+  if not PRINTER_BLUETOOTH.Enabled then Exit;
+
+
   for LDevice in PRINTER_BLUETOOTH.PairedDevices do
   begin
     if LDevice.DeviceName = ADeviceName then
@@ -117,6 +120,10 @@ function BTConnectPrinter(ADeviceName: String): Boolean;
 var
   LDevice: TBluetoothDevice;
 begin
+  if not Assigned(PRINTER_BLUETOOTH) then Exit;
+
+  if not PRINTER_BLUETOOTH.Enabled then Exit;
+
   Result := False;
   try
     LDevice := BTGetDeviceByName(ADeviceName);
@@ -141,6 +148,8 @@ var
 begin
   AList.Clear;
   if not Assigned(PRINTER_BLUETOOTH) then Exit;
+  if not PRINTER_BLUETOOTH.Enabled then Exit;
+
   for LDevice in PRINTER_BLUETOOTH.PairedDevices do
   begin
     AList.Add(LDevice.DeviceName);

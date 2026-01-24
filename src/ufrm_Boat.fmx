@@ -4,8 +4,8 @@ object frm_Boat: Tfrm_Boat
   Padding.Top = 3.000000000000000000
   Padding.Right = 3.000000000000000000
   Padding.Bottom = 3.000000000000000000
-  Size.Width = 100.000000000000000000
-  Size.Height = 100.000000000000000000
+  Size.Width = 105.000000000000000000
+  Size.Height = 105.000000000000000000
   Size.PlatformDefault = False
   OnResize = FrameResize
   object Timer: TTimer
@@ -13,13 +13,13 @@ object frm_Boat: Tfrm_Boat
     Interval = 200
     OnTimer = TimerTimer
     Left = 59
-    Top = 51
+    Top = 3
   end
   object rect_Background: TRectangle
     Align = Client
     Fill.Color = claLightgreen
-    Size.Width = 94.000000000000000000
-    Size.Height = 94.000000000000000000
+    Size.Width = 99.000000000000000000
+    Size.Height = 99.000000000000000000
     Size.PlatformDefault = False
     XRadius = 5.000000000000000000
     YRadius = 5.000000000000000000
@@ -48,28 +48,28 @@ object frm_Boat: Tfrm_Boat
         0E2D7E42B0522143030000000E2D7E42B0522143}
       Fill.Color = claWhite
       HitTest = False
-      Size.Width = 94.000000000000000000
-      Size.Height = 94.000000000000000000
+      Size.Width = 99.000000000000000000
+      Size.Height = 99.000000000000000000
       Size.PlatformDefault = False
       object layout_Resize: TGridPanelLayout
         Align = Client
         HitTest = False
-        Size.Width = 94.000000000000000000
-        Size.Height = 94.000000000000000000
+        Size.Width = 99.000000000000000000
+        Size.Height = 99.000000000000000000
         Size.PlatformDefault = False
         TabOrder = 0
         ColumnCollection = <
           item
-            Value = 12.129500500951000000
+            Value = 8.901050265234272000
           end
           item
-            Value = 39.677655820645110000
+            Value = 43.000000000000000000
           end
           item
-            Value = 9.730880534928231000
+            Value = 13.746192714092550000
           end
           item
-            Value = 38.461963143475650000
+            Value = 34.352756010312770000
           end>
         ControlCollection = <
           item
@@ -82,6 +82,11 @@ object frm_Boat: Tfrm_Boat
             Column = 1
             ColumnSpan = 2
             Control = lbl_Number
+            Row = 1
+          end
+          item
+            Column = 3
+            Control = lbl_Info
             Row = 1
           end>
         RowCollection = <
@@ -97,8 +102,8 @@ object frm_Boat: Tfrm_Boat
         object lbl_Minutes: TLabel
           Align = Client
           StyledSettings = [Family, FontColor]
-          Size.Width = 48.698726654052730000
-          Size.Height = 43.869174957275390000
+          Size.Width = 51.382038116455080000
+          Size.Height = 46.202640533447270000
           Size.PlatformDefault = False
           TextSettings.Font.Size = 22.000000000000000000
           TextSettings.Font.StyleExt = {00070000000000000004000000}
@@ -108,14 +113,27 @@ object frm_Boat: Tfrm_Boat
         end
         object lbl_Number: TLabel
           Align = Client
+          AutoSize = True
           StyledSettings = [Family, FontColor]
-          Size.Width = 46.444026947021480000
-          Size.Height = 37.607524871826170000
+          Size.Width = 56.178730010986330000
+          Size.Height = 39.607921600341800000
+          Size.PlatformDefault = False
+          TextSettings.Font.Size = 20.000000000000000000
+          TextSettings.Font.StyleExt = {00070000000000000004000000}
+          TextSettings.HorzAlign = Center
+          Text = 'MM0'
+          TabOrder = 2
+        end
+        object lbl_Info: TLabel
+          Align = Client
+          StyledSettings = [Family, FontColor]
+          Size.Width = 34.009231567382810000
+          Size.Height = 39.607921600341800000
           Size.PlatformDefault = False
           TextSettings.Font.Size = 22.000000000000000000
           TextSettings.Font.StyleExt = {00070000000000000004000000}
           TextSettings.HorzAlign = Center
-          Text = 'G00'
+          Text = #9940
           TabOrder = 1
         end
       end

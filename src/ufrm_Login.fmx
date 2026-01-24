@@ -198,7 +198,7 @@ object frm_Login: Tfrm_Login
             Size.Height = 228.000000000000000000
             Size.PlatformDefault = False
             TabOrder = 2
-            object lbl_Username: TLabel
+            object lbl_PoS: TLabel
               Align = Top
               StyledSettings = [FontColor]
               Margins.Top = 10.000000000000000000
@@ -208,13 +208,13 @@ object frm_Login: Tfrm_Login
               Size.PlatformDefault = False
               TextSettings.Font.Size = 22.000000000000000000
               TextSettings.Font.StyleExt = {00070000000000000004000000}
-              Text = 'Usu'#225'rio :'
+              Text = 'Ponto :'
             end
             object lbl_Password: TLabel
               Align = Top
               StyledSettings = [FontColor]
               Margins.Top = 20.000000000000000000
-              Position.Y = 90.000000000000000000
+              Position.Y = 94.000000000000000000
               Size.Width = 250.000000000000000000
               Size.Height = 25.000000000000000000
               Size.PlatformDefault = False
@@ -226,27 +226,27 @@ object frm_Login: Tfrm_Login
               Default = True
               StyledSettings = [Family, FontColor]
               Position.X = 24.000000000000000000
-              Position.Y = 176.000000000000000000
+              Position.Y = 175.000000000000000000
               Size.Width = 201.000000000000000000
               Size.Height = 45.000000000000000000
               Size.PlatformDefault = False
-              TabOrder = 2
+              TabOrder = 1
               Text = 'Entrar'
               TextSettings.Font.Size = 22.000000000000000000
               TextSettings.Font.StyleExt = {00070000000000000004000000}
               TextSettings.Trimming = None
               OnClick = btn_LoginClick
             end
-            object edt_Username: TEdit
+            object edt_Password: TEdit
               Touch.InteractiveGestures = [LongTap, DoubleTap]
               Align = Top
               TabOrder = 0
               AutoSelect = True
-              KeyboardType = EmailAddress
-              ReturnKeyType = Next
+              KeyboardType = Alphabet
+              Password = True
               TextSettings.Font.Size = 22.000000000000000000
               TextSettings.VertAlign = Leading
-              Position.Y = 40.000000000000000000
+              Position.Y = 124.000000000000000000
               Margins.Top = 5.000000000000000000
               Size.Width = 250.000000000000000000
               Size.Height = 30.000000000000000000
@@ -254,22 +254,14 @@ object frm_Login: Tfrm_Login
               StyledSettings = [Family, FontColor]
               KillFocusByReturn = True
             end
-            object edt_Password: TEdit
-              Touch.InteractiveGestures = [LongTap, DoubleTap]
+            object cb_PoS: TComboBox
               Align = Top
-              TabOrder = 1
-              AutoSelect = True
-              KeyboardType = Alphabet
-              Password = True
-              TextSettings.Font.Size = 22.000000000000000000
-              TextSettings.VertAlign = Leading
-              Position.Y = 120.000000000000000000
               Margins.Top = 5.000000000000000000
+              Position.Y = 40.000000000000000000
               Size.Width = 250.000000000000000000
-              Size.Height = 30.000000000000000000
+              Size.Height = 34.000000000000000000
               Size.PlatformDefault = False
-              StyledSettings = [Family, FontColor]
-              KillFocusByReturn = True
+              TabOrder = 2
             end
           end
         end
@@ -319,14 +311,38 @@ object frm_Login: Tfrm_Login
           Margins.Right = 50.000000000000000000
           Margins.Bottom = 50.000000000000000000
           Size.Width = 260.000000000000000000
-          Size.Height = 550.000000000000000000
+          Size.Height = 465.000000000000000000
+          Size.PlatformDefault = False
+          TabOrder = 2
+          Viewport.Width = 260.000000000000000000
+          Viewport.Height = 465.000000000000000000
+        end
+        object btn_License: TButton
+          Align = Top
+          Default = True
+          StyledSettings = [Family, FontColor]
+          Margins.Left = 50.000000000000000000
+          Margins.Top = 20.000000000000000000
+          Margins.Right = 50.000000000000000000
+          Margins.Bottom = 20.000000000000000000
+          Position.X = 50.000000000000000000
+          Position.Y = 60.000000000000000000
+          Size.Width = 260.000000000000000000
+          Size.Height = 45.000000000000000000
           Size.PlatformDefault = False
           TabOrder = 1
-          Viewport.Width = 260.000000000000000000
-          Viewport.Height = 550.000000000000000000
+          Text = 'Adicionar Licen'#231'a'
+          TextSettings.Font.Size = 22.000000000000000000
+          TextSettings.Font.StyleExt = {00070000000000000004000000}
+          TextSettings.Trimming = None
+          OnClick = btn_LicenseClick
         end
       end
     end
+  end
+  object CameraComponent1: TCameraComponent
+    Left = 266
+    Top = 248
   end
   object ActionList: TActionList
     Left = 261

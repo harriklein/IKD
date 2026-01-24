@@ -10,7 +10,10 @@ uses
   FMX.Controls.Presentation, FMX.ListView, FMX.TabControl, System.Rtti, System.Bindings.Outputs,
   Fmx.Bind.Editors, Data.Bind.EngExt, Fmx.Bind.DBEngExt, Data.Bind.Components, Data.Bind.DBScope,
   System.Actions, FMX.ActnList, FMX.ListBox, FMX.Colors, FMX.EditBox,
-  FMX.NumberBox, FMX.Layouts;
+  FMX.NumberBox, FMX.Layouts, FMX.Platform;
+
+
+
 
 type
   Tfrm_Boats = class(TFrame)
@@ -29,12 +32,10 @@ type
     btn_Cancel: TSpeedButton;
     path_Cancel: TPath;
     edt_Number: TEdit;
-    lbl_Number: TLabel;
+    edt_NumberT: TLabel;
     btn_Delete: TSpeedButton;
     switch_Active: TSwitch;
     lbl_Active: TLabel;
-    lbl_Color: TLabel;
-    edt_Color: TColorComboBox;
     vScrollBox_Config: TVertScrollBox;
     layoutFlow_Config: TFlowLayout;
     layout_Config: TLayout;
@@ -45,6 +46,20 @@ type
     lbl_DefaultValueT: TLabel;
     lbl_DefaultValueC: TLabel;
     lbl_DefaultValueR: TLabel;
+    edt_DefaultExtraMinutes: TEdit;
+    lbl_DefaultExtraMinutesT: TLabel;
+    lbl_DefaultExtraMinutesC: TLabel;
+    edt_DefaultExtraValue: TEdit;
+    lbl_DefaultExtraValueT: TLabel;
+    lbl_DefaultExtraValueC: TLabel;
+    lbl_DefaultExtraValueR: TLabel;
+    edt_Color: TComboColorBox;
+    lbl_Color: TLabel;
+    cb_PoS: TComboBox;
+    lbl_PoS: TLabel;
+    lbl_ID: TLabel;
+    btn_ColorCopy: TButton;
+    btn_ColorPaste: TButton;
     procedure btn_AddClick(Sender: TObject);
     procedure btn_SaveClick(Sender: TObject);
     procedure btn_CancelClick(Sender: TObject);
@@ -52,19 +67,32 @@ type
     procedure lst_BoatsItemClick(const Sender: TObject; const AItem: TListViewItem);
     procedure btn_DeleteClick(Sender: TObject);
     procedure tabCtrl_ListChange(Sender: TObject);
+    procedure edt_ColorClick(Sender: TObject);
+    procedure btn_ColorCopyClick(Sender: TObject);
+    procedure btn_ColorPasteClick(Sender: TObject);
   private
     { Private declarations }
     // BASIC HANDLE
     FApplyUpdatesErrorMessage: String;
     FGetErrorMessage         : String;
+
+    FBoatID : TGuid;
   public
     { Public declarations }
     // BASIC HANDLE: Prepare; ApplyUpdates; Refresh
     procedure Prepare;
+    procedure Release;
+
     procedure ApplyUpdates;
     procedure ApplyUpdateTerminated(Sender: TObject);
     procedure Refresh;
     procedure RefreshTerminated(Sender: TObject);
+
+    procedure FormVirtualKeyboardHidden(Sender: TObject; KeyboardVisible: Boolean; const Bounds: TRect);
+    procedure FormVirtualKeyboardShown (Sender: TObject; KeyboardVisible: Boolean; const Bounds: TRect);
+
+    procedure cbPoSClear;
+    destructor Destroy; override;
   end;
 
 const
@@ -76,7 +104,7 @@ implementation
 
 {$R *.fmx}
 
-uses udm_Main, ufrm_Main, ufrm_Waiting;
+uses udm_Main, ufrm_Main, ufrm_Waiting, unt_VSoftUUIDv7, unt_Class, ufrm_PoS;
 
 //------------------------------------------------------------------------------
 // BASE HANDLE
@@ -88,23 +116,25 @@ uses udm_Main, ufrm_Main, ufrm_Waiting;
 procedure Tfrm_Boats.Prepare;       // Call it before open the frame
 begin
   tabCtrl_List.ActiveTab := tabItem_List;
+  btn_Add.Visible        := POSAdmin;
+  FBoatID := GUID_NULL;
+
                                     // Load from file is important
-  dm_Main.tb_Boat.LoadFromFile(); // to check for pending updates from the previous offline mode
   Refresh;                          // or if we are currently in offline mode
 end;
 
 procedure Tfrm_Boats.ApplyUpdates;
 begin
-  if dm_Main.tb_Boat.State in dsEditModes then dm_Main.tb_Boat.Post;         // Save it
-
-
-  // If it's in Offline mode, we don't need to attempt to sync, we just save to file.
-  if frm_Main.Sync = ssOffline then
-    begin
-      dm_Main.tb_Boat.SaveToFile;
-      Refresh;
-      Exit;
-    end;
+//  if dm_Main.tb_Boat.State in dsEditModes then dm_Main.tb_Boat.Post;         // Save it
+//
+//
+//  // If it's in Offline mode, we don't need to attempt to sync, we just save to file.
+//  if frm_Main.Sync = ssOffline then
+//    begin
+//      dm_Main.tb_Boat.SaveToFile;
+//      Refresh;
+//      Exit;
+//    end;
 
 end;
 
@@ -115,44 +145,68 @@ end;
 
 procedure Tfrm_Boats.Refresh;
 var
-  Item : TListViewItem;
+  LItem  : TListViewItem;
+  LCBPoS : TObject;
+  LIndex : Integer;
+
 begin
-  dm_Main.tb_Boat.Active := false;
-  dm_Main.tb_Boat.LoadFromFile();
-  dm_Main.tb_Boat.Active := true;
-  dm_Main.tb_Boat.First;
-
+  dm_Main.tb_Boat.Filtered := False;
   lst_Boats.Items.BeginUpdate;
-  lst_Boats.Items.Clear;
-  while not dm_Main.tb_Boat.Eof do
-    begin
-      Item := lst_Boats.Items.Add;
-      Item.TagString := dm_Main.tb_Boat.FieldByName('Number').AsString;
+  try
+    dm_Main.tb_Boat.First;
 
+    lst_Boats.Items.Clear;
+    while not dm_Main.tb_Boat.Eof do
+      begin
+        LItem           := lst_Boats.Items.Add;
+        LItem.TagString := dm_Main.tb_Boat.FieldByName('id').AsString;
 
-//      Item.Objects.FindDrawable('txtId'    ).Data := dm_Main.tb_Boat.FieldByName('id'    ).AsString;
-      Item.Objects.FindDrawable('txtNumber').Data := dm_Main.tb_Boat.FieldByName('Number').AsString;
-      if dm_Main.tb_Boat.FieldByName('Active').AsBoolean then
-        Item.Objects.FindDrawable('txtActive').Data := '🔵'
-      else
-        Item.Objects.FindDrawable('txtActive').Data := '⚫';
+        LItem.Objects.FindDrawable('txtNumber').Data := dm_Main.tb_Boat.FieldByName('number').AsString;
+        if dm_Main.tb_Boat.FieldByName('active').AsBoolean then
+          LItem.Objects.FindDrawable('txtActive').Data := '🔵'
+        else
+          LItem.Objects.FindDrawable('txtActive').Data := '⚫';
 
-      dm_Main.tb_Boat.Next;
-    end;
-  lst_Boats.Items.EndUpdate;
+        dm_Main.tb_Boat.Next;
+      end;
+  finally
+    lst_Boats.Items.EndUpdate;
+  end;
 
-  if frm_Main.Sync = ssOffline then       // If it is in offline mode, we dont need to sync
-    begin
-      Waiting_Show;
-      // Something that we need to do, if it is in offline mode
-      Waiting_Hide;
-      Exit;
-    end;
+  // PoS ---------------------------
+
+  cbPoSClear;
+  cb_PoS.Items.AddObject('Nenhum', TComboBoxItemGuid.Create(cb_PoS, POS_NONE) );
+  dm_Main.tb_PoS.Filtered := False;
+  try
+    dm_Main.tb_PoS.First;
+    while not dm_Main.tb_PoS.Eof do
+      begin
+        cb_PoS.Items.AddObject(dm_Main.tb_PoS.FieldByName('name').AsString, TComboBoxItemGuid.Create(cb_PoS, dm_Main.tb_PoS.FieldByName('id').AsGuid));
+        dm_Main.tb_PoS.Next;
+      end;
+  finally
+    //
+  end;
+  // ---------------------------------
+
+//  if frm_Main.Sync = ssOffline then       // If it is in offline mode, we dont need to sync
+//    begin
+//      Waiting_Show;
+//      // Something that we need to do, if it is in offline mode
+//      Waiting_Hide;
+//      Exit;
+//    end;
 end;
 
 procedure Tfrm_Boats.RefreshTerminated(Sender: TObject);
 begin
 
+end;
+
+procedure Tfrm_Boats.Release;
+begin
+  //
 end;
 
 //------------------------------------------------------------------------------
@@ -173,17 +227,53 @@ end;
 
 procedure Tfrm_Boats.lst_BoatsItemClick(const Sender: TObject; const AItem: TListViewItem);
 begin
-  if not dm_Main.tb_Boat.Locate( 'Number', AItem.TagString, [] ) then
+  vScrollBox_Config.ViewportPosition := TPoint.Create(0,   0);
+  FBoatID := GUID_NULL;
+
+  try
+    if not dm_Main.tb_Boat.Locate('id', AItem.TagString, []) then
+      begin
+        TDialogService.ShowMessage(UNEXPECTED_ERROR + 'Boats.lst_BoatsItemClick.tb_Boat.Locate');
+        Exit;
+      end;
+
+    FBoatID                      :=             dm_Main.tb_Boat.FieldByName('id'                 ).AsGuid;
+    lbl_ID.Text                  :=             dm_Main.tb_Boat.FieldByName('id'                 ).AsString;
+    edt_Number.Text              :=             dm_Main.tb_Boat.FieldByName('number'             ).AsString;
+    switch_Active.IsChecked      :=             dm_Main.tb_Boat.FieldByName('active'             ).AsBoolean;
+    edt_Color.Color              := TAlphaColor(dm_Main.tb_Boat.FieldByName('color'              ).AsLongWord);
+    edt_DefaultMinutes.Text      :=             dm_Main.tb_Boat.FieldByName('defaultMinutes'     ).AsString;
+    edt_DefaultValue.Text        :=             dm_Main.tb_Boat.FieldByName('defaultValue'       ).AsString;
+    edt_DefaultExtraMinutes.Text :=             dm_Main.tb_Boat.FieldByName('defaultExtraMinutes').AsString;
+    edt_DefaultExtraValue.Text   :=             dm_Main.tb_Boat.FieldByName('defaultExtraValue'  ).AsString;
+    if dm_Main.tb_Boat.FieldByName('posId'  ).AsString = '' then
+      cb_PoS.ItemIndex             := 0;
+
+    for var i := cb_PoS.Items.Count-1 downto 0 do
+      begin
+        if cb_PoS.Items.Objects[i] <> nil then
+          if TComboBoxItemGuid(cb_PoS.Items.Objects[i]).Value = dm_Main.tb_Boat.FieldByName('posId'  ).AsGuid then
+            cb_PoS.ItemIndex := i;
+      end;
+  finally
+    //
+  end;
+
+  if FBoatID = GUID_NULL then  // Safe mode
     begin
+      TDialogService.ShowMessage(UNEXPECTED_ERROR + 'Boats.lst_BoatsItemClick.FBoatID=null');
       Exit;
     end;
 
-  dm_Main.tb_Boat.Edit;
-  edt_Number.Text          :=             dm_Main.tb_Boat.FieldByName('Number'        ).AsString;
-  switch_Active.IsChecked  :=             dm_Main.tb_Boat.FieldByName('Active'        ).AsBoolean;
-  edt_Color.Color          := TAlphaColor(dm_Main.tb_Boat.FieldByName('Color'         ).AsLongWord);
-  edt_DefaultValue.Text    :=             dm_Main.tb_Boat.FieldByName('DefaultValue'  ).AsString;
-  edt_DefaultMinutes.Text  :=             dm_Main.tb_Boat.FieldByName('DefaultMinutes').AsString;
+  edt_Number.Enabled              := POSAdmin;
+  edt_Color.Enabled               := POSAdmin;
+  edt_DefaultMinutes.Enabled      := POSAdmin;
+  edt_DefaultValue.Enabled        := POSAdmin;
+  edt_DefaultExtraMinutes.Enabled := POSAdmin;
+  edt_DefaultExtraValue.Enabled   := POSAdmin;
+  btn_ColorPaste.Enabled          := POSAdmin;
+
+  btn_Delete.Enabled := POSAdmin;
 
   switch_Active.SetFocus;
 
@@ -202,18 +292,18 @@ end;
 
 procedure Tfrm_Boats.btn_AddClick(Sender: TObject);
 begin
-  if not dm_Main.tb_Boat.Active then
-    begin
-      dm_Main.tb_Boat.Active := true;
-    end;
+  FBoatID := GUID_NULL;
 
-  edt_Number.Text         := '';
-  switch_Active.IsChecked := True;
-  edt_Color.Color         := TAlphaColors.White;
-  edt_DefaultMinutes.Text := '';
-  edt_DefaultValue.Text   := '';
+  lbl_ID.Text                  := GuidToString(POS_NONE);
+  edt_Number.Text              := '';
+  switch_Active.IsChecked      := True;
+  edt_Color.Color              := TAlphaColors.White;
+  edt_DefaultMinutes.Text      := '';
+  edt_DefaultValue.Text        := '';
+  edt_DefaultExtraMinutes.Text := '';
+  edt_DefaultExtraValue.Text   := '';
 
-  dm_Main.tb_Boat.Append;
+  cb_PoS.ItemIndex := -1;
 
   switch_Active.SetFocus;
 
@@ -222,30 +312,44 @@ end;
 
 procedure Tfrm_Boats.btn_CancelClick(Sender: TObject);
 begin
-  dm_Main.tb_Boat.Cancel;
   tabCtrl_List.Previous;
 end;
 
-procedure Tfrm_Boats.tabCtrl_ListChange(Sender: TObject);
+procedure Tfrm_Boats.btn_ColorCopyClick(Sender: TObject);
+var
+  ClipboardService: IFMXClipboardService;
 begin
-  btn_Delete.Visible := not (dm_Main.tb_Boat.State in [dsInsert]);
+  if TPlatformServices.Current.SupportsPlatformService(
+       IFMXClipboardService, ClipboardService) then
+  begin
+    ClipboardService.SetClipboard(Format('$%.8x', [edt_Color.Color]));
+  end;
+end;
+
+procedure Tfrm_Boats.btn_ColorPasteClick(Sender: TObject);
+var
+  ClipboardService: IFMXClipboardService;
+  Text: string;
+begin
+  if POSAdmin and TPlatformServices.Current.SupportsPlatformService(
+       IFMXClipboardService, ClipboardService) then
+  begin
+    Text := ClipboardService.GetClipboard.ToString;
+
+    edt_Color.Color := TAlphaColor(StrToInt(Text));
+  end;
+end;
+
+procedure Tfrm_Boats.tabCtrl_ListChange(Sender: TObject);
+var
+  LInsert : Boolean;
+begin
+  LInsert := FBoatID = GUID_NULL;
+  btn_Delete.Visible := POSAdmin and (not LInsert);
 end;
 
 procedure Tfrm_Boats.btn_SaveClick(Sender: TObject);
 begin
-  if not(dm_Main.tb_Boat.State in [dsInsert, dsEdit]) then
-    begin
-      Exit;
-    end;
-
-//  // Fix value bug
-//  if edt_DefaultValue.IsFocused then
-//    edt_Number.SetFocus;
-//
-//  // Fix value bug
-//  if edt_DefaultMinutes.IsFocused then
-//    edt_Number.SetFocus;
-
   if edt_Number.Text.IsEmpty then
     begin
       edt_Number.SetFocus;
@@ -267,34 +371,141 @@ begin
       Exit;
     end;
 
-  dm_Main.tb_Boat.FieldByName('Number'        ).AsString   := edt_Number.Text;
-  dm_Main.tb_Boat.FieldByName('Active'        ).AsBoolean  := switch_Active.IsChecked;
-  dm_Main.tb_Boat.FieldByName('Color'         ).AsLongWord := edt_Color.Color ;
-  dm_Main.tb_Boat.FieldByName('DefaultMinutes').AsInteger  := StrToIntDef(edt_DefaultMinutes.Text, 0);
-  dm_Main.tb_Boat.FieldByName('DefaultValue'  ).AsInteger  := StrToIntDef(edt_DefaultValue.Text  , 0);
+  if StrToIntDef(edt_DefaultExtraMinutes.Text, 0) <= 0 then
+    begin
+      edt_DefaultExtraMinutes.SetFocus;
+      TDialogService.ShowMessage('Tempo Extra deve ser maior que zero!');
+      Exit;
+    end;
 
-  dm_Main.tb_Boat.Post;
+  if StrToIntDef(edt_DefaultExtraValue.Text  , 0) <= 0 then
+    begin
+      edt_DefaultExtraValue.SetFocus;
+      TDialogService.ShowMessage('Valor Extra deve ser maior que zero!');
+      Exit;
+    end;
 
-  ApplyUpdates;
+
+  if cb_PoS.ItemIndex < 0 then
+    begin
+      cb_PoS.SetFocus;
+      TDialogService.ShowMessage('Favor selecionar um valor de Ponto.');
+      Exit;
+    end;
+
+  try
+
+    if FBoatID = GUID_NULL then
+      begin
+        dm_Main.tb_Boat.Append;
+        dm_Main.tb_Boat.FieldByName('id'               ).AsGuid  :=  TUUIDv7Helper.CreateV7;
+      end
+    else
+      begin
+        if not dm_Main.tb_Boat.Locate('id', GUIDToString(FBoatID)) then
+          begin
+            TDialogService.ShowMessage(UNEXPECTED_ERROR + 'Boats.btn_SaveClick.tb_Boat.Locate');
+            Exit;
+          end;
+
+        dm_Main.tb_Boat.Edit;
+      end;
+
+    dm_Main.tb_Boat.FieldByName('active'             ).AsBoolean  := switch_Active.IsChecked;
+    if POSAdmin then
+      begin
+        dm_Main.tb_Boat.FieldByName('number'             ).AsString   := edt_Number.Text;
+        dm_Main.tb_Boat.FieldByName('defaultMinutes'     ).AsInteger  := StrToIntDef(edt_DefaultMinutes.Text     , 0);
+        dm_Main.tb_Boat.FieldByName('defaultValue'       ).AsInteger  := StrToIntDef(edt_DefaultValue.Text       , 0);
+        dm_Main.tb_Boat.FieldByName('defaultExtraMinutes').AsInteger  := StrToIntDef(edt_DefaultExtraMinutes.Text, 0);
+        dm_Main.tb_Boat.FieldByName('defaultExtraValue'  ).AsInteger  := StrToIntDef(edt_DefaultExtraValue.Text  , 0);
+        dm_Main.tb_Boat.FieldByName('color'              ).AsLongWord := edt_Color.Color ;
+      end;
+    dm_Main.tb_Boat.FieldByName('posId'              ).AsGuid := TComboBoxItemGuid(cb_PoS.Items.Objects[cb_PoS.ItemIndex]).Value;
+
+    dm_Main.tb_Boat.Post;
+    dm_Main.tb_Boat.SaveToFile();
+  finally
+    //
+  end;
+
+  Refresh;
+
   tabCtrl_List.Previous;
 end;
 
 
+procedure Tfrm_Boats.cbPoSClear;
+begin
+  // Release all object before clear
+  for var i := cb_PoS.Items.Count-1 downto 0 do
+    begin
+      if cb_PoS.Items.Objects[i] <> nil  then
+        cb_PoS.Items.Objects[i].Free;
+    end;
+  cb_PoS.Clear;
+end;
+
+destructor Tfrm_Boats.Destroy;
+begin
+  // Make sure to release all objects to avoid memory leak
+  cbPoSClear;
+  inherited Destroy;
+end;
+
+procedure Tfrm_Boats.edt_ColorClick(Sender: TObject);
+begin
+  vScrollBox_Config.ViewportPosition := TPoint.Create(0, 200);
+end;
+
+procedure Tfrm_Boats.FormVirtualKeyboardHidden(Sender: TObject;
+  KeyboardVisible: Boolean; const Bounds: TRect);
+begin
+  //
+end;
+
+procedure Tfrm_Boats.FormVirtualKeyboardShown(Sender: TObject;
+  KeyboardVisible: Boolean; const Bounds: TRect);
+begin
+  if edt_Number.IsFocused               then vScrollBox_Config.ViewportPosition := TPoint.Create(0,   0);
+  if edt_DefaultMinutes.IsFocused       then vScrollBox_Config.ViewportPosition := TPoint.Create(0, 100);
+  if edt_DefaultValue.IsFocused         then vScrollBox_Config.ViewportPosition := TPoint.Create(0, 100);
+  if edt_DefaultExtraMinutes.IsFocused  then vScrollBox_Config.ViewportPosition := TPoint.Create(0, 100);
+  if edt_DefaultExtraValue.IsFocused    then vScrollBox_Config.ViewportPosition := TPoint.Create(0, 100);
+  if cb_PoS.IsFocused                   then vScrollBox_Config.ViewportPosition := TPoint.Create(0, 100);
+
+end;
+
 procedure Tfrm_Boats.btn_DeleteClick(Sender: TObject);
 begin
-  if dm_Main.tb_Boat.FieldByName('Rented').AsBoolean then
-    begin
-      TDialogService.ShowMessage( frm_Boat_msg_Delete_Denied );
-      Exit;
-    end;
+
 
   TDialogService.MessageDialog( frm_Boat_msg_Delete, TMsgDlgType.mtConfirmation, [TMsgDlgBtn.mbYes, TMsgDlgBtn.mbNo], TMsgDlgBtn.mbCancel, 0,
                                 procedure(const AResult: TModalResult)
                                   begin
                                     if AResult = mrYes then
                                       begin
-                                        dm_Main.tb_Boat.Delete;
-                                        ApplyUpdates;
+
+                                        try
+                                          if not dm_Main.tb_Boat.Locate('id', GUIDToString(FBoatID)) then
+                                            begin
+                                              TDialogService.ShowMessage(UNEXPECTED_ERROR + 'Boats.btn_DeleteClick.MessageDialog.tb_Boat.Locate');
+                                              Exit;
+                                            end;
+
+                                          if dm_Main.tb_Boat.FieldByName('rented').AsBoolean then
+                                            begin
+                                              TDialogService.ShowMessage( frm_Boat_msg_Delete_Denied );
+                                              Exit;
+                                            end;
+
+                                          dm_Main.tb_Boat.Delete;
+                                          dm_Main.tb_Boat.SaveToFile();
+                                        finally
+
+                                        end;
+
+                                        Refresh;
                                         tabCtrl_List.Previous;
                                       end
                                   end);

@@ -2,88 +2,11 @@ object dm_Main: Tdm_Main
   OnCreate = DataModuleCreate
   Height = 480
   Width = 640
-  object tb_UserLogin: TFDMemTable
+  object tb_Boat: TFDMemTable
     FieldDefs = <>
     CachedUpdates = True
     IndexDefs = <>
-    IndexFieldNames = 'Username'
-    FetchOptions.AssignedValues = [evMode, evRowsetSize]
-    FetchOptions.Mode = fmAll
-    FetchOptions.RowsetSize = 9999
-    ResourceOptions.AssignedValues = [rvPersistent, rvSilentMode, rvStorePrettyPrint]
-    ResourceOptions.SilentMode = True
-    ResourceOptions.PersistentFileName = 'UserLogin.db'
-    UpdateOptions.AssignedValues = [uvCheckRequired, uvAutoCommitUpdates]
-    UpdateOptions.CheckRequired = False
-    UpdateOptions.AutoCommitUpdates = True
-    StoreDefs = True
-    Left = 56
-    Top = 32
-    object tb_UserLoginid: TStringField
-      FieldName = 'id'
-      Size = 64
-    end
-    object tb_UserLoginUsername: TStringField
-      FieldName = 'Username'
-      Size = 100
-    end
-    object tb_UserLoginPassword: TStringField
-      FieldName = 'Password'
-      Size = 50
-    end
-    object tb_UserLoginName: TStringField
-      FieldName = 'Name'
-      Size = 100
-    end
-    object tb_UserLoginLastLogin: TDateTimeField
-      FieldName = 'LastLogin'
-    end
-    object tb_UserLoginLevel: TStringField
-      FieldName = 'Level'
-      Size = 100
-    end
-  end
-  object tb_User: TFDMemTable
-    CachedUpdates = True
-    IndexFieldNames = 'Name'
-    FetchOptions.AssignedValues = [evMode]
-    FetchOptions.Mode = fmAll
-    ResourceOptions.AssignedValues = [rvPersistent, rvSilentMode, rvStorePrettyPrint]
-    ResourceOptions.SilentMode = True
-    ResourceOptions.PersistentFileName = 'User.db'
-    UpdateOptions.AssignedValues = [uvCheckRequired, uvAutoCommitUpdates]
-    UpdateOptions.CheckRequired = False
-    UpdateOptions.AutoCommitUpdates = True
-    Left = 56
-    Top = 96
-    object tb_Userid: TFDAutoIncField
-      FieldName = 'id'
-    end
-    object tb_UserActive: TBooleanField
-      FieldName = 'Active'
-    end
-    object tb_UserLevel: TLongWordField
-      FieldName = 'Level'
-    end
-    object tb_UserUsername: TStringField
-      FieldName = 'Username'
-      Size = 100
-    end
-    object tb_UserPassword: TStringField
-      FieldName = 'Password'
-      Size = 64
-    end
-    object tb_UserResetPassword: TBooleanField
-      FieldName = 'ResetPassword'
-    end
-    object tb_UserName: TStringField
-      FieldName = 'Name'
-      Size = 100
-    end
-  end
-  object tb_Boat: TFDMemTable
-    CachedUpdates = True
-    IndexFieldNames = 'Number'
+    IndexFieldNames = 'number'
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
     ResourceOptions.AssignedValues = [rvPersistent, rvSilentMode]
@@ -92,65 +15,73 @@ object dm_Main: Tdm_Main
     UpdateOptions.AssignedValues = [uvCheckRequired, uvAutoCommitUpdates]
     UpdateOptions.CheckRequired = False
     UpdateOptions.AutoCommitUpdates = True
-    Left = 56
-    Top = 168
-    object tb_BoatNumber: TStringField
-      FieldName = 'Number'
+    StoreDefs = True
+    Left = 40
+    Top = 64
+    object tb_Boatid: TGuidField
+      FieldName = 'id'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+      Size = 38
+    end
+    object tb_Boatnumber: TStringField
+      FieldName = 'number'
       Size = 3
     end
-    object tb_BoatActive: TBooleanField
-      FieldName = 'Active'
+    object tb_Boatactive: TBooleanField
+      FieldName = 'active'
     end
-    object tb_BoatColor: TLongWordField
-      FieldName = 'Color'
+    object tb_Boatcolor: TLongWordField
+      FieldName = 'color'
     end
-    object tb_BoatDefaultValue: TLongWordField
-      FieldName = 'DefaultValue'
+    object tb_BoatposId: TGuidField
+      FieldName = 'posId'
+      Size = 38
     end
-    object tb_BoatDefaultMinutes: TIntegerField
-      FieldName = 'DefaultMinutes'
+    object tb_BoatdefaultMinutes: TIntegerField
+      FieldName = 'defaultMinutes'
     end
-    object tb_BoatRented: TBooleanField
-      FieldName = 'Rented'
+    object tb_BoatdefaultValue: TLongWordField
+      FieldName = 'defaultValue'
     end
-    object tb_BoatRentedAt: TDateTimeField
-      FieldName = 'RentedAt'
+    object tb_BoatdefaultExtraMinutes: TLongWordField
+      FieldName = 'defaultExtraMinutes'
     end
-    object tb_BoatStartPayMinutes: TLongWordField
-      FieldName = 'StartPayMinutes'
+    object tb_BoatdefaultExtraValue: TLongWordField
+      FieldName = 'defaultExtraValue'
     end
-    object tb_BoatStartPayValue: TLongWordField
-      FieldName = 'StartPayValue'
+    object tb_Boatrented: TBooleanField
+      FieldName = 'rented'
     end
-    object tb_BoatStartPayMethod: TStringField
-      FieldName = 'StartPayMethod'
+    object tb_BoatcashRegisterId: TStringField
+      FieldName = 'cashRegisterId'
       Size = 50
     end
-    object tb_BoatStartPayValueCash: TLongWordField
-      FieldName = 'StartPayValueCash'
+    object tb_BoatrentedSince: TDateTimeField
+      FieldName = 'rentedSince'
     end
-    object tb_BoatStartPayValueCard: TLongWordField
-      FieldName = 'StartPayValueCard'
+    object tb_BoatrentalPausedAt: TDateTimeField
+      FieldName = 'rentalPausedAt'
     end
-    object tb_BoatStartPayValuePix: TLongWordField
-      FieldName = 'StartPayValuePix'
+    object tb_BoatrentalId: TGuidField
+      FieldName = 'rentalId'
+      Size = 38
     end
-    object tb_BoatStartPayValueOther: TLongWordField
-      FieldName = 'StartPayValueOther'
+    object tb_BoatrentalExpectedMinutes: TLongWordField
+      FieldName = 'rentalExpectedMinutes'
     end
-    object tb_BoatStartPayValueDiscount: TLongWordField
-      FieldName = 'StartPayValueDiscount'
-    end
-    object tb_BoatStartObs: TStringField
-      FieldName = 'StartObs'
-      Size = 2000
+    object tb_BoatrentalToleranceMinutes: TLongWordField
+      FieldName = 'rentalToleranceMinutes'
     end
   end
   object tb_Rental: TFDMemTable
     FieldDefs = <>
     CachedUpdates = True
     IndexDefs = <>
-    IndexFieldNames = 'RentedAt'
+    IndexFieldNames = 'id'
+    Aggregates = <
+      item
+      end>
     AggregatesActive = True
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
@@ -161,60 +92,200 @@ object dm_Main: Tdm_Main
     UpdateOptions.CheckRequired = False
     UpdateOptions.AutoCommitUpdates = True
     StoreDefs = True
-    Left = 56
-    Top = 232
+    Left = 40
+    Top = 256
     object tb_Rentalid: TGuidField
       FieldName = 'id'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
       Size = 38
     end
-    object tb_RentalNumber: TStringField
-      FieldName = 'Number'
+    object tb_RentalboatId: TGuidField
+      FieldName = 'boatId'
+      Size = 38
+    end
+    object tb_RentalboatNumber: TStringField
+      FieldName = 'boatNumber'
       ProviderFlags = []
       Size = 3
     end
-    object tb_RentalRentedAt: TDateTimeField
-      FieldName = 'RentedAt'
+    object tb_RentalposId: TGuidField
+      FieldName = 'posId'
+      Size = 38
     end
-    object tb_RentalRentFinishedAt: TDateTimeField
-      FieldName = 'RentFinishedAt'
+    object tb_RentalposName: TStringField
+      FieldName = 'posName'
+      Size = 30
     end
-    object tb_RentalAdvancedPaymentValue: TLongWordField
-      FieldName = 'AdvancedPaymentValue'
+    object tb_RentalcashRegisterDate: TDateField
+      FieldName = 'cashRegisterDate'
     end
-    object tb_RentalAdvancedPaymentMinutes: TLongWordField
-      FieldName = 'AdvancedPaymentMinutes'
-    end
-    object tb_RentalAdvancedPaymentType: TStringField
-      FieldName = 'AdvancedPaymentType'
+    object tb_RentalcashRegisterId: TStringField
+      FieldName = 'cashRegisterId'
       Size = 50
     end
-    object tb_RentalCalculedPaymentValue: TLongWordField
-      FieldName = 'CalculedPaymentValue'
+    object tb_RentalcashRegisterCount: TIntegerField
+      FieldName = 'cashRegisterCount'
     end
-    object tb_RentalCalculedPaymentMinutes: TLongWordField
-      FieldName = 'CalculedPaymentMinutes'
+    object tb_RentalstartAt: TDateTimeField
+      FieldName = 'startAt'
     end
-    object tb_RentalPaymentChanged: TBooleanField
-      FieldName = 'PaymentChanged'
+    object tb_RentalendAt: TDateTimeField
+      FieldName = 'endAt'
     end
-    object tb_RentalPaymentValue: TLongWordField
-      FieldName = 'PaymentValue'
+    object tb_RentalstartPayMinutes: TLongWordField
+      FieldName = 'startPayMinutes'
     end
-    object tb_RentalPaymentMinutes: TLongWordField
-      FieldName = 'PaymentMinutes'
+    object tb_RentalstartPayValue: TCurrencyField
+      FieldName = 'startPayValue'
     end
-    object tb_RentalTotal: TAggregateField
-      FieldName = 'Total'
-      ProviderFlags = []
-      Active = True
-      DisplayName = ''
-      Expression = 'Sum(PaymentValue)'
+    object tb_RentalstartPayMethod: TStringField
+      FieldName = 'startPayMethod'
+      Size = 50
+    end
+    object tb_RentalstartPayValueCard: TCurrencyField
+      FieldName = 'startPayValueCard'
+    end
+    object tb_RentalstartPayValueCash: TCurrencyField
+      FieldName = 'startPayValueCash'
+    end
+    object tb_RentalstartPayValuePix: TCurrencyField
+      FieldName = 'startPayValuePix'
+    end
+    object tb_RentalstartPayValueOther: TCurrencyField
+      FieldName = 'startPayValueOther'
+    end
+    object tb_RentalstartPayValueDiscount: TCurrencyField
+      FieldName = 'startPayValueDiscount'
+    end
+    object tb_Rentalobs: TStringField
+      FieldName = 'obs'
+      Size = 2000
+    end
+    object tb_RentalextraMinutes: TLongWordField
+      FieldName = 'extraMinutes'
+    end
+    object tb_RentalextraValue: TCurrencyField
+      FieldName = 'extraValue'
+    end
+    object tb_RentalendPayMinutes: TLongWordField
+      FieldName = 'endPayMinutes'
+    end
+    object tb_RentalendPayValue: TCurrencyField
+      FieldName = 'endPayValue'
+    end
+    object tb_RentalendPayMethod: TStringField
+      FieldName = 'endPayMethod'
+      Size = 50
+    end
+    object tb_RentalendPayValueCard: TCurrencyField
+      FieldName = 'endPayValueCard'
+    end
+    object tb_RentalendPayValueCash: TCurrencyField
+      FieldName = 'endPayValueCash'
+    end
+    object tb_RentalendPayValuePix: TCurrencyField
+      FieldName = 'endPayValuePix'
+    end
+    object tb_RentalendPayValueOther: TCurrencyField
+      FieldName = 'endPayValueOther'
+    end
+    object tb_RentalendPayValueDiscount: TCurrencyField
+      FieldName = 'endPayValueDiscount'
     end
   end
   object FDStanStorageBinLink: TFDStanStorageBinLink
-    Left = 184
-    Top = 32
+    Left = 224
+    Top = 64
+  end
+  object tb_PoS: TFDMemTable
+    FieldDefs = <>
+    CachedUpdates = True
+    IndexDefs = <>
+    IndexFieldNames = 'name'
+    FetchOptions.AssignedValues = [evMode]
+    FetchOptions.Mode = fmAll
+    ResourceOptions.AssignedValues = [rvPersistent, rvSilentMode]
+    ResourceOptions.SilentMode = True
+    ResourceOptions.PersistentFileName = 'PoS.db'
+    UpdateOptions.AssignedValues = [uvCheckRequired, uvAutoCommitUpdates]
+    UpdateOptions.CheckRequired = False
+    UpdateOptions.AutoCommitUpdates = True
+    StoreDefs = True
+    Left = 40
+    Top = 128
+    object tb_PoSid: TGuidField
+      FieldName = 'id'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+      Size = 38
+    end
+    object tb_PoSactive: TBooleanField
+      FieldName = 'active'
+    end
+    object tb_PoSname: TStringField
+      DisplayWidth = 15
+      FieldName = 'name'
+      Size = 30
+    end
+  end
+  object tb_CashRegister: TFDMemTable
+    BeforePost = tb_CashRegisterBeforePost
+    FieldDefs = <>
+    CachedUpdates = True
+    IndexDefs = <>
+    IndexFieldNames = 'date'
+    FetchOptions.AssignedValues = [evMode]
+    FetchOptions.Mode = fmAll
+    ResourceOptions.AssignedValues = [rvPersistent, rvSilentMode]
+    ResourceOptions.SilentMode = True
+    ResourceOptions.PersistentFileName = 'CashRegister.db'
+    UpdateOptions.AssignedValues = [uvCheckRequired, uvAutoCommitUpdates]
+    UpdateOptions.CheckRequired = False
+    UpdateOptions.AutoCommitUpdates = True
+    StoreDefs = True
+    Left = 40
+    Top = 192
+    object tb_CashRegisterid: TStringField
+      FieldName = 'id'
+      Size = 50
+    end
+    object tb_CashRegisterdate: TDateField
+      FieldName = 'date'
+    end
+    object tb_CashRegisterposId: TGuidField
+      FieldName = 'posId'
+      Size = 38
+    end
+    object tb_CashRegisteropen: TBooleanField
+      FieldName = 'open'
+    end
+    object tb_CashRegistervalidated: TBooleanField
+      FieldName = 'validated'
+    end
+    object tb_CashRegistervalidatedAt: TDateTimeField
+      FieldName = 'validatedAt'
+    end
+    object tb_CashRegisterCount: TIntegerField
+      FieldName = 'count'
+    end
+    object tb_CashRegisterinitialCash: TCurrencyField
+      FieldName = 'initialCash'
+    end
+    object tb_CashRegisterexpensesTotal: TCurrencyField
+      FieldName = 'expensesTotal'
+    end
+    object tb_CashRegisterexpensesFuel: TCurrencyField
+      FieldName = 'expensesFuel'
+    end
+    object tb_CashRegisterexpensesMeal: TCurrencyField
+      FieldName = 'expensesMeal'
+    end
+    object tb_CashRegisterexpensesDaily: TCurrencyField
+      FieldName = 'expensesDaily'
+    end
+    object tb_CashRegisterexpensesOther: TCurrencyField
+      FieldName = 'expensesOther'
+    end
   end
 end

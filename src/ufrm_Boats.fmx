@@ -2,14 +2,14 @@ object frm_Boats: Tfrm_Boats
   Align = Client
   Hint = 'Pedalinhos'
   Size.Width = 377.000000000000000000
-  Size.Height = 613.000000000000000000
+  Size.Height = 777.000000000000000000
   Size.PlatformDefault = False
   ParentShowHint = False
   ShowHint = False
   object tabCtrl_List: TTabControl
     Align = Client
     Size.Width = 377.000000000000000000
-    Size.Height = 613.000000000000000000
+    Size.Height = 777.000000000000000000
     Size.PlatformDefault = False
     TabHeight = 49.000000000000000000
     TabIndex = 1
@@ -18,9 +18,9 @@ object frm_Boats: Tfrm_Boats
     OnChange = tabCtrl_ListChange
     Sizes = (
       377s
-      613s
+      777s
       377s
-      613s)
+      777s)
     object tabItem_List: TTabItem
       Touch.InteractiveGestures = []
       CustomIcon = <
@@ -45,7 +45,7 @@ object frm_Boats: Tfrm_Boats
         FooterAppearanceClassName = 'TListHeaderObjects'
         Align = Client
         Size.Width = 377.000000000000000000
-        Size.Height = 573.000000000000000000
+        Size.Height = 737.000000000000000000
         Size.PlatformDefault = False
         TabOrder = 0
         ItemAppearance.HeaderHeight = 44
@@ -347,17 +347,17 @@ object frm_Boats: Tfrm_Boats
       object vScrollBox_Config: TVertScrollBox
         Align = Client
         Size.Width = 377.000000000000000000
-        Size.Height = 573.000000000000000000
+        Size.Height = 737.000000000000000000
         Size.PlatformDefault = False
         TabOrder = 1
         Viewport.Width = 377.000000000000000000
-        Viewport.Height = 573.000000000000000000
+        Viewport.Height = 737.000000000000000000
         object layoutFlow_Config: TFlowLayout
           Align = Top
-          Margins.Top = 50.000000000000000000
-          Position.Y = 50.000000000000000000
+          Margins.Top = 20.000000000000000000
+          Position.Y = 20.000000000000000000
           Size.Width = 377.000000000000000000
-          Size.Height = 435.000000000000000000
+          Size.Height = 525.000000000000000000
           Size.PlatformDefault = False
           TabOrder = 0
           Justify = Center
@@ -365,8 +365,8 @@ object frm_Boats: Tfrm_Boats
           FlowDirection = LeftToRight
           object layout_Config: TLayout
             Align = Center
-            Size.Width = 320.000000000000000000
-            Size.Height = 388.000000000000000000
+            Size.Width = 351.000000000000000000
+            Size.Height = 449.000000000000000000
             Size.PlatformDefault = False
             TabOrder = 0
             object switch_Active: TSwitch
@@ -383,24 +383,25 @@ object frm_Boats: Tfrm_Boats
                 TextSettings.Font.Size = 20.000000000000000000
                 TextSettings.Font.StyleExt = {00070000000000000004000000}
                 Text = 'Ativo:'
-                TabOrder = 4
+                TabOrder = 3
               end
             end
             object edt_Number: TEdit
               Touch.InteractiveGestures = [LongTap, DoubleTap]
               Anchors = [akLeft, akTop, akRight]
               TabOrder = 1
+              ReturnKeyType = Next
               MaxLength = 3
               TextSettings.Font.Size = 18.000000000000000000
-              Position.X = 22.000000000000000000
-              Position.Y = 111.000000000000000000
-              Size.Width = 137.000000000000000000
+              Position.X = 184.000000000000000000
+              Position.Y = 42.000000000000000000
+              Size.Width = 118.000000000000000000
               Size.Height = 30.000000000000000000
               Size.PlatformDefault = False
               TextPrompt = 'G00'
               StyledSettings = [Family, Style, FontColor]
               CharCase = ecUpperCase
-              object lbl_Number: TLabel
+              object edt_NumberT: TLabel
                 StyledSettings = [Family, FontColor]
                 Position.Y = -24.000000000000000000
                 TextSettings.Font.Size = 20.000000000000000000
@@ -410,42 +411,19 @@ object frm_Boats: Tfrm_Boats
                 TabOrder = 0
               end
             end
-            object edt_Color: TColorComboBox
-              DropDownKind = Custom
-              Color = claWhite
-              DisableFocusEffect = False
-              ItemIndex = 143
-              Position.X = 22.000000000000000000
-              Position.Y = 323.000000000000000000
-              Size.Width = 273.000000000000000000
-              Size.Height = 33.000000000000000000
-              Size.PlatformDefault = False
-              TabOrder = 4
-              object lbl_Color: TLabel
-                StyledSettings = [Family, FontColor]
-                Position.Y = -33.000000000000000000
-                Size.Width = 120.000000000000000000
-                Size.Height = 34.000000000000000000
-                Size.PlatformDefault = False
-                TextSettings.Font.Size = 20.000000000000000000
-                TextSettings.Font.StyleExt = {00070000000000000004000000}
-                TextSettings.WordWrap = False
-                Text = 'Cor:'
-                TabOrder = 0
-              end
-            end
             object edt_DefaultMinutes: TEdit
               Touch.InteractiveGestures = [LongTap, DoubleTap]
               TabOrder = 2
               AutoSelect = True
               KeyboardType = NumberPad
+              ReturnKeyType = Next
               MaxLength = 5
               FilterChar = '0123456789'
               TextSettings.Font.Size = 22.000000000000000000
               TextSettings.Font.StyleExt = {00070000000000000004000000}
               TextSettings.HorzAlign = Trailing
-              Position.X = 63.000000000000000000
-              Position.Y = 181.000000000000000000
+              Position.X = 22.000000000000000000
+              Position.Y = 111.000000000000000000
               Size.Width = 81.000000000000000000
               Size.Height = 32.000000000000000000
               Size.PlatformDefault = False
@@ -453,15 +431,14 @@ object frm_Boats: Tfrm_Boats
               StyledSettings = [Family, FontColor]
               object lbl_DefaultMinutesT: TLabel
                 StyledSettings = []
-                Position.X = -41.000000000000000000
-                Position.Y = -32.000000000000000000
-                Size.Width = 178.000000000000000000
+                Position.Y = -29.000000000000000000
+                Size.Width = 138.000000000000000000
                 Size.Height = 31.000000000000000000
                 Size.PlatformDefault = False
                 TextSettings.Font.Size = 22.000000000000000000
                 TextSettings.Font.StyleExt = {00070000000000000004000000}
                 TextSettings.FontColor = xFF212529
-                Text = 'Tempo Padr'#227'o:'
+                Text = 'Tempo:'
                 TabOrder = 1
               end
               object lbl_DefaultMinutesC: TLabel
@@ -482,13 +459,14 @@ object frm_Boats: Tfrm_Boats
               TabOrder = 3
               AutoSelect = True
               KeyboardType = NumberPad
+              ReturnKeyType = Next
               MaxLength = 5
               FilterChar = '0123456789'
               TextSettings.Font.Size = 22.000000000000000000
               TextSettings.Font.StyleExt = {00070000000000000004000000}
               TextSettings.HorzAlign = Trailing
-              Position.X = 61.000000000000000000
-              Position.Y = 250.000000000000000000
+              Position.X = 222.000000000000000000
+              Position.Y = 111.000000000000000000
               Size.Width = 82.000000000000000000
               Size.Height = 32.000000000000000000
               Size.PlatformDefault = False
@@ -498,13 +476,13 @@ object frm_Boats: Tfrm_Boats
                 StyledSettings = []
                 Position.X = -37.000000000000000000
                 Position.Y = -29.000000000000000000
-                Size.Width = 138.000000000000000000
+                Size.Width = 118.000000000000000000
                 Size.Height = 31.000000000000000000
                 Size.PlatformDefault = False
                 TextSettings.Font.Size = 22.000000000000000000
                 TextSettings.Font.StyleExt = {00070000000000000004000000}
                 TextSettings.FontColor = xFF212529
-                Text = 'Valor Padr'#227'o:'
+                Text = 'Valor:'
                 TabOrder = 1
               end
               object lbl_DefaultValueC: TLabel
@@ -517,9 +495,110 @@ object frm_Boats: Tfrm_Boats
                 TextSettings.Font.StyleExt = {00070000000000000004000000}
                 TextSettings.FontColor = xFF495057
                 Text = ',00'
-                TabOrder = 9
+                TabOrder = 5
               end
               object lbl_DefaultValueR: TLabel
+                StyledSettings = []
+                Position.X = -44.000000000000000000
+                Position.Y = -2.000000000000000000
+                Size.Width = 36.000000000000000000
+                Size.Height = 32.000000000000000000
+                Size.PlatformDefault = False
+                TextSettings.Font.Size = 22.000000000000000000
+                TextSettings.Font.StyleExt = {00070000000000000004000000}
+                TextSettings.FontColor = xFF495057
+                Text = 'R$'
+                TabOrder = 4
+              end
+            end
+            object edt_DefaultExtraMinutes: TEdit
+              Touch.InteractiveGestures = [LongTap, DoubleTap]
+              TabOrder = 4
+              AutoSelect = True
+              KeyboardType = NumberPad
+              ReturnKeyType = Next
+              MaxLength = 5
+              FilterChar = '0123456789'
+              TextSettings.Font.Size = 22.000000000000000000
+              TextSettings.Font.StyleExt = {00070000000000000004000000}
+              TextSettings.HorzAlign = Trailing
+              Position.X = 22.000000000000000000
+              Position.Y = 184.000000000000000000
+              Size.Width = 81.000000000000000000
+              Size.Height = 32.000000000000000000
+              Size.PlatformDefault = False
+              TextPrompt = '0'
+              StyledSettings = [Family, FontColor]
+              object lbl_DefaultExtraMinutesT: TLabel
+                StyledSettings = []
+                Position.X = 1.000000000000000000
+                Position.Y = -29.000000000000000000
+                Size.Width = 138.000000000000000000
+                Size.Height = 31.000000000000000000
+                Size.PlatformDefault = False
+                TextSettings.Font.Size = 22.000000000000000000
+                TextSettings.Font.StyleExt = {00070000000000000004000000}
+                TextSettings.FontColor = xFF212529
+                Text = 'Tempo Extra:'
+                TabOrder = 1
+              end
+              object lbl_DefaultExtraMinutesC: TLabel
+                StyledSettings = []
+                Position.X = 84.000000000000000000
+                Size.Width = 57.000000000000000000
+                Size.Height = 32.000000000000000000
+                Size.PlatformDefault = False
+                TextSettings.Font.Size = 22.000000000000000000
+                TextSettings.Font.StyleExt = {00070000000000000004000000}
+                TextSettings.FontColor = xFF495057
+                Text = 'min.'
+                TabOrder = 8
+              end
+            end
+            object edt_DefaultExtraValue: TEdit
+              Touch.InteractiveGestures = [LongTap, DoubleTap]
+              TabOrder = 5
+              AutoSelect = True
+              KeyboardType = NumberPad
+              ReturnKeyType = Next
+              MaxLength = 5
+              FilterChar = '0123456789'
+              TextSettings.Font.Size = 22.000000000000000000
+              TextSettings.Font.StyleExt = {00070000000000000004000000}
+              TextSettings.HorzAlign = Trailing
+              Position.X = 220.000000000000000000
+              Position.Y = 184.000000000000000000
+              Size.Width = 82.000000000000000000
+              Size.Height = 32.000000000000000000
+              Size.PlatformDefault = False
+              TextPrompt = '0'
+              StyledSettings = [Family, FontColor]
+              object lbl_DefaultExtraValueT: TLabel
+                StyledSettings = []
+                Position.X = -37.000000000000000000
+                Position.Y = -29.000000000000000000
+                Size.Width = 150.000000000000000000
+                Size.Height = 31.000000000000000000
+                Size.PlatformDefault = False
+                TextSettings.Font.Size = 22.000000000000000000
+                TextSettings.Font.StyleExt = {00070000000000000004000000}
+                TextSettings.FontColor = xFF212529
+                Text = 'Valor Extra:'
+                TabOrder = 1
+              end
+              object lbl_DefaultExtraValueC: TLabel
+                StyledSettings = []
+                Position.X = 88.000000000000000000
+                Size.Width = 42.000000000000000000
+                Size.Height = 32.000000000000000000
+                Size.PlatformDefault = False
+                TextSettings.Font.Size = 22.000000000000000000
+                TextSettings.Font.StyleExt = {00070000000000000004000000}
+                TextSettings.FontColor = xFF495057
+                Text = ',00'
+                TabOrder = 5
+              end
+              object lbl_DefaultExtraValueR: TLabel
                 StyledSettings = []
                 Position.X = -37.000000000000000000
                 Position.Y = 2.000000000000000000
@@ -530,8 +609,90 @@ object frm_Boats: Tfrm_Boats
                 TextSettings.Font.StyleExt = {00070000000000000004000000}
                 TextSettings.FontColor = xFF495057
                 Text = 'R$'
-                TabOrder = 5
+                TabOrder = 4
               end
+            end
+            object edt_Color: TComboColorBox
+              Color = claSilver
+              Position.X = 22.000000000000000000
+              Position.Y = 318.000000000000000000
+              Size.Width = 138.000000000000000000
+              Size.Height = 43.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 7
+              UseAlpha = False
+              OnClick = edt_ColorClick
+              object lbl_Color: TLabel
+                StyledSettings = [Family, FontColor]
+                Position.Y = -22.000000000000000000
+                TextSettings.Font.Size = 20.000000000000000000
+                TextSettings.Font.StyleExt = {00070000000000000004000000}
+                TextSettings.WordWrap = False
+                Text = 'Cor:'
+                TabOrder = 0
+              end
+            end
+            object cb_PoS: TComboBox
+              Position.X = 22.000000000000000000
+              Position.Y = 256.000000000000000000
+              Size.Width = 280.000000000000000000
+              Size.Height = 32.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 6
+              object lbl_PoS: TLabel
+                StyledSettings = []
+                Position.X = -1.000000000000000000
+                Position.Y = -32.000000000000000000
+                Size.Width = 242.000000000000000000
+                Size.Height = 31.000000000000000000
+                Size.PlatformDefault = False
+                TextSettings.Font.Size = 22.000000000000000000
+                TextSettings.Font.StyleExt = {00070000000000000004000000}
+                TextSettings.FontColor = xFF212529
+                Text = 'Ponto de Venda:'
+                TabOrder = 1
+              end
+            end
+            object lbl_ID: TLabel
+              Align = Top
+              AutoSize = True
+              StyledSettings = [Style, FontColor]
+              Size.Width = 351.000000000000000000
+              Size.Height = 12.000000000000000000
+              Size.PlatformDefault = False
+              TextSettings.Font.Family = 'Consolas'
+              TextSettings.Font.Size = 10.000000000000000000
+              TextSettings.HorzAlign = Center
+              Text = '00000000-0000-0000-0000--000000000000'
+              TabOrder = 8
+            end
+            object btn_ColorCopy: TButton
+              StyledSettings = [Family, FontColor]
+              Position.X = 22.000000000000000000
+              Position.Y = 384.000000000000000000
+              Size.Width = 138.000000000000000000
+              Size.Height = 41.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 10
+              Text = 'Copiar Cor'
+              TextSettings.Font.Size = 22.000000000000000000
+              TextSettings.Font.StyleExt = {00070000000000000004000000}
+              TextSettings.Trimming = None
+              OnClick = btn_ColorCopyClick
+            end
+            object btn_ColorPaste: TButton
+              StyledSettings = [Family, FontColor]
+              Position.X = 182.000000000000000000
+              Position.Y = 384.000000000000000000
+              Size.Width = 138.000000000000000000
+              Size.Height = 41.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 9
+              Text = 'Colar Cor'
+              TextSettings.Font.Size = 22.000000000000000000
+              TextSettings.Font.StyleExt = {00070000000000000004000000}
+              TextSettings.Trimming = None
+              OnClick = btn_ColorPasteClick
             end
           end
         end

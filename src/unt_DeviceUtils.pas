@@ -519,6 +519,17 @@ end;
 {$IFDEF ANDROID}
 function getDeviceInfoDeviceUID: String;
 var
+  ContentResolver: JContentResolver;
+  AndroidID: JString;
+begin
+  ContentResolver := TAndroidHelper.Context.getContentResolver;
+  AndroidID := TJSettings_Secure.JavaClass.getString(ContentResolver,
+                TJSettings_Secure.JavaClass.ANDROID_ID);
+  Result := JStringToString(AndroidID) + ' (ANDROID_ID)';
+end;
+
+function getDeviceInfoDeviceUID2: String;
+var
   LIMEI: String;
   LObj : JObject;
   LTM  : JTelephonyManager;

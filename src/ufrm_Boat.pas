@@ -1,4 +1,4 @@
-unit ufrm_Boat;
+﻿unit ufrm_Boat;
 
 interface
 
@@ -16,6 +16,7 @@ type
     layout_Resize: TGridPanelLayout;
     lbl_Minutes: TLabel;
     lbl_Number: TLabel;
+    lbl_Info: TLabel;
     procedure FrameResize(Sender: TObject);
     procedure TimerTimer (Sender: TObject);
     procedure rect_BackgroundMouseDown(Sender: TObject; Button: TMouseButton;
@@ -31,46 +32,50 @@ type
     { Public declarations }
     Frm : TFmxObject;
 
-    FNumber        : String;
-    FActive        : Boolean;
-    FColor         : TAlphaColor;
-    FDefaultValue  : Integer;
-    FDefaultMinutes: Integer;
-    FRented        : Boolean;
-    FRentedAt      : TDateTime;
-    FMinutes       : Int64;
+    FMinutes                : Int64;
+
+    FID                     : TGuid;
+    FNumber                 : String;
+    FActive                 : Boolean;
+    FColor                  : TAlphaColor;
+    FDefaultMinutes         : Integer;
+    FDefaultValue           : Integer;
+    FDefaultExtraMinutes    : Integer;
+    FDefaultExtraValue      : Integer;
+    FPoSID                  : TGuid;
+
+    FRented                 : Boolean;
+    FCashRegisterID         : String;
+    FRentedSince            : TDateTime;
+    FRentalPausedAt         : TDateTime;
+    FRentalId               : TGuid;
+    FRentalExpectedMinutes  : Int64;
+    FRentalToleranceMinutes : Int64;
+
     FWarning       : Boolean;
 
-    FStartPayMethod       : String;
-    FStartPayMinutes      : Integer;
-    FStartPayValue        : Integer;
-    FStartPayValueCard    : Integer;
-    FStartPayValueCash    : Integer;
-    FStartPayValuePix     : Integer;
-    FStartPayValueOther   : Integer;
-    FStartPayValueDiscount: Integer;
-    FStartObs             : String;
-
-    constructor Create( AOwner          : TFmxObject;
-                        AFrame          : TFmxObject;
-                        ANumber         : String;
-                        AActive         : Boolean;
-                        AColor          : TAlphaColor;
-                        ADefaultMinutes : Integer;
-                        ADefaultValue   : Integer;
-                        ARented               : Boolean;
-                        ARentedAt             : TDateTime;
-                        AStartPayMethod       : String;
-                        AStartPayMinutes      : Integer;
-                        AStartPayValue        : Integer;
-                        AStartPayValueCard    : Integer;
-                        AStartPayValueCash    : Integer;
-                        AStartPayValuePix     : Integer;
-                        AStartPayValueOther   : Integer;
-                        AStartPayValueDiscount: Integer;
-                        AStartObs             : String
+    constructor Create( AOwner                  : TFmxObject;
+                        AFrame                  : TFmxObject;
+                        AID                     : TGuid;
+                        ANumber                 : String;
+                        AActive                 : Boolean;
+                        AColor                  : TAlphaColor;
+                        ADefaultMinutes         : Integer;
+                        ADefaultValue           : Integer;
+                        ADefaultExtraMinutes    : Integer;
+                        ADefaultExtraValue      : Integer;
+                        APoSID                  : TGuid;
+                        ARented                 : Boolean;
+                        ACashRegisterID         : String;
+                        ARentedSince            : TDateTime;
+                        ARentalPausedAt         : TDateTime;
+                        ARentalId               : TGuid;
+                        ARentalExpectedMinutes  : Int64;
+                        ARentalToleranceMinutes : Int64
                       ); overload;
     procedure   Update(ADate: TDateTime);
+
+    procedure   ResetRent;
   end;
 
 
@@ -88,6 +93,9 @@ const
   PAYMENT_METHOD_OTHER    = 'OTHER';
   PAYMENT_METHOD_DISCOUNT = 'DISCOUNT';
 
+//  BOAT_EXTRA_MINUTES = 10;
+//  BOAT_EXTRA_VALUE   = 10;
+
 
 function PaymentMethod_PT_to_EN(AText: String): String;
 function PaymentMethod_EN_to_PT(AText: String): String;
@@ -103,7 +111,7 @@ uses udm_Main, ufrm_Main, System.UIConsts;
 
 function PaymentMethod_PT_to_EN(AText: String): String;
 begin
-       if AText = 'CART�O'         then Result := PAYMENT_METHOD_CARD
+       if AText = 'CARTÃO'         then Result := PAYMENT_METHOD_CARD
   else if AText = 'DINHEIRO'       then Result := PAYMENT_METHOD_CASH
   else if AText = 'PIX'            then Result := PAYMENT_METHOD_PIX
   else if AText = 'OUTRO'          then Result := PAYMENT_METHOD_OTHER
@@ -113,7 +121,7 @@ end;
 
 function PaymentMethod_EN_to_PT(AText: String): String;
 begin
-       if AText = PAYMENT_METHOD_CARD      then Result := 'CART�O'
+       if AText = PAYMENT_METHOD_CARD      then Result := 'CARTÃO'
   else if AText = PAYMENT_METHOD_CASH      then Result := 'DINHEIRO'
   else if AText = PAYMENT_METHOD_PIX       then Result := 'PIX'
   else if AText = PAYMENT_METHOD_OTHER     then Result := 'OUTRO'
@@ -133,53 +141,61 @@ end;
 
 function BoatMinutesBetween(AStart, AEnd: TDateTime): Int64;
 begin
-//  Result := MinutesBetween(AEnd, AStart);
-  Result := SecondsBetween(AEnd, AStart);       // Change to minutes
+  if CLOCK_IN_SECONDS then
+    begin
+      Result := SecondsBetween(AEnd, AStart);       // Change to minutes
+    end
+  else
+    begin
+      Result := MinutesBetween(AEnd, AStart);
+    end;
 end;
 
 constructor Tfrm_Boat.Create(
-                              AOwner          : TFmxObject;
-                              AFrame          : TFmxObject;
-                              ANumber         : String;
-                              AActive         : Boolean;
-                              AColor          : TAlphaColor;
-                              ADefaultMinutes : Integer;
-                              ADefaultValue   : Integer;
-                              ARented               : Boolean;
-                              ARentedAt             : TDateTime;
-                              AStartPayMethod       : String;
-                              AStartPayMinutes      : Integer;
-                              AStartPayValue        : Integer;
-                              AStartPayValueCard    : Integer;
-                              AStartPayValueCash    : Integer;
-                              AStartPayValuePix     : Integer;
-                              AStartPayValueOther   : Integer;
-                              AStartPayValueDiscount: Integer;
-                              AStartObs             : String
-                            );
+                        AOwner                  : TFmxObject;
+                        AFrame                  : TFmxObject;
+                        AID                     : TGuid;
+                        ANumber                 : String;
+                        AActive                 : Boolean;
+                        AColor                  : TAlphaColor;
+                        ADefaultMinutes         : Integer;
+                        ADefaultValue           : Integer;
+                        ADefaultExtraMinutes    : Integer;
+                        ADefaultExtraValue      : Integer;
+                        APoSID                  : TGuid;
+                        ARented                 : Boolean;
+                        ACashRegisterID         : String;
+                        ARentedSince            : TDateTime;
+                        ARentalPausedAt         : TDateTime;
+                        ARentalId               : TGuid;
+                        ARentalExpectedMinutes  : Int64;
+                        ARentalToleranceMinutes : Int64
+                      );
 begin
   inherited Create(Owner);
-  Name      := ANumber;
+  Name      := 'Boat' + ANumber;
   Parent    := AOwner;
   Frm       := AFrame;
 
-  FNumber         := ANumber;
-  FActive         := AActive;
-  FColor          := AColor; if AColor = TAlphaColors.Null then FColor := TAlphaColors.White;
-  FDefaultValue   := ADefaultValue;
-  FDefaultMinutes := ADefaultMinutes;
+  FMinutes  := 0;
 
-  FRented                := ARented;
-  FRentedAt              := ARentedAt;
-  FStartPayMethod        := AStartPayMethod;
-  FStartPayMinutes       := AStartPayMinutes;
-  FStartPayValue         := AStartPayValue;
-  FStartPayValueCard     := AStartPayValueCard;
-  FStartPayValueCash     := AStartPayValueCash;
-  FStartPayValuePix      := AStartPayValuePix;
-  FStartPayValueOther    := AStartPayValueOther;
-  FStartPayValueDiscount := AStartPayValueDiscount;
-  FStartObs              := AStartObs;
+  FID                  := AID;
+  FNumber              := ANumber;
+  FActive              := AActive;
+  FColor               := AColor; if AColor = TAlphaColors.Null then FColor := TAlphaColors.White;
+  FDefaultMinutes      := ADefaultMinutes;
+  FDefaultValue        := ADefaultValue;
+  FDefaultExtraMinutes := ADefaultExtraMinutes;
+  FDefaultExtraValue   := ADefaultExtraValue;
+  FPoSID               := APoSID;
+
+  FRented                 := ARented;
+  FCashRegisterID         := ACashRegisterID;
+  FRentedSince            := ARentedSince;
+  FRentalPausedAt         := ARentalPausedAt;
+  FRentalId               := ARentalId;
+  FRentalExpectedMinutes  := ARentalExpectedMinutes;
+  FRentalToleranceMinutes := ARentalToleranceMinutes;
 
   Update(Now);
 
@@ -210,6 +226,19 @@ begin
   path_Swan.Fill.Color := FColor;
 end;
 
+
+procedure Tfrm_Boat.ResetRent;
+begin
+  FRented                 := false;
+  FCashRegisterID         := '';
+  FRentedSince            := 0;
+  FRentalPausedAt         := 0;
+  FRentalId               := GUID_NULL;
+  FRentalExpectedMinutes  := 0;
+  FRentalToleranceMinutes := 0;
+  FWarning                := false;
+end;
+
 procedure Tfrm_Boat.TimerTimer(Sender: TObject);
 begin
   Update(Now);
@@ -221,14 +250,24 @@ var
   LTolerance: Integer;
 begin
   FWarning  := False;
-  LTolerance := 10; // minutes of tolerance
-  LMinutes   := BoatMinutesBetween(FRentedAt, ADate);
+
+  if FRentalPausedAt = 0 then
+    begin
+      if lbl_Info.Text <> '' then lbl_Info.Text := '';
+    end
+  else
+    begin
+      if lbl_Info.Text <> '⛔' then lbl_Info.Text := '⛔';
+      ADate := FRentalPausedAt;
+    end;
+
+  LMinutes   := BoatMinutesBetween(FRentedSince, ADate);
 
   if FRented then
     begin
-      if LMinutes > FStartPayMinutes then
+      if LMinutes >= FRentalExpectedMinutes then
         begin
-          if LMinutes > (FStartPayMinutes + LTolerance) then
+          if LMinutes >= (FRentalExpectedMinutes + FRentalToleranceMinutes) then
             begin
               FWarning := True;
               if rect_Background.Fill.Color <> BoatColorCritical then

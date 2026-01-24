@@ -2,9 +2,9 @@
 <!-- BEGIN_INCLUDE(manifest) -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.embarcadero.IKD"
+    package="com.br.pedalinhosklein.IKD"
     android:versionCode="1"
-    android:versionName="1.0.0"
+    android:versionName="1.6.0"
     android:installLocation="auto">
     <uses-sdk android:minSdkVersion="23" android:targetSdkVersion="34" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -12,6 +12,9 @@
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
     <uses-permission android:name="android.permission.BLUETOOTH" android:maxSdkVersion="30" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" android:maxSdkVersion="30" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADVERTISE" />
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+    <uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET" />
