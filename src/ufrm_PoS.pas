@@ -453,6 +453,23 @@ type
     Path1: TPath;
     btn_CashRegisterValidate: TButton;
     btn_CashRegisterValidated: TButton;
+    tabItem_CashRegisterInput: TTabItem;
+    ToolBar4: TToolBar;
+    ShadowEffect1: TShadowEffect;
+    btn_CashRegisterInputOK: TSpeedButton;
+    Path2: TPath;
+    btn_CashRegisterInputBack: TSpeedButton;
+    VertScrollBox2: TVertScrollBox;
+    FlowLayout2: TFlowLayout;
+    Layout2: TLayout;
+    actTabChange_CashRegisterInput: TChangeTabAction;
+    edt_CashRegisterInput: TEdit;
+    lbl_CashRegisterInput: TLabel;
+    lbl_CashRegisterInputRS: TLabel;
+    Layout3: TLayout;
+    Label20: TLabel;
+    Label21: TLabel;
+    Label24: TLabel;
     procedure btn_PoSAddClick(Sender: TObject);
     procedure btn_PoSSaveClick(Sender: TObject);
     procedure btn_PoSCancelClick(Sender: TObject);
@@ -486,6 +503,8 @@ type
     procedure btn_CashRegisterValidateClick(Sender: TObject);
     procedure btn_CashRegisterValidatedClick(Sender: TObject);
     procedure lbl_DetailsClick(Sender: TObject);
+    procedure btn_CashRegisterInputBackClick(Sender: TObject);
+    procedure btn_CashRegisterInputOKClick(Sender: TObject);
   private
     { Private declarations }
     // BASIC HANDLE
@@ -1216,61 +1235,6 @@ begin
 end;
 // -----------------------------------------------------------------------------
 
-procedure Tfrm_PoS.ShowDialogExpense(argCaption: String;
-  argLabelExpense: Tlabel; argFieldExpense: TField);
-
-begin
-  TDialogService.InputQuery(argCaption, [''], [argLabelExpense.Text],
-    procedure(const AResult: TModalResult; const AValues: array of string)
-    var
-      LValue: Double;
-    begin
-      frm_Main.Padding.Bottom := 0;
-      if AResult = mrOK then
-        begin
-          if TryStrToFloat(AValues[0], LValue) then
-            begin
-              LValue := RoundTo(LValue, -2);
-
-              if not dm_Main.tb_PoS.Locate('id', GuidToString(FPoSID)) then
-                begin
-                  TDialogService.ShowMessage(UNEXPECTED_ERROR + 'PoS.ShowDialogExpense.InputQuery.tb_PoS.Locate');
-                  Exit;
-                end;
-
-              if FCashRegisterDate = 0 then
-                begin
-                  TDialogService.ShowMessage(UNEXPECTED_ERROR + 'PoS.ShowDialogExpense.InputQuery.CashRegisterDate=0');
-                  Exit;
-                end;
-
-              if not dm_Main.tb_CashRegister.Locate('date;posId', VarArrayOf([FCashRegisterDate, GUIDToString(FPoSID)])) then
-                begin
-                  TDialogService.ShowMessage(UNEXPECTED_ERROR + 'PoS.ShowDialogExpense.InputQuery.tb_CashRegister.Locate');
-                  Exit;
-                end;
-
-              if not dm_Main.tb_CashRegister.FieldByName('open').AsBoolean then
-                begin
-                  TDialogService.ShowMessage('O caixa o Ponto de Vendas não esta aberto.');
-                  Exit;
-                end;
-
-              dm_Main.tb_CashRegister.Edit;
-              argFieldExpense.AsCurrency := LValue;
-              dm_Main.tb_CashRegister.Post;
-              dm_Main.tb_CashRegister.SaveToFile();
-
-              CashRegisterRefresh();
-            end
-          else
-            begin
-              ShowMessage('Valor inválido.'#$d#$a'Formato: 0,00');
-              ShowDialogExpense(argCaption, argLabelExpense, argFieldExpense);
-            end;
-        end;
-    end);
-end;
 
 procedure Tfrm_PoS.btn_SummaryInitialCashClick(Sender: TObject);
 begin
@@ -1817,10 +1781,13 @@ begin
 
 end;
 
+
 procedure Tfrm_PoS.btn_CashRegisterShowOpenClick(Sender: TObject);
 begin
   edt_OpenDay.Date := Now();
+//  edt_OpenDay.Enabled := PoSAdmin;
   actTabChange_CashRegisterOpen.Execute;
+  edt_OpenDay.SetFocus;
 end;
 
 procedure Tfrm_PoS.btn_CashRegisterValidateClick(Sender: TObject);
@@ -1929,11 +1896,6 @@ begin
       Exit;
     end;
 
-  if LDay > Now().GetDate then
-    begin
-      TDialogService.ShowMessage('Não é permitido abrir um Ponto de Venda com data futura.');
-      Exit;
-    end;
 
   if dm_Main.tb_CashRegister.Locate('posId;date', VarArrayOf([GUIDToString(FPoSID), LDay])) then
     begin
@@ -1984,6 +1946,21 @@ begin
                                           end
                                       end);
       Exit;
+    end;
+
+  if not PoSAdmin then
+    begin
+      if LDay > Now().GetDate then
+        begin
+          TDialogService.ShowMessage('Não é permitido abrir um Ponto de Venda com data futura.');
+          Exit;
+        end;
+
+      if LDay < Now().GetDate then
+        begin
+          TDialogService.ShowMessage('Não é permitido abrir um Ponto de Venda com data passada.');
+          Exit;
+        end;
     end;
 
   if not dm_Main.tb_PoS.Locate('id', GUIDToString(FPoSID)) then
@@ -2182,6 +2159,14 @@ begin
     end;
     // -------------------------------------------------------------------------
 
+//    LItem           := lst_CashRegisterList.Items.Add;
+//    LItem.Purpose   := TListItemPurpose.Header;
+//    LItem.Text      := 'Data';
+//    LItem.Objects.FindDrawable('txtDateTime' ).Data := 'Data';
+//    LItem.Objects.FindDrawable('txtCount'    ).Data := 'Quant.';
+//    LItem.Objects.FindDrawable('txtValue'    ).Data := 'Total';
+//    LItem.Objects.FindDrawable('txtValue2'   ).Data := 'Caixa';
+
     for LDate in LDateList do
       begin
         LCount                := 0;
@@ -2341,7 +2326,8 @@ begin
 //        LItem.Objects.FindDrawable('txtDateTime' ).Data :=  dm_Main.tb_CashRegister.FieldByName('id').AsString;
         LItem.Objects.FindDrawable('txtDateTime' ).Data := FormatDatetime('dd/mm/yyyy', dm_Main.tb_CashRegister.FieldByName('date').AsDateTime);
         LItem.Objects.FindDrawable('txtCount'    ).Data := Format('%0.2d', [LCount]);
-        LItem.Objects.FindDrawable('txtValue'    ).Data := FormatFloat('0.00', LTotalPayValue) + ' - ' + FormatFloat('0.00', LTotalExpensesTotal) + #$D'= ' + FormatFloat('0.00', LTotal);
+        LItem.Objects.FindDrawable('txtValue'    ).Data := FormatFloat('0.00', LTotal    );
+        LItem.Objects.FindDrawable('txtValue2'   ).Data := FormatFloat('0.00', LTotalCash);
 
         if LCashRegisterCount > 0 then
           begin
@@ -2377,5 +2363,136 @@ begin
 
 end;
 
+// ------------------------------------------------------------------------------------------------
+// Cash Register Input
+// ------------------------------------------------------------------------------------------------
+
+procedure Tfrm_PoS.btn_CashRegisterInputBackClick(Sender: TObject);
+begin
+  actTabChange_CashRegister.Execute;
+end;
+
+
+procedure Tfrm_PoS.btn_CashRegisterInputOKClick(Sender: TObject);
+var
+  LValue: Double;
+  LFieldExpense: TField;
+begin
+  if not (edt_CashRegisterInput.TagObject is TField) then
+    begin
+      TDialogService.ShowMessage(UNEXPECTED_ERROR + 'PoS.btn_CashRegisterInputOKClick.TagObject');
+      Exit;
+    end;
+
+  if not TryStrToFloat(edt_CashRegisterInput.Text, LValue) then
+    begin
+      TDialogService.ShowMessage('Valor inválido.'#$d#$a'Formato: 0,00');
+      Exit;
+    end;
+
+  LValue        := RoundTo(LValue, -2);
+  LFieldExpense := edt_CashRegisterInput.TagObject as TField;
+
+  if not dm_Main.tb_PoS.Locate('id', GuidToString(FPoSID)) then
+    begin
+      TDialogService.ShowMessage(UNEXPECTED_ERROR + 'PoS.btn_CashRegisterInputOKClick.tb_PoS.Locate');
+      Exit;
+    end;
+
+  if FCashRegisterDate = 0 then
+    begin
+      TDialogService.ShowMessage(UNEXPECTED_ERROR + 'PoS.btn_CashRegisterInputOKClick.CashRegisterDate=0');
+      Exit;
+    end;
+
+  if not dm_Main.tb_CashRegister.Locate('date;posId', VarArrayOf([FCashRegisterDate, GUIDToString(FPoSID)])) then
+    begin
+      TDialogService.ShowMessage(UNEXPECTED_ERROR + 'PoS.btn_CashRegisterInputOKClick.tb_CashRegister.Locate');
+      Exit;
+    end;
+
+  if not dm_Main.tb_CashRegister.FieldByName('open').AsBoolean then
+    begin
+      TDialogService.ShowMessage('O caixa o Ponto de Vendas não esta aberto.');
+      Exit;
+    end;
+
+
+
+  dm_Main.tb_CashRegister.Edit;
+  LFieldExpense.AsCurrency := LValue;
+  dm_Main.tb_CashRegister.Post;
+  dm_Main.tb_CashRegister.SaveToFile();
+
+  CashRegisterRefresh();
+  actTabChange_CashRegister.Execute;
+end;
+
+procedure Tfrm_PoS.ShowDialogExpense(argCaption: String;
+  argLabelExpense: Tlabel; argFieldExpense: TField);
+begin
+  lbl_CashRegisterInput.Text      := argCaption;
+  edt_CashRegisterInput.Text      := argLabelExpense.Text;
+  edt_CashRegisterInput.TagObject := argFieldExpense;
+  actTabChange_CashRegisterInput.Execute;
+  edt_CashRegisterInput.SetFocus;
+end;
+
+
+//
+//procedure Tfrm_PoS.ShowDialogExpense(argCaption: String;
+//  argLabelExpense: Tlabel; argFieldExpense: TField);
+//begin
+//  TDialogService.InputQuery(argCaption, [''], [argLabelExpense.Text],
+//    procedure(const AResult: TModalResult; const AValues: array of string)
+//    var
+//      LValue: Double;
+//    begin
+//      frm_Main.Padding.Bottom := 0;
+//      if AResult = mrOK then
+//        begin
+//          if TryStrToFloat(AValues[0], LValue) then
+//            begin
+//              LValue := RoundTo(LValue, -2);
+//
+//              if not dm_Main.tb_PoS.Locate('id', GuidToString(FPoSID)) then
+//                begin
+//                  TDialogService.ShowMessage(UNEXPECTED_ERROR + 'PoS.ShowDialogExpense.InputQuery.tb_PoS.Locate');
+//                  Exit;
+//                end;
+//
+//              if FCashRegisterDate = 0 then
+//                begin
+//                  TDialogService.ShowMessage(UNEXPECTED_ERROR + 'PoS.ShowDialogExpense.InputQuery.CashRegisterDate=0');
+//                  Exit;
+//                end;
+//
+//              if not dm_Main.tb_CashRegister.Locate('date;posId', VarArrayOf([FCashRegisterDate, GUIDToString(FPoSID)])) then
+//                begin
+//                  TDialogService.ShowMessage(UNEXPECTED_ERROR + 'PoS.ShowDialogExpense.InputQuery.tb_CashRegister.Locate');
+//                  Exit;
+//                end;
+//
+//              if not dm_Main.tb_CashRegister.FieldByName('open').AsBoolean then
+//                begin
+//                  TDialogService.ShowMessage('O caixa o Ponto de Vendas não esta aberto.');
+//                  Exit;
+//                end;
+//
+//              dm_Main.tb_CashRegister.Edit;
+//              argFieldExpense.AsCurrency := LValue;
+//              dm_Main.tb_CashRegister.Post;
+//              dm_Main.tb_CashRegister.SaveToFile();
+//
+//              CashRegisterRefresh();
+//            end
+//          else
+//            begin
+//              ShowMessage('Valor inválido.'#$d#$a'Formato: 0,00');
+//              ShowDialogExpense(argCaption, argLabelExpense, argFieldExpense);
+//            end;
+//        end;
+//    end);
+//end;
 
 end.

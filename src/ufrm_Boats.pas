@@ -53,13 +53,15 @@ type
     lbl_DefaultExtraValueT: TLabel;
     lbl_DefaultExtraValueC: TLabel;
     lbl_DefaultExtraValueR: TLabel;
-    edt_Color: TComboColorBox;
-    lbl_Color: TLabel;
     cb_PoS: TComboBox;
     lbl_PoS: TLabel;
     lbl_ID: TLabel;
     btn_ColorCopy: TButton;
     btn_ColorPaste: TButton;
+    edt_Color: TEdit;
+    Label1: TLabel;
+    edt_ColorPanel: TColorPanel;
+    ColorBox1: TColorBox;
     procedure btn_AddClick(Sender: TObject);
     procedure btn_SaveClick(Sender: TObject);
     procedure btn_CancelClick(Sender: TObject);
@@ -67,9 +69,10 @@ type
     procedure lst_BoatsItemClick(const Sender: TObject; const AItem: TListViewItem);
     procedure btn_DeleteClick(Sender: TObject);
     procedure tabCtrl_ListChange(Sender: TObject);
-    procedure edt_ColorClick(Sender: TObject);
     procedure btn_ColorCopyClick(Sender: TObject);
     procedure btn_ColorPasteClick(Sender: TObject);
+    procedure edt_ColorPanelChange(Sender: TObject);
+    procedure edt_ColorChange(Sender: TObject);
   private
     { Private declarations }
     // BASIC HANDLE
@@ -241,7 +244,7 @@ begin
     lbl_ID.Text                  :=             dm_Main.tb_Boat.FieldByName('id'                 ).AsString;
     edt_Number.Text              :=             dm_Main.tb_Boat.FieldByName('number'             ).AsString;
     switch_Active.IsChecked      :=             dm_Main.tb_Boat.FieldByName('active'             ).AsBoolean;
-    edt_Color.Color              := TAlphaColor(dm_Main.tb_Boat.FieldByName('color'              ).AsLongWord);
+    edt_ColorPanel.Color         := TAlphaColor(dm_Main.tb_Boat.FieldByName('color'              ).AsLongWord);
     edt_DefaultMinutes.Text      :=             dm_Main.tb_Boat.FieldByName('defaultMinutes'     ).AsString;
     edt_DefaultValue.Text        :=             dm_Main.tb_Boat.FieldByName('defaultValue'       ).AsString;
     edt_DefaultExtraMinutes.Text :=             dm_Main.tb_Boat.FieldByName('defaultExtraMinutes').AsString;
@@ -297,7 +300,7 @@ begin
   lbl_ID.Text                  := GuidToString(POS_NONE);
   edt_Number.Text              := '';
   switch_Active.IsChecked      := True;
-  edt_Color.Color              := TAlphaColors.White;
+  edt_ColorPanel.Color         := TAlphaColors.White;
   edt_DefaultMinutes.Text      := '';
   edt_DefaultValue.Text        := '';
   edt_DefaultExtraMinutes.Text := '';
@@ -322,21 +325,26 @@ begin
   if TPlatformServices.Current.SupportsPlatformService(
        IFMXClipboardService, ClipboardService) then
   begin
-    ClipboardService.SetClipboard(Format('$%.8x', [edt_Color.Color]));
+    ClipboardService.SetClipboard(Format('#%.6x', [edt_ColorPanel.Color and $00FFFFFF]));
   end;
 end;
 
 procedure Tfrm_Boats.btn_ColorPasteClick(Sender: TObject);
 var
   ClipboardService: IFMXClipboardService;
-  Text: string;
+  LText: string;
+  LColor : Integer;
 begin
   if POSAdmin and TPlatformServices.Current.SupportsPlatformService(
        IFMXClipboardService, ClipboardService) then
   begin
-    Text := ClipboardService.GetClipboard.ToString;
+    LText := ClipboardService.GetClipboard.ToString;
 
-    edt_Color.Color := TAlphaColor(StrToInt(Text));
+    if not (Length(edt_Color.Text) = 7  ) then Exit;
+    if not (edt_Color.Text[1]      = '#') then Exit;
+    if not TryStrToInt('$' + Copy(LText,2,6), LColor) then Exit;
+
+    edt_ColorPanel.Color := TAlphaColor(LColor OR $FF000000);
   end;
 end;
 
@@ -419,7 +427,7 @@ begin
         dm_Main.tb_Boat.FieldByName('defaultValue'       ).AsInteger  := StrToIntDef(edt_DefaultValue.Text       , 0);
         dm_Main.tb_Boat.FieldByName('defaultExtraMinutes').AsInteger  := StrToIntDef(edt_DefaultExtraMinutes.Text, 0);
         dm_Main.tb_Boat.FieldByName('defaultExtraValue'  ).AsInteger  := StrToIntDef(edt_DefaultExtraValue.Text  , 0);
-        dm_Main.tb_Boat.FieldByName('color'              ).AsLongWord := edt_Color.Color ;
+        dm_Main.tb_Boat.FieldByName('color'              ).AsLongWord := edt_ColorPanel.Color;
       end;
     dm_Main.tb_Boat.FieldByName('posId'              ).AsGuid := TComboBoxItemGuid(cb_PoS.Items.Objects[cb_PoS.ItemIndex]).Value;
 
@@ -446,6 +454,25 @@ begin
   cb_PoS.Clear;
 end;
 
+procedure Tfrm_Boats.edt_ColorPanelChange(Sender: TObject);
+begin
+  edt_Color.OnChange := nil;
+  edt_Color.Text     := Format('#%.6x', [edt_ColorPanel.Color and $00FFFFFF]);
+  edt_Color.OnChange := edt_ColorChange;
+end;
+
+procedure Tfrm_Boats.edt_ColorChange(Sender: TObject);
+var
+  LColor : Integer;
+begin
+  if not (Length(edt_Color.Text) = 7  ) then Exit;
+  if not (edt_Color.Text[1]      = '#') then Exit;
+  if not TryStrToInt('$' + Copy(edt_Color.Text,2,6), LColor) then Exit;
+
+  edt_ColorPanel.Color := LColor OR $FF000000;
+end;
+
+
 destructor Tfrm_Boats.Destroy;
 begin
   // Make sure to release all objects to avoid memory leak
@@ -453,10 +480,6 @@ begin
   inherited Destroy;
 end;
 
-procedure Tfrm_Boats.edt_ColorClick(Sender: TObject);
-begin
-  vScrollBox_Config.ViewportPosition := TPoint.Create(0, 200);
-end;
 
 procedure Tfrm_Boats.FormVirtualKeyboardHidden(Sender: TObject;
   KeyboardVisible: Boolean; const Bounds: TRect);

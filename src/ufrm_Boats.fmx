@@ -2,14 +2,14 @@ object frm_Boats: Tfrm_Boats
   Align = Client
   Hint = 'Pedalinhos'
   Size.Width = 377.000000000000000000
-  Size.Height = 777.000000000000000000
+  Size.Height = 559.000000000000000000
   Size.PlatformDefault = False
   ParentShowHint = False
   ShowHint = False
   object tabCtrl_List: TTabControl
     Align = Client
     Size.Width = 377.000000000000000000
-    Size.Height = 777.000000000000000000
+    Size.Height = 559.000000000000000000
     Size.PlatformDefault = False
     TabHeight = 49.000000000000000000
     TabIndex = 1
@@ -18,9 +18,9 @@ object frm_Boats: Tfrm_Boats
     OnChange = tabCtrl_ListChange
     Sizes = (
       377s
-      777s
+      559s
       377s
-      777s)
+      559s)
     object tabItem_List: TTabItem
       Touch.InteractiveGestures = []
       CustomIcon = <
@@ -45,7 +45,7 @@ object frm_Boats: Tfrm_Boats
         FooterAppearanceClassName = 'TListHeaderObjects'
         Align = Client
         Size.Width = 377.000000000000000000
-        Size.Height = 737.000000000000000000
+        Size.Height = 519.000000000000000000
         Size.PlatformDefault = False
         TabOrder = 0
         ItemAppearance.HeaderHeight = 44
@@ -57,17 +57,17 @@ object frm_Boats: Tfrm_Boats
             Appearance.Font.Size = 18.000000000000000000
             Appearance.Font.StyleExt = {00070000000000000004000000}
             Appearance.TextAlign = Leading
-            Appearance.Width = 169.000000000000000000
+            Appearance.Width = 153.000000000000000000
             Appearance.Height = 44.000000000000000000
             Appearance.VertAlign = Center
-            Appearance.PlaceOffset.X = 62.000000000000000000
+            Appearance.PlaceOffset.X = 78.000000000000000000
           end
           item
             AppearanceObjectName = 'txtId'
             AppearanceClassName = 'TTextObjectAppearance'
             Appearance.Font.Size = 16.000000000000000000
             Appearance.TextColor = claSlategray
-            Appearance.Width = 49.000000000000000000
+            Appearance.Width = 65.000000000000000000
             Appearance.Height = 44.000000000000000000
             Appearance.PlaceOffset.X = 6.000000000000000000
           end
@@ -347,17 +347,17 @@ object frm_Boats: Tfrm_Boats
       object vScrollBox_Config: TVertScrollBox
         Align = Client
         Size.Width = 377.000000000000000000
-        Size.Height = 737.000000000000000000
+        Size.Height = 519.000000000000000000
         Size.PlatformDefault = False
         TabOrder = 1
         Viewport.Width = 377.000000000000000000
-        Viewport.Height = 737.000000000000000000
+        Viewport.Height = 519.000000000000000000
         object layoutFlow_Config: TFlowLayout
           Align = Top
           Margins.Top = 20.000000000000000000
           Position.Y = 20.000000000000000000
           Size.Width = 377.000000000000000000
-          Size.Height = 525.000000000000000000
+          Size.Height = 469.000000000000000000
           Size.PlatformDefault = False
           TabOrder = 0
           Justify = Center
@@ -366,7 +366,7 @@ object frm_Boats: Tfrm_Boats
           object layout_Config: TLayout
             Align = Center
             Size.Width = 351.000000000000000000
-            Size.Height = 449.000000000000000000
+            Size.Height = 441.000000000000000000
             Size.PlatformDefault = False
             TabOrder = 0
             object switch_Active: TSwitch
@@ -389,7 +389,7 @@ object frm_Boats: Tfrm_Boats
             object edt_Number: TEdit
               Touch.InteractiveGestures = [LongTap, DoubleTap]
               Anchors = [akLeft, akTop, akRight]
-              TabOrder = 1
+              TabOrder = 2
               ReturnKeyType = Next
               MaxLength = 3
               TextSettings.Font.Size = 18.000000000000000000
@@ -413,7 +413,7 @@ object frm_Boats: Tfrm_Boats
             end
             object edt_DefaultMinutes: TEdit
               Touch.InteractiveGestures = [LongTap, DoubleTap]
-              TabOrder = 2
+              TabOrder = 3
               AutoSelect = True
               KeyboardType = NumberPad
               ReturnKeyType = Next
@@ -423,7 +423,7 @@ object frm_Boats: Tfrm_Boats
               TextSettings.Font.StyleExt = {00070000000000000004000000}
               TextSettings.HorzAlign = Trailing
               Position.X = 22.000000000000000000
-              Position.Y = 111.000000000000000000
+              Position.Y = 107.000000000000000000
               Size.Width = 81.000000000000000000
               Size.Height = 32.000000000000000000
               Size.PlatformDefault = False
@@ -456,7 +456,7 @@ object frm_Boats: Tfrm_Boats
             end
             object edt_DefaultValue: TEdit
               Touch.InteractiveGestures = [LongTap, DoubleTap]
-              TabOrder = 3
+              TabOrder = 4
               AutoSelect = True
               KeyboardType = NumberPad
               ReturnKeyType = Next
@@ -513,7 +513,7 @@ object frm_Boats: Tfrm_Boats
             end
             object edt_DefaultExtraMinutes: TEdit
               Touch.InteractiveGestures = [LongTap, DoubleTap]
-              TabOrder = 4
+              TabOrder = 5
               AutoSelect = True
               KeyboardType = NumberPad
               ReturnKeyType = Next
@@ -523,7 +523,7 @@ object frm_Boats: Tfrm_Boats
               TextSettings.Font.StyleExt = {00070000000000000004000000}
               TextSettings.HorzAlign = Trailing
               Position.X = 22.000000000000000000
-              Position.Y = 184.000000000000000000
+              Position.Y = 176.000000000000000000
               Size.Width = 81.000000000000000000
               Size.Height = 32.000000000000000000
               Size.PlatformDefault = False
@@ -557,7 +557,7 @@ object frm_Boats: Tfrm_Boats
             end
             object edt_DefaultExtraValue: TEdit
               Touch.InteractiveGestures = [LongTap, DoubleTap]
-              TabOrder = 5
+              TabOrder = 6
               AutoSelect = True
               KeyboardType = NumberPad
               ReturnKeyType = Next
@@ -567,7 +567,7 @@ object frm_Boats: Tfrm_Boats
               TextSettings.Font.StyleExt = {00070000000000000004000000}
               TextSettings.HorzAlign = Trailing
               Position.X = 220.000000000000000000
-              Position.Y = 184.000000000000000000
+              Position.Y = 176.000000000000000000
               Size.Width = 82.000000000000000000
               Size.Height = 32.000000000000000000
               Size.PlatformDefault = False
@@ -576,7 +576,7 @@ object frm_Boats: Tfrm_Boats
               object lbl_DefaultExtraValueT: TLabel
                 StyledSettings = []
                 Position.X = -37.000000000000000000
-                Position.Y = -29.000000000000000000
+                Position.Y = -33.000000000000000000
                 Size.Width = 150.000000000000000000
                 Size.Height = 31.000000000000000000
                 Size.PlatformDefault = False
@@ -612,33 +612,13 @@ object frm_Boats: Tfrm_Boats
                 TabOrder = 4
               end
             end
-            object edt_Color: TComboColorBox
-              Color = claSilver
-              Position.X = 22.000000000000000000
-              Position.Y = 318.000000000000000000
-              Size.Width = 138.000000000000000000
-              Size.Height = 43.000000000000000000
-              Size.PlatformDefault = False
-              TabOrder = 7
-              UseAlpha = False
-              OnClick = edt_ColorClick
-              object lbl_Color: TLabel
-                StyledSettings = [Family, FontColor]
-                Position.Y = -22.000000000000000000
-                TextSettings.Font.Size = 20.000000000000000000
-                TextSettings.Font.StyleExt = {00070000000000000004000000}
-                TextSettings.WordWrap = False
-                Text = 'Cor:'
-                TabOrder = 0
-              end
-            end
             object cb_PoS: TComboBox
-              Position.X = 22.000000000000000000
-              Position.Y = 256.000000000000000000
+              Position.X = 21.000000000000000000
+              Position.Y = 240.000000000000000000
               Size.Width = 280.000000000000000000
               Size.Height = 32.000000000000000000
               Size.PlatformDefault = False
-              TabOrder = 6
+              TabOrder = 7
               object lbl_PoS: TLabel
                 StyledSettings = []
                 Position.X = -1.000000000000000000
@@ -668,8 +648,8 @@ object frm_Boats: Tfrm_Boats
             end
             object btn_ColorCopy: TButton
               StyledSettings = [Family, FontColor]
-              Position.X = 22.000000000000000000
-              Position.Y = 384.000000000000000000
+              Position.X = 21.000000000000000000
+              Position.Y = 341.000000000000000000
               Size.Width = 138.000000000000000000
               Size.Height = 41.000000000000000000
               Size.PlatformDefault = False
@@ -682,8 +662,8 @@ object frm_Boats: Tfrm_Boats
             end
             object btn_ColorPaste: TButton
               StyledSettings = [Family, FontColor]
-              Position.X = 182.000000000000000000
-              Position.Y = 384.000000000000000000
+              Position.X = 21.000000000000000000
+              Position.Y = 390.000000000000000000
               Size.Width = 138.000000000000000000
               Size.Height = 41.000000000000000000
               Size.PlatformDefault = False
@@ -693,6 +673,54 @@ object frm_Boats: Tfrm_Boats
               TextSettings.Font.StyleExt = {00070000000000000004000000}
               TextSettings.Trimming = None
               OnClick = btn_ColorPasteClick
+            end
+            object edt_Color: TEdit
+              Touch.InteractiveGestures = [LongTap, DoubleTap]
+              Anchors = [akLeft, akTop, akRight]
+              TabOrder = 1
+              ReturnKeyType = Next
+              MaxLength = 7
+              FilterChar = '#ABCDEF0123456789'
+              TextSettings.Font.Size = 18.000000000000000000
+              Position.X = 24.000000000000000000
+              Position.Y = 302.000000000000000000
+              Size.Width = 89.000000000000000000
+              Size.Height = 30.000000000000000000
+              Size.PlatformDefault = False
+              TextPrompt = '#FFFFFF'
+              StyledSettings = [Family, Style, FontColor]
+              CharCase = ecUpperCase
+              OnChange = edt_ColorChange
+              object Label1: TLabel
+                StyledSettings = [Family, FontColor]
+                Position.Y = -24.000000000000000000
+                TextSettings.Font.Size = 20.000000000000000000
+                TextSettings.Font.StyleExt = {00070000000000000004000000}
+                TextSettings.WordWrap = False
+                Text = 'Cor:'
+                TabOrder = 0
+              end
+            end
+            object edt_ColorPanel: TColorPanel
+              Color = claWhite
+              ColorBox = ColorBox1
+              Position.X = 167.000000000000000000
+              Position.Y = 302.000000000000000000
+              Size.Width = 159.000000000000000000
+              Size.Height = 131.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 11
+              UseAlpha = False
+              OnChange = edt_ColorPanelChange
+            end
+            object ColorBox1: TColorBox
+              Color = claSteelblue
+              Position.X = 121.000000000000000000
+              Position.Y = 303.000000000000000000
+              Size.Width = 38.000000000000000000
+              Size.Height = 30.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 12
             end
           end
         end

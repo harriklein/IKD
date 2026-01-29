@@ -1,35 +1,37 @@
 object frm_PoS: Tfrm_PoS
   Align = Client
   Hint = 'Pontos de Venda'
-  Size.Width = 393.000000000000000000
+  Size.Width = 380.000000000000000000
   Size.Height = 1822.000000000000000000
   Size.PlatformDefault = False
   ParentShowHint = False
   ShowHint = False
   object tabCtrl_List: TTabControl
     Align = Client
-    Size.Width = 393.000000000000000000
+    Size.Width = 380.000000000000000000
     Size.Height = 1822.000000000000000000
     Size.PlatformDefault = False
     TabHeight = 49.000000000000000000
-    TabIndex = 2
+    TabIndex = 4
     TabOrder = 0
     TabPosition = None
     OnChange = tabCtrl_ListChange
     Sizes = (
-      393s
+      380s
       1822s
-      393s
+      380s
       1822s
-      393s
+      380s
       1822s
-      393s
+      380s
       1822s
-      393s
+      380s
       1822s
-      393s
+      380s
       1822s
-      393s
+      380s
+      1822s
+      380s
       1822s)
     object tabItem_PoSList: TTabItem
       Touch.InteractiveGestures = []
@@ -54,7 +56,7 @@ object frm_PoS: Tfrm_PoS
         HeaderAppearanceClassName = 'TListHeaderObjects'
         FooterAppearanceClassName = 'TListHeaderObjects'
         Align = Client
-        Size.Width = 393.000000000000000000
+        Size.Width = 380.000000000000000000
         Size.Height = 1782.000000000000000000
         Size.PlatformDefault = False
         TabOrder = 0
@@ -110,7 +112,7 @@ object frm_PoS: Tfrm_PoS
         PullRefreshWait = True
       end
       object toolBar_List: TToolBar
-        Size.Width = 393.000000000000000000
+        Size.Width = 380.000000000000000000
         Size.Height = 40.000000000000000000
         Size.PlatformDefault = False
         TabOrder = 1
@@ -127,7 +129,7 @@ object frm_PoS: Tfrm_PoS
           Padding.Bottom = 5.000000000000000000
           Margins.Left = 10.000000000000000000
           Margins.Right = 10.000000000000000000
-          Position.X = 343.000000000000000000
+          Position.X = 330.000000000000000000
           Size.Width = 40.000000000000000000
           Size.Height = 40.000000000000000000
           Size.PlatformDefault = False
@@ -209,7 +211,7 @@ object frm_PoS: Tfrm_PoS
       ExplicitSize.cx = 8.000000000000000000
       ExplicitSize.cy = 8.000000000000000000
       object toolBar_Edit: TToolBar
-        Size.Width = 393.000000000000000000
+        Size.Width = 380.000000000000000000
         Size.Height = 40.000000000000000000
         Size.PlatformDefault = False
         TabOrder = 0
@@ -226,7 +228,7 @@ object frm_PoS: Tfrm_PoS
           Padding.Bottom = 5.000000000000000000
           Margins.Left = 10.000000000000000000
           Margins.Right = 10.000000000000000000
-          Position.X = 343.000000000000000000
+          Position.X = 330.000000000000000000
           Size.Width = 40.000000000000000000
           Size.Height = 40.000000000000000000
           Size.PlatformDefault = False
@@ -357,7 +359,7 @@ object frm_PoS: Tfrm_PoS
       end
       object vScrollBox_Edit: TVertScrollBox
         Align = Client
-        Size.Width = 393.000000000000000000
+        Size.Width = 380.000000000000000000
         Size.Height = 1782.000000000000000000
         Size.PlatformDefault = False
         TabOrder = 1
@@ -448,7 +450,7 @@ object frm_PoS: Tfrm_PoS
       TextSettings.Trimming = None
       StyledSettings = [Family, Style, FontColor]
       HitTest = False
-      IsSelected = True
+      IsSelected = False
       Size.Width = 8.000000000000000000
       Size.Height = 8.000000000000000000
       Size.PlatformDefault = False
@@ -459,7 +461,7 @@ object frm_PoS: Tfrm_PoS
       ExplicitSize.cy = 8.000000000000000000
       object vscroll_CashRegister: TVertScrollBox
         Align = Client
-        Size.Width = 393.000000000000000000
+        Size.Width = 380.000000000000000000
         Size.Height = 1742.000000000000000000
         Size.PlatformDefault = False
         TabOrder = 2
@@ -3363,7 +3365,7 @@ object frm_PoS: Tfrm_PoS
         end
       end
       object toolBar_CashRegister: TToolBar
-        Size.Width = 393.000000000000000000
+        Size.Width = 380.000000000000000000
         Size.Height = 40.000000000000000000
         Size.PlatformDefault = False
         TabOrder = 0
@@ -3371,7 +3373,7 @@ object frm_PoS: Tfrm_PoS
           Align = Contents
           StyledSettings = [Family, FontColor]
           HitTest = True
-          Size.Width = 393.000000000000000000
+          Size.Width = 380.000000000000000000
           Size.Height = 40.000000000000000000
           Size.PlatformDefault = False
           TextSettings.Font.Size = 22.000000000000000000
@@ -3405,7 +3407,7 @@ object frm_PoS: Tfrm_PoS
           Padding.Bottom = 5.000000000000000000
           Margins.Left = 10.000000000000000000
           Margins.Right = 10.000000000000000000
-          Position.X = 343.000000000000000000
+          Position.X = 330.000000000000000000
           Size.Width = 40.000000000000000000
           Size.Height = 40.000000000000000000
           Size.PlatformDefault = False
@@ -3421,7 +3423,7 @@ object frm_PoS: Tfrm_PoS
       end
       object toolBar_CashRegister2: TToolBar
         Position.Y = 40.000000000000000000
-        Size.Width = 393.000000000000000000
+        Size.Width = 380.000000000000000000
         Size.Height = 40.000000000000000000
         Size.PlatformDefault = False
         TabOrder = 1
@@ -3457,7 +3459,7 @@ object frm_PoS: Tfrm_PoS
           Padding.Bottom = 5.000000000000000000
           Margins.Left = 10.000000000000000000
           Margins.Right = 10.000000000000000000
-          Position.X = 343.000000000000000000
+          Position.X = 330.000000000000000000
           Size.Width = 40.000000000000000000
           Size.Height = 40.000000000000000000
           Size.PlatformDefault = False
@@ -3475,7 +3477,7 @@ object frm_PoS: Tfrm_PoS
           StyledSettings = []
           HitTest = True
           Margins.Right = 3.000000000000000000
-          Size.Width = 270.000000000000000000
+          Size.Width = 257.000000000000000000
           Size.Height = 40.000000000000000000
           Size.PlatformDefault = False
           TextSettings.Font.Size = 20.000000000000000000
@@ -3511,8 +3513,8 @@ object frm_PoS: Tfrm_PoS
         HeaderAppearanceClassName = 'TListHeaderObjects'
         FooterAppearanceClassName = 'TListHeaderObjects'
         Align = Client
-        Size.Width = 393.000000000000000000
-        Size.Height = 1782.000000000000000000
+        Size.Width = 380.000000000000000000
+        Size.Height = 1749.000000000000000000
         Size.PlatformDefault = False
         TabOrder = 0
         ItemAppearance.HeaderHeight = 44
@@ -3523,7 +3525,7 @@ object frm_PoS: Tfrm_PoS
             AppearanceClassName = 'TTextObjectAppearance'
             Appearance.Font.Size = 18.000000000000000000
             Appearance.TextAlign = Leading
-            Appearance.Width = 63.000000000000000000
+            Appearance.Width = 55.000000000000000000
             Appearance.Height = 44.000000000000000000
           end
           item
@@ -3532,9 +3534,9 @@ object frm_PoS: Tfrm_PoS
             Appearance.Font.Size = 16.000000000000000000
             Appearance.WordWrap = True
             Appearance.TextColor = claSlategray
-            Appearance.Width = 106.000000000000000000
+            Appearance.Width = 90.000000000000000000
             Appearance.Height = 44.000000000000000000
-            Appearance.PlaceOffset.X = 69.000000000000000000
+            Appearance.PlaceOffset.X = 61.000000000000000000
           end
           item
             AppearanceObjectName = 'txtCount'
@@ -3542,10 +3544,10 @@ object frm_PoS: Tfrm_PoS
             Appearance.Font.Size = 16.000000000000000000
             Appearance.TextAlign = Trailing
             Appearance.WordWrap = True
-            Appearance.Width = 44.000000000000000000
+            Appearance.Width = 46.000000000000000000
             Appearance.Height = 45.000000000000000000
             Appearance.Align = Trailing
-            Appearance.PlaceOffset.X = -144.000000000000000000
+            Appearance.PlaceOffset.X = -161.000000000000000000
           end
           item
             AppearanceObjectName = 'txtValue'
@@ -3553,16 +3555,29 @@ object frm_PoS: Tfrm_PoS
             Appearance.Font.Size = 16.000000000000000000
             Appearance.TextAlign = Trailing
             Appearance.WordWrap = True
-            Appearance.Width = 141.000000000000000000
+            Appearance.Width = 80.000000000000000000
             Appearance.Height = 44.000000000000000000
             Appearance.Align = Trailing
             Appearance.VertAlign = Center
+            Appearance.PlaceOffset.X = -85.000000000000000000
+          end
+          item
+            AppearanceObjectName = 'txtValue2'
+            AppearanceClassName = 'TTextObjectAppearance'
+            Appearance.Font.Size = 16.000000000000000000
+            Appearance.WordWrap = True
+            Appearance.Width = 80.000000000000000000
+            Appearance.Height = 44.000000000000000000
+            Appearance.Align = Trailing
+            Appearance.VertAlign = Trailing
           end>
         ItemAppearanceObjects.ItemEditObjects.ObjectsCollection = <
           item
             AppearanceObjectName = 'Text1'
             AppearanceClassName = 'TTextObjectAppearance'
           end>
+        ItemAppearanceObjects.HeaderObjects.Text.Width = 135.000000000000000000
+        ItemAppearanceObjects.HeaderObjects.Text.Height = 44.000000000000000000
         CanSwipeDelete = False
         OnItemClick = lst_CashRegisterListItemClick
         AutoTapScroll = True
@@ -3573,14 +3588,14 @@ object frm_PoS: Tfrm_PoS
         PullRefreshWait = True
       end
       object toolBar_CashRegisterListTitle: TToolBar
-        Size.Width = 393.000000000000000000
+        Size.Width = 380.000000000000000000
         Size.Height = 40.000000000000000000
         Size.PlatformDefault = False
         TabOrder = 1
         object lbl_CashRegisterListTitle: TLabel
           Align = Contents
           StyledSettings = [Family, FontColor]
-          Size.Width = 393.000000000000000000
+          Size.Width = 380.000000000000000000
           Size.Height = 40.000000000000000000
           Size.PlatformDefault = False
           TextSettings.Font.Size = 22.000000000000000000
@@ -3621,7 +3636,7 @@ object frm_PoS: Tfrm_PoS
           Padding.Bottom = 5.000000000000000000
           Margins.Left = 10.000000000000000000
           Margins.Right = 10.000000000000000000
-          Position.X = 343.000000000000000000
+          Position.X = 330.000000000000000000
           Size.Width = 40.000000000000000000
           Size.Height = 40.000000000000000000
           Size.PlatformDefault = False
@@ -3683,6 +3698,62 @@ object frm_PoS: Tfrm_PoS
           end
         end
       end
+      object Layout3: TLayout
+        Align = Top
+        Position.Y = 40.000000000000000000
+        Size.Width = 380.000000000000000000
+        Size.Height = 33.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 2
+        object Label20: TLabel
+          Align = Right
+          StyledSettings = [Family, Style, FontColor]
+          Margins.Right = 2.000000000000000000
+          Position.X = 161.000000000000000000
+          Size.Width = 62.000000000000000000
+          Size.Height = 33.000000000000000000
+          Size.PlatformDefault = False
+          TextSettings.Font.Size = 16.000000000000000000
+          TextSettings.HorzAlign = Trailing
+          TextSettings.VertAlign = Trailing
+          TextSettings.WordWrap = False
+          TextSettings.Trimming = None
+          Text = 'Quant.'
+          TabOrder = 2
+        end
+        object Label21: TLabel
+          Align = Right
+          StyledSettings = [Family, Style, FontColor]
+          Margins.Right = 30.000000000000000000
+          Position.X = 290.000000000000000000
+          Size.Width = 60.000000000000000000
+          Size.Height = 33.000000000000000000
+          Size.PlatformDefault = False
+          TextSettings.Font.Size = 16.000000000000000000
+          TextSettings.HorzAlign = Trailing
+          TextSettings.VertAlign = Trailing
+          TextSettings.WordWrap = False
+          TextSettings.Trimming = None
+          Text = 'Caixa'
+          TabOrder = 0
+        end
+        object Label24: TLabel
+          Align = Right
+          StyledSettings = [Family, Style, FontColor]
+          Margins.Right = 5.000000000000000000
+          Position.X = 225.000000000000000000
+          Size.Width = 60.000000000000000000
+          Size.Height = 33.000000000000000000
+          Size.PlatformDefault = False
+          TextSettings.Font.Size = 16.000000000000000000
+          TextSettings.HorzAlign = Trailing
+          TextSettings.VertAlign = Trailing
+          TextSettings.WordWrap = False
+          TextSettings.Trimming = None
+          Text = 'Vendas'
+          TabOrder = 1
+        end
+      end
     end
     object tabItem_CashRegisterOpen: TTabItem
       Touch.InteractiveGestures = []
@@ -3693,7 +3764,7 @@ object frm_PoS: Tfrm_PoS
       TextSettings.Trimming = None
       StyledSettings = [Family, Style, FontColor]
       HitTest = False
-      IsSelected = False
+      IsSelected = True
       Size.Width = 8.000000000000000000
       Size.Height = 8.000000000000000000
       Size.PlatformDefault = False
@@ -3703,7 +3774,7 @@ object frm_PoS: Tfrm_PoS
       ExplicitSize.cx = 8.000000000000000000
       ExplicitSize.cy = 8.000000000000000000
       object toolBar_Open: TToolBar
-        Size.Width = 393.000000000000000000
+        Size.Width = 380.000000000000000000
         Size.Height = 40.000000000000000000
         Size.PlatformDefault = False
         TabOrder = 0
@@ -3720,7 +3791,7 @@ object frm_PoS: Tfrm_PoS
           Padding.Bottom = 5.000000000000000000
           Margins.Left = 10.000000000000000000
           Margins.Right = 10.000000000000000000
-          Position.X = 343.000000000000000000
+          Position.X = 330.000000000000000000
           Size.Width = 40.000000000000000000
           Size.Height = 40.000000000000000000
           Size.PlatformDefault = False
@@ -3793,18 +3864,18 @@ object frm_PoS: Tfrm_PoS
       end
       object vScrollBox_Open: TVertScrollBox
         Align = Client
-        Size.Width = 393.000000000000000000
+        Size.Width = 380.000000000000000000
         Size.Height = 1782.000000000000000000
         Size.PlatformDefault = False
         TabOrder = 1
-        Viewport.Width = 393.000000000000000000
+        Viewport.Width = 380.000000000000000000
         Viewport.Height = 1782.000000000000000000
         object layoutFlow_Open: TFlowLayout
           Align = Top
           Margins.Top = 20.000000000000000000
           Position.Y = 20.000000000000000000
-          Size.Width = 393.000000000000000000
-          Size.Height = 453.000000000000000000
+          Size.Width = 380.000000000000000000
+          Size.Height = 245.000000000000000000
           Size.PlatformDefault = False
           TabOrder = 0
           Justify = Center
@@ -3812,12 +3883,12 @@ object frm_PoS: Tfrm_PoS
           FlowDirection = LeftToRight
           object layout_Open: TLayout
             Align = Center
-            Size.Width = 351.000000000000000000
-            Size.Height = 433.000000000000000000
+            Size.Width = 352.000000000000000000
+            Size.Height = 185.000000000000000000
             Size.PlatformDefault = False
             TabOrder = 0
             object edt_OpenDay: TDateEdit
-              Date = 46045.000000000000000000
+              Date = 46048.000000000000000000
               Format = 'dd/mm/yyyy'
               TodayDefault = True
               Position.X = 40.000000000000000000
@@ -3869,7 +3940,7 @@ object frm_PoS: Tfrm_PoS
         HeaderAppearanceClassName = 'TListHeaderObjects'
         FooterAppearanceClassName = 'TListHeaderObjects'
         Align = Client
-        Size.Width = 393.000000000000000000
+        Size.Width = 380.000000000000000000
         Size.Height = 1742.000000000000000000
         Size.PlatformDefault = False
         TabOrder = 0
@@ -3943,7 +4014,7 @@ object frm_PoS: Tfrm_PoS
       end
       object ToolBar2: TToolBar
         Position.Y = 40.000000000000000000
-        Size.Width = 393.000000000000000000
+        Size.Width = 380.000000000000000000
         Size.Height = 40.000000000000000000
         Size.PlatformDefault = False
         TabOrder = 1
@@ -3957,7 +4028,7 @@ object frm_PoS: Tfrm_PoS
         object lbl_RetailListTitleDay: TLabel
           Align = Client
           StyledSettings = [Family, FontColor]
-          Size.Width = 393.000000000000000000
+          Size.Width = 380.000000000000000000
           Size.Height = 40.000000000000000000
           Size.PlatformDefault = False
           TextSettings.Font.Size = 22.000000000000000000
@@ -3968,14 +4039,14 @@ object frm_PoS: Tfrm_PoS
         end
       end
       object ToolBar1: TToolBar
-        Size.Width = 393.000000000000000000
+        Size.Width = 380.000000000000000000
         Size.Height = 40.000000000000000000
         Size.PlatformDefault = False
         TabOrder = 2
         object lbl_RetailListTitlePoS: TLabel
           Align = Contents
           StyledSettings = [Family, FontColor]
-          Size.Width = 393.000000000000000000
+          Size.Width = 380.000000000000000000
           Size.Height = 40.000000000000000000
           Size.PlatformDefault = False
           TextSettings.Font.Size = 22.000000000000000000
@@ -4025,11 +4096,11 @@ object frm_PoS: Tfrm_PoS
       ExplicitSize.cy = 8.000000000000000000
       object VertScrollBox1: TVertScrollBox
         Align = Client
-        Size.Width = 393.000000000000000000
+        Size.Width = 380.000000000000000000
         Size.Height = 1742.000000000000000000
         Size.PlatformDefault = False
         TabOrder = 2
-        Viewport.Width = 393.000000000000000000
+        Viewport.Width = 380.000000000000000000
         Viewport.Height = 1742.000000000000000000
         object FlowLayout1: TFlowLayout
           Align = Top
@@ -4038,7 +4109,7 @@ object frm_PoS: Tfrm_PoS
           Margins.Right = 10.000000000000000000
           Position.X = 10.000000000000000000
           Position.Y = 20.000000000000000000
-          Size.Width = 373.000000000000000000
+          Size.Width = 360.000000000000000000
           Size.Height = 1461.000000000000000000
           Size.PlatformDefault = False
           TabOrder = 0
@@ -6362,7 +6433,7 @@ object frm_PoS: Tfrm_PoS
         end
       end
       object ToolBar3: TToolBar
-        Size.Width = 393.000000000000000000
+        Size.Width = 380.000000000000000000
         Size.Height = 40.000000000000000000
         Size.PlatformDefault = False
         TabOrder = 1
@@ -6370,7 +6441,7 @@ object frm_PoS: Tfrm_PoS
           Align = Contents
           StyledSettings = [Family, FontColor]
           HitTest = True
-          Size.Width = 393.000000000000000000
+          Size.Width = 380.000000000000000000
           Size.Height = 40.000000000000000000
           Size.PlatformDefault = False
           TextSettings.Font.Size = 22.000000000000000000
@@ -6401,7 +6472,7 @@ object frm_PoS: Tfrm_PoS
       end
       object ToolBar5: TToolBar
         Position.Y = 40.000000000000000000
-        Size.Width = 393.000000000000000000
+        Size.Width = 380.000000000000000000
         Size.Height = 40.000000000000000000
         Size.PlatformDefault = False
         TabOrder = 0
@@ -6409,7 +6480,7 @@ object frm_PoS: Tfrm_PoS
           Align = Contents
           StyledSettings = [Family, FontColor]
           HitTest = True
-          Size.Width = 393.000000000000000000
+          Size.Width = 380.000000000000000000
           Size.Height = 40.000000000000000000
           Size.PlatformDefault = False
           TextSettings.Font.Size = 22.000000000000000000
@@ -6424,6 +6495,188 @@ object frm_PoS: Tfrm_PoS
           Softness = 0.300000011920929000
           Opacity = 0.600000023841857900
           ShadowColor = claBlack
+        end
+      end
+    end
+    object tabItem_CashRegisterInput: TTabItem
+      Touch.InteractiveGestures = []
+      CustomIcon = <
+        item
+        end>
+      TextSettings.Font.Size = 16.000000000000000000
+      TextSettings.Trimming = None
+      StyledSettings = [Family, Style, FontColor]
+      HitTest = False
+      IsSelected = False
+      Size.Width = 8.000000000000000000
+      Size.Height = 8.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = ''
+      TabOrder = 0
+      Text = 'tabItem_CashRegisterOpen'
+      ExplicitSize.cx = 8.000000000000000000
+      ExplicitSize.cy = 8.000000000000000000
+      object ToolBar4: TToolBar
+        Size.Width = 380.000000000000000000
+        Size.Height = 40.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 0
+        object ShadowEffect1: TShadowEffect
+          Distance = 3.000000000000000000
+          Direction = 90.000000000000000000
+          Softness = 0.300000011920929000
+          Opacity = 0.600000023841857900
+          ShadowColor = claBlack
+        end
+        object btn_CashRegisterInputOK: TSpeedButton
+          Align = Right
+          Padding.Top = 5.000000000000000000
+          Padding.Bottom = 5.000000000000000000
+          Margins.Left = 10.000000000000000000
+          Margins.Right = 10.000000000000000000
+          Position.X = 330.000000000000000000
+          Size.Width = 40.000000000000000000
+          Size.Height = 40.000000000000000000
+          Size.PlatformDefault = False
+          TextSettings.Trimming = None
+          TouchTargetExpansion.Left = 12.000000000000000000
+          TouchTargetExpansion.Top = 12.000000000000000000
+          TouchTargetExpansion.Right = 12.000000000000000000
+          TouchTargetExpansion.Bottom = 12.000000000000000000
+          OnClick = btn_CashRegisterInputOKClick
+          object Path2: TPath
+            Align = Client
+            Data.Path = {
+              4B0000000000000067F3BD415D62474202000000FB3F39417FA5444202000000
+              E89FCC3FF5871E42020000008B14B13E8609DC41020000001722353E5CF3CE41
+              02000000779B8E3E58FAB241020000007C8C093F305AA74102000000266B803F
+              F46A924102000000895BD53F8B14824102000000B914334061615F4102000000
+              6275D040D71ECD400200000018CA5A412114A63F0200000044ABB0417943433E
+              020000003513BD4120D75BBC02000000D67BD54120D75BBC02000000C7E3E141
+              7943433E020000006E5702421B5B433F02000000C3E512422F661C4002000000
+              F494204243D8A04002000000B9B32742B3D8CB4002000000DCCA2E42564F0241
+              020000006A523442EA731F41020000005B383C426A14494102000000C0634242
+              3EFC7C41020000006F844542A20F984102000000D8BB4742202EAA4102000000
+              CC0E4842E83DB04102000000CC0E48429A95C74102000000CC0E48424CEDDE41
+              02000000D8BB474215FDE441020000006F844542931BF7410200000053723E42
+              7F74184202000000177E2A421EE9304202000000356A0F4289DC3D4202000000
+              D65104420B2B4342020000000094EE4185A0464202000000186DD8419E344742
+              0200000078BFD341E4534742020000009329CE41707B4742020000008D03CC41
+              7F8C47420200000088DDC9418E9D4742020000007789C3418D8A474202000000
+              68F3BD415E6247420300000067F3BD415D62474200000000C409B441BCB20742
+              02000000AED1B54146630742020000002CD0C741DF09FB4102000000AE5FF741
+              EF89C541020000002B890D4214629D4102000000B5541C426E60774102000000
+              98901C42B05275410200000080011E420DAC684102000000D23E1A42705D5A41
+              020000006ED91642E8935F4102000000A87F1642B21D604102000000563E0842
+              60B38F4102000000A757EE411E1BB64101000000E342B04104EFFB4101000000
+              30078B414521DE4102000000E3F06C41A6ACCD41020000007E4D4941AEF9BF41
+              02000000B47B4641EA8ABF4102000000F7BF3F416682BE41020000007A6A3841
+              C302C04102000000ED7E34419E39C34102000000001B31414401C64102000000
+              C4CA3041F83DC84102000000A1643341AA18CB4102000000592835415F08CD41
+              020000004CA0A941AF7B0642020000003AE3AD4157980742020000002E51B041
+              A03A084202000000F1EEB041453D084202000000C609B441BAB2074203000000
+              C409B441BCB20742}
+            Fill.Color = xFF43B05C
+            HitTest = False
+            Size.Width = 40.000000000000000000
+            Size.Height = 30.000000000000000000
+            Size.PlatformDefault = False
+            Stroke.Kind = None
+            WrapMode = Fit
+          end
+        end
+        object btn_CashRegisterInputBack: TSpeedButton
+          Align = Left
+          Padding.Top = 5.000000000000000000
+          Padding.Bottom = 5.000000000000000000
+          Margins.Left = 10.000000000000000000
+          Margins.Right = 10.000000000000000000
+          Position.X = 10.000000000000000000
+          Size.Width = 40.000000000000000000
+          Size.Height = 40.000000000000000000
+          Size.PlatformDefault = False
+          StyleLookup = 'priortoolbutton'
+          Text = 'Go to tabItem_List'
+          TextSettings.Trimming = None
+          TouchTargetExpansion.Left = 12.000000000000000000
+          TouchTargetExpansion.Top = 12.000000000000000000
+          TouchTargetExpansion.Right = 12.000000000000000000
+          TouchTargetExpansion.Bottom = 12.000000000000000000
+          OnClick = btn_CashRegisterInputBackClick
+        end
+      end
+      object VertScrollBox2: TVertScrollBox
+        Align = Client
+        Size.Width = 380.000000000000000000
+        Size.Height = 1782.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 1
+        Viewport.Width = 380.000000000000000000
+        Viewport.Height = 1782.000000000000000000
+        object FlowLayout2: TFlowLayout
+          Align = Top
+          Margins.Top = 20.000000000000000000
+          Position.Y = 20.000000000000000000
+          Size.Width = 380.000000000000000000
+          Size.Height = 213.000000000000000000
+          Size.PlatformDefault = False
+          TabOrder = 0
+          Justify = Center
+          JustifyLastLine = Center
+          FlowDirection = LeftToRight
+          object Layout2: TLayout
+            Align = Center
+            Size.Width = 352.000000000000000000
+            Size.Height = 185.000000000000000000
+            Size.PlatformDefault = False
+            TabOrder = 0
+            object edt_CashRegisterInput: TEdit
+              Touch.InteractiveGestures = [LongTap, DoubleTap]
+              TabOrder = 3
+              AutoSelect = True
+              KeyboardType = NumberPad
+              ReturnKeyType = Next
+              MaxLength = 7
+              FilterChar = '0123456789,'
+              TextSettings.Font.Size = 22.000000000000000000
+              TextSettings.Font.StyleExt = {00070000000000000004000000}
+              TextSettings.HorzAlign = Trailing
+              Position.X = 85.000000000000000000
+              Position.Y = 119.000000000000000000
+              Size.Width = 212.000000000000000000
+              Size.Height = 32.000000000000000000
+              Size.PlatformDefault = False
+              TextPrompt = '0,00'
+              StyledSettings = [Family, FontColor]
+              object lbl_CashRegisterInput: TLabel
+                StyledSettings = []
+                Position.X = -46.000000000000000000
+                Position.Y = -104.000000000000000000
+                Size.Width = 287.000000000000000000
+                Size.Height = 94.000000000000000000
+                Size.PlatformDefault = False
+                TextSettings.Font.Size = 22.000000000000000000
+                TextSettings.Font.StyleExt = {00070000000000000004000000}
+                TextSettings.FontColor = xFF212529
+                TextSettings.VertAlign = Trailing
+                Text = 'Valor:'
+                TabOrder = 1
+              end
+              object lbl_CashRegisterInputRS: TLabel
+                StyledSettings = []
+                Position.X = -46.000000000000000000
+                Position.Y = -2.000000000000000000
+                Size.Width = 36.000000000000000000
+                Size.Height = 32.000000000000000000
+                Size.PlatformDefault = False
+                TextSettings.Font.Size = 22.000000000000000000
+                TextSettings.Font.StyleExt = {00070000000000000004000000}
+                TextSettings.FontColor = xFF495057
+                Text = 'R$'
+                TabOrder = 4
+              end
+            end
+          end
         end
       end
     end
@@ -6458,6 +6711,10 @@ object frm_PoS: Tfrm_PoS
     object actTabChange_Retail: TChangeTabAction
       Category = 'Tab'
       Tab = tabItem_Retail
+    end
+    object actTabChange_CashRegisterInput: TChangeTabAction
+      Category = 'Tab'
+      Tab = tabItem_CashRegisterInput
     end
   end
 end
