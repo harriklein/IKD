@@ -3888,7 +3888,7 @@ object frm_PoS: Tfrm_PoS
             Size.PlatformDefault = False
             TabOrder = 0
             object edt_OpenDay: TDateEdit
-              Date = 46048.000000000000000000
+              Date = 46077.000000000000000000
               Format = 'dd/mm/yyyy'
               TodayDefault = True
               Position.X = 40.000000000000000000

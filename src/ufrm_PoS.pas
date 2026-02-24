@@ -1438,16 +1438,19 @@ begin
 
     BTSendData( EP_SELECT_PRINTER_MODE_ + CHR( EP_MODE_STANDARD   ));
 
-    BTSendData( '** FECHAMENTO DE CAIXA **'                     + EP_LF );
+    BTSendData( '** FECHAMENTO DE CAIXA **'                     + EP_PRINT );
 
     BTSendData( EP_SELECT_JUSTIFICATION_LEFT  );
 
     for LIndex := 0 to LLines.Count - 1  do
       begin
-        BTSendData( LLines.Strings[LIndex] + EP_LF + EP_LF + EP_PRINT );
+        if LLines.Strings[LIndex] = '' then
+          BTSendData( EP_LF + EP_PRINT )
+        else
+          BTSendData( LLines.Strings[LIndex] + EP_PRINT );
       end;
 
-    BTSendData(  EP_LF + EP_LF + EP_LF + EP_LF + EP_LF + EP_PRINT );
+    BTSendData(  EP_PRINT_FEED_LINES_ + #4 + EP_PRINT );
   finally
     LLines.Clear;
     LLines.Free;
