@@ -782,7 +782,7 @@ begin
 
   if not LBoat.FActive then
     begin
-      TDialogService.ShowMessage('O pedalinho não está desativado.');
+      TDialogService.ShowMessage('O pedalinho não está ativo.');
       Exit;
     end;
 
